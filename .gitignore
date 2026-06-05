@@ -1,0 +1,25 @@
+# Root-level local artifacts
+.env*
+!.env.example
+.next/
+node_modules/
+packages/
+*.tsbuildinfo
+next-env.d.ts
+
+# Local run logs
+.openmaic-*.log
+.codex-run/
+
+# Local scratch assets and documents
+assets.rar
+blackboard.png
+doubao_test.mp3
+doubao_tts_api.txt
+test_doubao_tts.py
+*.docx
+*.pdf
+
+# Generated/output folders
+data/
+logs/
