@@ -1,0 +1,15 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "TSSB",
+  "segmentation_path": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\TSSB_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\TSSB2\\results_tssb2_clap_official_default",
+  "cases": 75,
+  "ok": 75,
+  "fallback_computed_cases": 13,
+  "mean_f1_score": 0.792844636844,
+  "mean_covering_score": 0.85506580828,
+  "mean_ami_score": 0.7706343108613334,
+  "mean_ari": 0.754510433016,
+  "mean_nmi": 0.7743601627973333
+}

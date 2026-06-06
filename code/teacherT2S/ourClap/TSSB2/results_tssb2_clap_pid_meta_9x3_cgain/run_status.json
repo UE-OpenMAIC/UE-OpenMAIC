@@ -1,0 +1,15 @@
+{
+  "config": "D:\\code\\teacherT2S\\ourClap\\TSSB2\\tssb2_clap_pid_meta_9x3_config.txt",
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\TSSB2\\results_tssb2_clap_pid_meta_9x3_cgain",
+  "cases": 75,
+  "ok": 75,
+  "branches": 9,
+  "select_top_k_branches": 3,
+  "mean_f1_score": 0.7895603655613334,
+  "mean_covering_score": 0.8537044261653334,
+  "mean_ami_score": 0.7761129845453333,
+  "mean_ari": 0.7599647355133333,
+  "mean_nmi": 0.7805575012786667
+}

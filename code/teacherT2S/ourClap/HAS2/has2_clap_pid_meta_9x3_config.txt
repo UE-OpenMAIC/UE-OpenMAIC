@@ -1,0 +1,64 @@
+# HAS CLaP 9x3 PID-Meta configurable run.
+# Same branch-family as the current stronger TSSB2 9x3 version:
+#   core:   suss / fft / acf x rocket / mrhydra x none x cgain = 6
+#   backup: suss / fft / acf x rocket x zscore x cgain = 3
+# Total: 9 branches -> PID selects top 3 -> meta aggregation.
+#
+# Data source:
+#   CLaP repo bundled dataset:
+#     classification-label-profile-main/datasets/HAS
+#   Initial segmentation:
+#     segmentation_file=auto tries classification-label-profile-main/experiments/segmentation/*HAS*ClaSP*.csv(.gz)
+#     If no official file is found, it computes ClaSP and falls back to uniform segmentation if needed.
+#
+# Edit [clap_branches] below to change the branch pool.
+# enabled=0 disables a branch.
+
+repo_root={REPO_ROOT}
+clap_repo={REPO_ROOT}/classification-label-profile-main
+dataset_name=HAS
+segmentation_file=auto
+out_dir={THIS_DIR}/results_has2_clap_pid_meta_9x3_cgain
+
+conda_env=ourclap
+max_cases=0
+n_jobs=1
+save_predictions=1
+skip_completed=0
+seed=1379
+
+# If official segmentation file is unavailable, compute ClaSP as unsupervised initial cps.
+fallback_compute_clasp=1
+fallback_uniform_segments=8
+
+# Branch selection and meta aggregation.
+select_top_k_branches=3
+branch_select_metric=PID
+meta_vote_weight_mode=pid_weight
+meta_min_len=1
+state_cluster_smooth=9
+
+# PID-inspired reliability parameters.
+pid_kp=0.45
+pid_ki=0.35
+pid_kd=0.20
+pid_softmax_tau=0.15
+peer_health_weight=0.45
+peer_consensus_weight=0.55
+
+# Candidate K range for meta clustering.
+# auto = min/max from selected branches.
+meta_k_min=auto
+meta_k_max=auto
+
+[clap_branches]
+enabled,branch_name,normalize_input,clap_window_size,clap_classifier,clap_merge_score,n_splits,sample_size
+1,CLaP_b01_suss_rocket_cgain_none,none,suss,rocket,cgain,5,1000
+1,CLaP_b02_suss_mrhydra_cgain_none,none,suss,mrhydra,cgain,5,1000
+1,CLaP_b03_fft_rocket_cgain_none,none,fft,rocket,cgain,5,1000
+1,CLaP_b04_fft_mrhydra_cgain_none,none,fft,mrhydra,cgain,5,1000
+1,CLaP_b05_acf_rocket_cgain_none,none,acf,rocket,cgain,5,1000
+1,CLaP_b06_acf_mrhydra_cgain_none,none,acf,mrhydra,cgain,5,1000
+1,CLaP_b07_suss_rocket_cgain_zscore,zscore,suss,rocket,cgain,5,1000
+1,CLaP_b08_fft_rocket_cgain_zscore,zscore,fft,rocket,cgain,5,1000
+1,CLaP_b09_acf_rocket_cgain_zscore,zscore,acf,rocket,cgain,5,1000

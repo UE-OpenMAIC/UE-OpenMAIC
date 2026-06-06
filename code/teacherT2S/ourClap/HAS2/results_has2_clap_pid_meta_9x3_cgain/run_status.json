@@ -1,0 +1,17 @@
+{
+  "config": "D:\\code\\teacherT2S\\ourClap\\HAS2\\has2_clap_pid_meta_9x3_config.txt",
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "HAS",
+  "segmentation_file": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\HAS_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\HAS2\\results_has2_clap_pid_meta_9x3_cgain",
+  "cases": 250,
+  "ok": 250,
+  "branches": 9,
+  "select_top_k_branches": 3,
+  "mean_f1_score": 0.5557055820744001,
+  "mean_covering_score": 0.7046121001332,
+  "mean_ami_score": 0.5723942252788,
+  "mean_ari": 0.52051032348,
+  "mean_nmi": 0.5805735352271999
+}

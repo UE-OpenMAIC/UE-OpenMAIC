@@ -1,0 +1,14 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "SKAB",
+  "segmentation_path": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\SKAB_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\SKAB2\\results_skab2_clap_official_default",
+  "cases": 34,
+  "ok": 34,
+  "mean_f1_score": 0.42145191408823524,
+  "mean_covering_score": 0.6334714621470589,
+  "mean_ami_score": 0.3542980249499999,
+  "mean_ari": 0.29462394849117646,
+  "mean_nmi": 0.36480204282941175
+}

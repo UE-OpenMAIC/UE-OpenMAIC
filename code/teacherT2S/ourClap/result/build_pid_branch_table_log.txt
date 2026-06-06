@@ -1,0 +1,25 @@
+============================================================ 
+Build PID-selected vs unselected branch paper table 
+Working directory: D:\code\teacherT2S\ourClap\result\ 
+============================================================ 
+ 
+C:\Python314\python.exe
+[RUN] Generating paper table... 
+[INFO] Reading input CSV:
+       D:\code\teacherT2S\ourClap\result\clap_selected_unselected_branch_means.csv
+[INFO] CSV columns:
+       dataset, pid_dir, case_count, selected_branch_rows, unselected_branch_rows, selected_ari, unselected_ari, selected_minus_unselected_ari, selected_gt_unselected_cases_ari, selected_lt_unselected_cases_ari, selected_eq_unselected_cases_ari, selected_nmi, unselected_nmi, selected_minus_unselected_nmi, selected_gt_unselected_cases_nmi, selected_lt_unselected_cases_nmi, selected_eq_unselected_cases_nmi, selected_covering, unselected_covering, selected_minus_unselected_covering, selected_gt_unselected_cases_covering, selected_lt_unselected_cases_covering, selected_eq_unselected_cases_covering, selected_ami, unselected_ami, selected_minus_unselected_ami, selected_gt_unselected_cases_ami, selected_lt_unselected_cases_ami, selected_eq_unselected_cases_ami
+[INFO] Found MacroMean row. Using it directly.
+
+[OK] Generated paper-ready files:
+  CSV : D:\code\teacherT2S\ourClap\result\paper_pid_branch_selection_table.csv
+  MD  : D:\code\teacherT2S\ourClap\result\paper_pid_branch_selection_table.md
+  TEX : D:\code\teacherT2S\ourClap\result\paper_pid_branch_selection_table.tex
+  SVG : D:\code\teacherT2S\ourClap\result\paper_pid_branch_selection_table.svg
+  PNG : D:\code\teacherT2S\ourClap\result\paper_pid_branch_selection_table.png
+
+[Preview]
+Method	ARI	NMI	Covering	AMI
+Unselected branches	0.4779	0.5318	0.7174	0.5181
+PID-selected branches	0.5179	0.5853	0.7336	0.5683
+Relative gain	+8.37%	+10.06%	+2.27%	+9.69%

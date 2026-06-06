@@ -1,0 +1,14 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "HAS",
+  "segmentation_path": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\HAS_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\HAS2\\results_has2_clap_official_default",
+  "cases": 250,
+  "ok": 250,
+  "mean_f1_score": 0.5457349357544001,
+  "mean_covering_score": 0.696889691996,
+  "mean_ami_score": 0.5837062313715999,
+  "mean_ari": 0.5190588875388,
+  "mean_nmi": 0.5935657320000001
+}

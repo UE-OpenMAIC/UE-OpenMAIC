@@ -1,0 +1,14 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "MIT-BIH",
+  "segmentation_path": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\MIT-BIH_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\MITBIH2\\results_mitbih2_clap_official_default",
+  "cases": 14,
+  "ok": 14,
+  "mean_f1_score": 0.5898908300642857,
+  "mean_covering_score": 0.719133883642857,
+  "mean_ami_score": 0.4039420411857143,
+  "mean_ari": 0.35169667934285714,
+  "mean_nmi": 0.42085502774285705
+}

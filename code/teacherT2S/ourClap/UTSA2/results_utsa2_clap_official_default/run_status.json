@@ -1,0 +1,14 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "UTSA",
+  "segmentation_path": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\UTSA_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\UTSA2\\results_utsa2_clap_official_default",
+  "cases": 32,
+  "ok": 32,
+  "mean_f1_score": 0.692985660175,
+  "mean_covering_score": 0.824417946828125,
+  "mean_ami_score": 0.7782520538093749,
+  "mean_ari": 0.76621717896875,
+  "mean_nmi": 0.79375435078125
+}

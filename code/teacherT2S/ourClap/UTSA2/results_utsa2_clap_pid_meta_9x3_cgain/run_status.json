@@ -1,0 +1,17 @@
+{
+  "config": "D:\\code\\teacherT2S\\ourClap\\UTSA2\\utsa2_clap_pid_meta_9x3_config.txt",
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "UTSA",
+  "segmentation_file": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\UTSA_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\UTSA2\\results_utsa2_clap_pid_meta_9x3_cgain",
+  "cases": 32,
+  "ok": 32,
+  "branches": 9,
+  "select_top_k_branches": 3,
+  "mean_f1_score": 0.678947961753125,
+  "mean_covering_score": 0.79639742666875,
+  "mean_ami_score": 0.757986181528125,
+  "mean_ari": 0.7251828404624999,
+  "mean_nmi": 0.7751617515
+}

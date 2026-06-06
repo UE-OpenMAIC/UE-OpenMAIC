@@ -1,0 +1,17 @@
+{
+  "config": "D:\\code\\teacherT2S\\ourClap\\SKAB2\\skab2_clap_pid_meta_9x3_config.txt",
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "SKAB",
+  "segmentation_file": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\SKAB_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\SKAB2\\results_skab2_clap_pid_meta_9x3_cgain",
+  "cases": 34,
+  "ok": 34,
+  "branches": 9,
+  "select_top_k_branches": 3,
+  "mean_f1_score": 0.45609243697058827,
+  "mean_covering_score": 0.6493685204029411,
+  "mean_ami_score": 0.37993822634117647,
+  "mean_ari": 0.33262949052352947,
+  "mean_nmi": 0.3850858755970588
+}

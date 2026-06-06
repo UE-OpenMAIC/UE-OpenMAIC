@@ -1,0 +1,15 @@
+# Minimal requirements for running ourClap CLaP multi-branch + PID + meta.
+# This file intentionally removes benchmark-only packages such as wfdb/roerich/bocd/baycomp
+# because wfdb>=4.3 requires numpy>=1.26.4 and conflicts with the original CLaP stack.
+numpy==1.23.5
+pandas==1.5.3
+scipy==1.11.3
+scikit-learn==1.2.2
+numba==0.56.4
+llvmlite==0.39.1
+statsmodels==0.14.0
+claspy==0.2.5
+aeon==0.11.1
+tqdm==4.65.0
+joblib>=1.1.1
+threadpoolctl==3.2.0

@@ -1,0 +1,17 @@
+{
+  "config": "D:\\code\\teacherT2S\\ourClap\\MITBIH2\\mitbih2_clap_pid_meta_9x3_config.txt",
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "dataset_name": "MIT-BIH",
+  "segmentation_file": "D:\\code\\teacherT2S\\classification-label-profile-main\\experiments\\segmentation\\MIT-BIH_ClaSP.csv.gz",
+  "out_dir": "D:\\code\\teacherT2S\\ourClap\\MITBIH2\\results_mitbih2_clap_pid_meta_9x3_cgain",
+  "cases": 14,
+  "ok": 14,
+  "branches": 9,
+  "select_top_k_branches": 3,
+  "mean_f1_score": 0.5618579286000001,
+  "mean_covering_score": 0.6848879508285713,
+  "mean_ami_score": 0.36188140232142857,
+  "mean_ari": 0.27461456109285715,
+  "mean_nmi": 0.4013711947357143
+}
