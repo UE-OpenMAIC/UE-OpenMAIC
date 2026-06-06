@@ -1,0 +1,31 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ourClap\\actrectut\\results_actrectut_clap_baseline_default",
+  "datasets": [
+    "actrectut"
+  ],
+  "dataset_status": [
+    {
+      "dataset": "actrectut",
+      "key": "actrectut",
+      "ok": true,
+      "cases": 20,
+      "loader": "strict_exp_of_Time2State_preprocessing",
+      "note": "No public-format filtering/downsampling; preprocessing follows exp_of_Time2State.py."
+    }
+  ],
+  "n_cases_loaded": 20,
+  "n_ok_this_time": 20,
+  "mean_ari_this_time": 0.47378564974500004,
+  "mean_nmi_this_time": 0.557094546205,
+  "settings": {
+    "init_cps_source": "clasp",
+    "normalize_input": "none",
+    "clap_window_size": "suss",
+    "clap_classifier": "rocket",
+    "clap_merge_score": "cgain",
+    "n_jobs": 4,
+    "seed": 1379
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ourClap\\synthetic\\results_synthetic_clap_baseline_default",
+  "datasets": [
+    "synthetic"
+  ],
+  "dataset_status": [
+    {
+      "dataset": "synthetic",
+      "key": "synthetic",
+      "ok": true,
+      "cases": 100,
+      "loader": "strict_exp_of_Time2State_preprocessing",
+      "note": "No public-format filtering/downsampling; preprocessing follows exp_of_Time2State.py."
+    }
+  ],
+  "n_cases_loaded": 100,
+  "n_ok_this_time": 100,
+  "mean_ari_this_time": 0.622996540894,
+  "mean_nmi_this_time": 0.73141283336,
+  "settings": {
+    "init_cps_source": "clasp",
+    "normalize_input": "none",
+    "clap_window_size": "suss",
+    "clap_classifier": "rocket",
+    "clap_merge_score": "cgain",
+    "n_jobs": 4,
+    "seed": 1379
+  }
+}

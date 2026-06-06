@@ -1,0 +1,39 @@
+# ALL-subject full-length run for PAMAP2_zero CLaP baseline.
+# Target folder after unzip:
+# D:\code\teacherT2S\baseline\ourClapSmoke\pamap2_zero
+# This does not modify the formal baseline\ourClap configuration.
+# Purpose: run subject101-subject108 with ALL valid rows using the slow formal-like CLaP setting:
+#   init_cps_source=clasp
+#   clap_window_size=suss
+#   classifier=rocket
+#   merge_score=cgain
+
+repo_root=D:\code\teacherT2S
+clap_repo=D:\code\teacherT2S\classification-label-profile-main
+public_data_root=D:\code\teacherT2S\Time2State\Baselines\public_ts_datasets
+pamap2_runner={OURCLAP_ROOT}\_shared\our_clap_pamap2_zero_smoke_runner.py
+out_dir={CONFIG_DIR}\results_pamap2_zero_clap_all_full_clasp_suss
+
+dataset=pamap2_zero
+pamap2_subjects=1-8
+max_series_per_dataset=8
+# Full length: do not set only_case_ids or limit_rows.
+# only_case_ids=
+# limit_rows=
+
+seed=1379
+n_jobs=4
+init_cps_source=clasp
+fallback_uniform_segments=8
+adf_sample_max=50000
+normalize_input=none
+clap_window_size=suss
+clap_classifier=rocket
+clap_merge_score=cgain
+save_predictions=1
+# Set to 1 so you can resume safely if the run is interrupted.
+skip_completed=1
+
+pamap2_feature_mode=paper9acc
+pamap2_keep_zero=0
+pamap2_no_loader_normalize=0

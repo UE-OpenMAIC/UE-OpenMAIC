@@ -1,0 +1,46 @@
+{
+  "ok": true,
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ourClapSmoke\\pamap2_zero\\results_pamap2_zero_clap_all_full_clasp_suss",
+  "datasets": [
+    "pamap2_zero"
+  ],
+  "dataset_status": [
+    {
+      "dataset": "PAMAP2_zero",
+      "protocol_dir": "D:\\code\\teacherT2S\\Time2State\\data\\PAMAP2\\PAMAP2_Dataset\\Protocol",
+      "subjects": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "feature_mode": "paper9acc",
+      "remove_zero": true,
+      "loader_normalize": true,
+      "cases": 8
+    }
+  ],
+  "n_cases_loaded": 8,
+  "n_ok_this_time": 8,
+  "mean_ari_this_time": 0.580643994,
+  "mean_nmi_this_time": 0.779734543175,
+  "metric_backend": "sklearn_adjusted_rand_score__sklearn_nmi_geometric",
+  "settings": {
+    "init_cps_source": "clasp",
+    "normalize_input": "none",
+    "clap_window_size": "suss",
+    "clap_classifier": "rocket",
+    "clap_merge_score": "cgain",
+    "n_jobs": 4,
+    "seed": 1379,
+    "pamap2_feature_mode": "paper9acc",
+    "pamap2_remove_zero": true,
+    "pamap2_loader_normalize": true
+  }
+}

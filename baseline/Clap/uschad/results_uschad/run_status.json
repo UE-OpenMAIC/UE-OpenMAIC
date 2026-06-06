@@ -1,0 +1,31 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "clap_repo": "D:\\code\\teacherT2S\\classification-label-profile-main",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ourClap\\uschad\\results_uschad_clap_baseline_default",
+  "datasets": [
+    "uschad"
+  ],
+  "dataset_status": [
+    {
+      "dataset": "uschad",
+      "key": "usc-had",
+      "ok": true,
+      "cases": 70,
+      "loader": "strict_exp_of_Time2State_preprocessing",
+      "note": "No public-format filtering/downsampling; preprocessing follows exp_of_Time2State.py."
+    }
+  ],
+  "n_cases_loaded": 70,
+  "n_ok_this_time": 70,
+  "mean_ari_this_time": 0.6675670873000001,
+  "mean_nmi_this_time": 0.8492897151285714,
+  "settings": {
+    "init_cps_source": "clasp",
+    "normalize_input": "none",
+    "clap_window_size": "suss",
+    "clap_classifier": "rocket",
+    "clap_merge_score": "cgain",
+    "n_jobs": 4,
+    "seed": 1379
+  }
+}

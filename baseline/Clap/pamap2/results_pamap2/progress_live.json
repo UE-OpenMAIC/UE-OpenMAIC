@@ -1,0 +1,9 @@
+{
+  "stage": "6/6 decode_predictions",
+  "event": "summary",
+  "rows": 262102,
+  "features": 9,
+  "detail": "final_cps_count=29; first=[1468, 23339, 24782, 40392, 46502]; segment_labels=30",
+  "timestamp": "2026-05-27 10:21:55",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ourClapSmoke\\pamap2_zero\\results_pamap2_zero_clap_all_full_clasp_suss"
+}

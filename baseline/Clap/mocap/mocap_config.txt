@@ -1,0 +1,27 @@
+# CLaP baseline config for MoCap
+# Plain original CLaP baseline through ourClap/_shared/our_clap_runner.py.
+# This is intentionally NOT your PID/meta method: no PEER/PID, no top-k branch selection, no meta clustering.
+
+repo_root={REPO_ROOT}
+runner={REPO_ROOT}/ourClap/_shared/our_clap_runner.py
+clap_repo={REPO_ROOT}/classification-label-profile-main
+out_dir={CONFIG_DIR}/results_mocap_clap_baseline_default
+
+dataset=mocap
+
+# Keep these aligned with your previous plain CLaP script unless you intentionally change the protocol.
+max_series_per_dataset=9
+priority_case_ids=amc_86_14
+seed=1379
+n_jobs=4
+init_cps_source=clasp
+fallback_uniform_segments=8
+adf_sample_max=50000
+normalize_input=none
+clap_window_size=suss
+clap_classifier=rocket
+clap_merge_score=cgain
+save_predictions=1
+
+# Optional: append raw arguments accepted by our_clap_runner.py.
+extra_args=
