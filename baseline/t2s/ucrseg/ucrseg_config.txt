@@ -1,0 +1,23 @@
+# Time2State baseline config for UCR-SEG
+# Paper-grid baseline: win_size={128,256,512}, step={50,100}, M=10, N=4.
+# This is intentionally NOT your multi-branch method: no PEER/PID, no top-k, no meta clustering.
+
+repo_root={REPO_ROOT}
+runner={T2S_ROOT}/_shard/t2s_runner_selected.py
+out_dir={CONFIG_DIR}/results_t2s_ucrseg_paper_grid
+
+dataset=ucrseg
+
+# Paper grid from Time2State effectiveness experiments.
+win_size=128,256,512
+step=50,100
+m=10
+n=4
+out_channels=4
+nb_steps=20
+kernel_size=
+win_type=hanning
+
+seed=0
+device=cuda
+gpu=0

@@ -1,0 +1,2 @@
+﻿algorithm,dataset,cases,mean_ARI,mean_NMI,fit_seconds_shared,total_seconds,feature_mode,remove_zero,train_case,protocol,metric_backend
+Time2State,PAMAP2_zero,8,0.5486685441098006,0.6982962287677363,9.963579177856445,99.8161883354187,full_sensor,1,101,fit_subject101_predict_selected_subjects,sklearn_adjusted_rand_score__sklearn_nmi_geometric

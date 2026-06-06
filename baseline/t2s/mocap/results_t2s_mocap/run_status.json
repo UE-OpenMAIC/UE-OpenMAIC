@@ -1,0 +1,79 @@
+{
+  "ok": true,
+  "algorithm": "Time2State",
+  "dataset": "MoCap",
+  "repo_root": "D:\\code\\teacherT2S",
+  "data_dir": "D:\\code\\teacherT2S\\Time2State\\data\\MoCap\\4d",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\t2s\\mocap\\results_t2s_mocap_paper_grid",
+  "case_results_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\mocap\\results_t2s_mocap_paper_grid\\case_results.csv",
+  "algorithm_summary_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\mocap\\results_t2s_mocap_paper_grid\\algorithm_summary.csv",
+  "best_by_mean_ARI_case_results_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\mocap\\results_t2s_mocap_paper_grid\\best_by_mean_ARI_case_results.csv",
+  "best_by_mean_ARI": {
+    "algorithm": "Time2State",
+    "dataset": "MoCap",
+    "cases": 9,
+    "mean_ARI": 0.802838564603409,
+    "mean_NMI": 0.8050154491538448,
+    "mean_AMI": 0.8036134131755209,
+    "mean_Covering": 0.864995271611742,
+    "mean_CP_F1": 0.7029284967984659,
+    "total_seconds": 40.38805532455444,
+    "win_size": 512,
+    "step": 50,
+    "m": 10,
+    "n": 4,
+    "out_channels": 4,
+    "nb_steps": 20,
+    "win_type": "hanning",
+    "protocol": "fit_each_case_predict_same_case",
+    "metric_backend": "sklearn_ARI__sklearn_NMI_geometric__sklearn_AMI_arithmetic__segment_covering__cp_f1_margin_1pct"
+  },
+  "best_by_mean_NMI": {
+    "algorithm": "Time2State",
+    "dataset": "MoCap",
+    "cases": 9,
+    "mean_ARI": 0.802838564603409,
+    "mean_NMI": 0.8050154491538448,
+    "mean_AMI": 0.8036134131755209,
+    "mean_Covering": 0.864995271611742,
+    "mean_CP_F1": 0.7029284967984659,
+    "total_seconds": 40.38805532455444,
+    "win_size": 512,
+    "step": 50,
+    "m": 10,
+    "n": 4,
+    "out_channels": 4,
+    "nb_steps": 20,
+    "win_type": "hanning",
+    "protocol": "fit_each_case_predict_same_case",
+    "metric_backend": "sklearn_ARI__sklearn_NMI_geometric__sklearn_AMI_arithmetic__segment_covering__cp_f1_margin_1pct"
+  },
+  "grid": [
+    {
+      "win_size": 128,
+      "step": 50
+    },
+    {
+      "win_size": 128,
+      "step": 100
+    },
+    {
+      "win_size": 256,
+      "step": 50
+    },
+    {
+      "win_size": 256,
+      "step": 100
+    },
+    {
+      "win_size": 512,
+      "step": 50
+    },
+    {
+      "win_size": 512,
+      "step": 100
+    }
+  ],
+  "total_wall_seconds": 222.9868597984314,
+  "protocol": "fit Time2State separately on each MoCap sequence; strict MoCap 4d loader; no normalization; no multi-branch/meta stage"
+}

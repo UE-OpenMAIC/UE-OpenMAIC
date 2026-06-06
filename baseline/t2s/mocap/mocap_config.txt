@@ -1,0 +1,33 @@
+# Time2State baseline on MoCap.
+# This is the paper-style single Time2State baseline:
+#   - no multi-branch ensemble
+#   - no PEER/PID branch scoring
+#   - no meta clustering
+#   - fit Time2State separately on each MoCap sequence
+#
+# Put this folder at:
+#   D:\code\teacherT2S\baseline\t2s\mocap\
+
+repo_root={REPO_ROOT}
+runner={CONFIG_DIR}/t2s_runner_mocap.py
+out_dir={CONFIG_DIR}/results_t2s_mocap_paper_grid
+dataset=mocap
+
+# Paper sparse search grid for Time2State effectiveness experiments:
+# window size in {128, 256, 512}; step size in {50, 100}
+win_size=128,256,512
+step=50,100
+
+# Paper setting: M=10, N=4.
+m=10
+n=4
+
+# Keep the same compact encoder setting used in your current baseline scripts.
+out_channels=4
+nb_steps=20
+kernel_size=
+win_type=hanning
+
+seed=0
+device=cuda
+gpu=0

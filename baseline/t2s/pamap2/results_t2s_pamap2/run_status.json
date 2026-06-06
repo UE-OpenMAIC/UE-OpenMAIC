@@ -1,0 +1,16 @@
+{
+  "ok": true,
+  "algorithm": "Time2State",
+  "dataset": "PAMAP2_zero",
+  "repo_root": "D:\\code\\teacherT2S",
+  "protocol_dir": "D:\\code\\teacherT2S\\Time2State\\data\\PAMAP2\\PAMAP2_Dataset\\Protocol",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\t2s\\pamap2_zero\\results_t2s_pamap2_zero_single_train_all",
+  "case_results_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\pamap2_zero\\results_t2s_pamap2_zero_single_train_all\\case_results.csv",
+  "algorithm_summary_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\pamap2_zero\\results_t2s_pamap2_zero_single_train_all\\algorithm_summary.csv",
+  "mean_ARI": 0.5486685441098006,
+  "mean_NMI": 0.6982962287677363,
+  "total_seconds": 99.8161883354187,
+  "feature_mode": "full_sensor",
+  "remove_zero": true,
+  "protocol": "fit subject101.dat once, predict selected subjects"
+}

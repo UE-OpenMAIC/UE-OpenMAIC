@@ -1,0 +1,78 @@
+{
+  "ok": true,
+  "algorithm": "Time2State",
+  "dataset": "ActRecTut",
+  "repo_root": "D:\\code\\teacherT2S",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\t2s\\actrectut\\results_t2s_actrectut_paper_grid",
+  "case_results_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\actrectut\\results_t2s_actrectut_paper_grid\\case_results.csv",
+  "algorithm_summary_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\actrectut\\results_t2s_actrectut_paper_grid\\algorithm_summary.csv",
+  "best_by_mean_ARI_case_results_csv": "D:\\code\\teacherT2S\\baseline\\t2s\\actrectut\\results_t2s_actrectut_paper_grid\\best_by_mean_ARI_case_results.csv",
+  "best_by_mean_ARI": {
+    "algorithm": "Time2State",
+    "dataset": "ActRecTut",
+    "cases": 20,
+    "mean_ARI": 0.754373264522836,
+    "mean_NMI": 0.7084036026540814,
+    "mean_AMI": 0.7049702958058371,
+    "mean_Covering": 0.7266879004073827,
+    "mean_CP_F1": 0.6482464382855087,
+    "total_seconds": 75.5381932258606,
+    "win_size": 128,
+    "step": 100,
+    "m": 10,
+    "n": 4,
+    "out_channels": 4,
+    "nb_steps": 20,
+    "win_type": "hanning",
+    "protocol": "fit_each_case_predict_same_case",
+    "metric_backend": "sklearn_ARI__sklearn_NMI_geometric__sklearn_AMI_arithmetic__segment_covering__cp_f1_margin_1pct"
+  },
+  "best_by_mean_NMI": {
+    "algorithm": "Time2State",
+    "dataset": "ActRecTut",
+    "cases": 20,
+    "mean_ARI": 0.7503695235829815,
+    "mean_NMI": 0.7217168679310524,
+    "mean_AMI": 0.7170274367307288,
+    "mean_Covering": 0.711259341199544,
+    "mean_CP_F1": 0.5714073111542554,
+    "total_seconds": 86.18105983734131,
+    "win_size": 256,
+    "step": 50,
+    "m": 10,
+    "n": 4,
+    "out_channels": 4,
+    "nb_steps": 20,
+    "win_type": "hanning",
+    "protocol": "fit_each_case_predict_same_case",
+    "metric_backend": "sklearn_ARI__sklearn_NMI_geometric__sklearn_AMI_arithmetic__segment_covering__cp_f1_margin_1pct"
+  },
+  "grid": [
+    {
+      "win_size": 128,
+      "step": 50
+    },
+    {
+      "win_size": 128,
+      "step": 100
+    },
+    {
+      "win_size": 256,
+      "step": 50
+    },
+    {
+      "win_size": 256,
+      "step": 100
+    },
+    {
+      "win_size": 512,
+      "step": 50
+    },
+    {
+      "win_size": 512,
+      "step": 100
+    }
+  ],
+  "total_wall_seconds": 511.75554370880127,
+  "protocol": "single Time2State paper-grid baseline; strict preprocessing; no multi-branch/meta/PEER/PID"
+}

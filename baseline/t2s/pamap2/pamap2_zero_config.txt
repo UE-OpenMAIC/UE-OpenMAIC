@@ -1,0 +1,34 @@
+# T2S baseline: PAMAP2_zero
+# Folder:
+#   D:\code\teacherT2S\baseline\t2s\pamap2_zero
+#
+# Protocol:
+#   fit on subject101.dat once,
+#   then predict subject101.dat ... subject108.dat.
+#
+# PAMAP2_zero:
+#   feature_mode=full_sensor
+#   remove_zero=1
+
+repo_root=D:\code\teacherT2S
+runner={T2S_ROOT}\_shard\t2s_runner.py
+dataset=pamap2_zero
+out_dir={CONFIG_DIR}\results_t2s_pamap2_zero_single_train_all
+
+feature_mode=full_sensor
+remove_zero=1
+train_subject=1
+subjects=1-8
+
+# Time2State branch / LSE parameters.
+win_size=512
+step=100
+m=20
+n=4
+out_channels=4
+nb_steps=20
+win_type=hanning
+
+seed=0
+device=cuda
+gpu=0
