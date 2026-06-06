@@ -889,7 +889,7 @@ function HomePage() {
                     }
                   }}
                 />
-                <span>真实课程架构 Ycf</span>
+                <span>真实课程架构</span>
               </label>
 
               {/* 发送按钮 */}
