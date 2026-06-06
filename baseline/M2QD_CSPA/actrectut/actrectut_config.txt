@@ -1,0 +1,131 @@
+# ActRecTut 64 candidate branches, PID no-scale score selects top 16.
+# Restored version:
+#   Use the original ActRecTut small-window 64-branch grid.
+#   Each unique source sequence is evaluated once:
+#       subject1_walk0, subject2_walk0
+#
+# T2S backbone parameters:
+#       m=20, n=4, out_channels=4, nb_steps=40, kernel_size=3
+
+repo_root={REPO_ROOT}
+runner={M2QD_CSPA_ROOT}/_shared/m2qd_cspa_multit2s_runner.py
+out_dir={THIS_DIR}/results_m2qd_cspa_actrectut
+public_data_root={REPO_ROOT}/Time2State/Baselines/public_ts_datasets
+
+conda_env=multit2s_cuda
+
+max_series_per_dataset=
+rounds=
+case_ids=
+limit_rows=
+skip_completed=0
+seed=0
+device=cuda
+gpu=0
+
+m=20
+n=4
+out_channels=4
+nb_steps=40
+kernel_size=3
+
+# Branch grid is defined exclusively by the [branches] table below.
+# Do not also pass a separate branches= list, otherwise the config becomes ambiguous.
+
+meta_min_len=24
+state_cluster_smooth=9
+public_max_rows=0
+
+select_top_k_branches=16
+branch_select_metric=M2QD
+# Pair-wise maximum quality-maximum diversity; no ground-truth labels are used.
+m2qd_alpha=0.5
+meta_vote_weight_mode=uniform
+allow_oracle_debug=0
+
+# M2QD_CSPA baseline note: PID parameters below are ignored when branch_select_metric=M2QD.
+# PID-inspired reliability parameters. No explicit ScalePrior is used.
+# PEER/PID selection and deterministic tie-breaking in the clean runner do not use ground-truth ARI/NMI.
+pid_kp=0.45
+pid_ki=0.35
+pid_kd=0.20
+pid_softmax_tau=0.15
+
+# PEER is used as a component inside PID.
+peer_health_weight=0.45
+peer_consensus_weight=0.55
+
+# M2QD-CSPA final fusion. K is label-free median selected branch state count.
+fusion_backend=cspa
+cspa_k_mode=median
+cspa_engine=auto
+cspa_agglomerative_max_rows=3000
+cspa_batch_size=4096
+cspa_apply_meta_min_len=0
+
+[branches]
+enabled,dataset,branch_name,win,step,m,n,out_channels,nb_steps,kernel_size,win_type,branch_min_len
+1,ActRecTut,ActRecTut_g01_b01_w24_s4,24,4,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b02_w24_s6,24,6,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b03_w24_s9,24,9,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b04_w24_s12,24,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b05_w28_s4,28,4,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b06_w28_s7,28,7,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b07_w28_s10,28,10,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b08_w28_s14,28,14,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b09_w32_s6,32,6,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b10_w32_s8,32,8,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b11_w32_s12,32,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b12_w32_s16,32,16,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b13_w36_s6,36,6,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b14_w36_s9,36,9,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b15_w36_s14,36,14,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b16_w36_s18,36,18,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b17_w40_s6,40,6,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b18_w40_s10,40,10,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b19_w40_s15,40,15,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b20_w40_s20,40,20,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b21_w44_s8,44,8,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b22_w44_s11,44,11,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b23_w44_s16,44,16,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b24_w44_s22,44,22,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b25_w48_s8,48,8,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b26_w48_s12,48,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b27_w48_s18,48,18,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b28_w48_s24,48,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b29_w52_s8,52,8,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b30_w52_s13,52,13,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b31_w52_s20,52,20,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b32_w52_s26,52,26,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b33_w56_s10,56,10,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b34_w56_s14,56,14,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b35_w56_s21,56,21,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b36_w56_s28,56,28,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b37_w60_s10,60,10,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b38_w60_s15,60,15,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b39_w60_s22,60,22,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b40_w60_s30,60,30,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b41_w64_s10,64,10,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b42_w64_s16,64,16,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b43_w64_s24,64,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b44_w64_s32,64,32,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b45_w68_s12,68,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b46_w68_s17,68,17,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b47_w68_s26,68,26,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b48_w68_s34,68,34,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b49_w72_s12,72,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b50_w72_s18,72,18,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b51_w72_s27,72,27,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b52_w72_s36,72,36,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b53_w80_s14,80,14,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b54_w80_s20,80,20,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b55_w80_s30,80,30,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b56_w80_s40,80,40,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b57_w88_s14,88,14,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b58_w88_s22,88,22,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b59_w88_s33,88,33,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b60_w88_s44,88,44,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b61_w96_s16,96,16,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b62_w96_s24,96,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b63_w96_s36,96,36,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_g01_b64_w96_s48,96,48,20,4,4,40,3,rect,

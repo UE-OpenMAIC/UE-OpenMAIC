@@ -1,0 +1,243 @@
+from __future__ import annotations
+
+import argparse
+import csv
+import subprocess
+import sys
+from io import StringIO
+from pathlib import Path
+
+
+THIS_DIR = Path(__file__).resolve().parent
+M2QD_ROOT = THIS_DIR.parent
+BASELINE_ROOT = M2QD_ROOT.parent
+REPO_ROOT = BASELINE_ROOT.parent
+
+OUR_ROOT = M2QD_ROOT
+BENCH_DIR = REPO_ROOT / "multi_t2s_paper_benchmark"
+DEFAULT_RUNNER = THIS_DIR / "m2qd_cspa_multit2s_runner.py"
+
+TRUE_VALUES = {"1", "true", "yes", "y", "on"}
+FALSE_VALUES = {"0", "false", "no", "n", "off", ""}
+
+
+def parse_bool(value: object) -> bool:
+    text = str(value or "").strip().lower()
+    if text in TRUE_VALUES:
+        return True
+    if text in FALSE_VALUES:
+        return False
+    raise ValueError(f"Expected boolean value, got: {value!r}")
+
+
+def split_values(value: str | None) -> list[str]:
+    if value is None:
+        return []
+    text = str(value).replace(",", " ").replace(";", " ").strip()
+    return [part for part in text.split() if part]
+
+
+def parse_config(path: Path) -> tuple[dict[str, str], list[str]]:
+    if not path.exists():
+        raise FileNotFoundError(f"Config file not found: {path}")
+
+    settings: dict[str, str] = {}
+    branch_lines: list[str] = []
+    in_branches = False
+
+    for line_no, raw in enumerate(path.read_text(encoding="utf-8-sig").splitlines(), start=1):
+        stripped = raw.strip()
+        if not stripped or stripped.startswith("#"):
+            continue
+
+        if stripped.lower() == "[branches]":
+            in_branches = True
+            continue
+
+        if in_branches:
+            branch_lines.append(raw)
+            continue
+
+        if "=" not in stripped:
+            raise ValueError(f"Config line {line_no} should be key=value or [branches]: {raw}")
+
+        key, value = stripped.split("=", 1)
+        settings[key.strip().lower().replace("-", "_")] = value.strip()
+
+    if branch_lines:
+        reader = csv.DictReader(StringIO("\n".join(branch_lines)))
+        fieldnames = set(reader.fieldnames or [])
+        missing = {"dataset", "win", "step"} - fieldnames
+        if missing:
+            raise ValueError(f"Branch table is missing required column(s): {sorted(missing)}")
+
+        for row_no, row in enumerate(reader, start=2):
+            if str(row.get("win", "")).strip().lower() == "win":
+                raise ValueError(f"Repeated branch-table header detected at [branches] row {row_no}.")
+
+    return settings, branch_lines
+
+
+def expand_path_value(value: str | None, *, default: Path, config_dir: Path, script_dir: Path, repo_root: Path) -> Path:
+    if value is None or str(value).strip() == "":
+        return default.resolve()
+    text = str(value).strip()
+    text = text.replace("{THIS_DIR}", str(script_dir))
+    text = text.replace("{CONFIG_DIR}", str(config_dir))
+    text = text.replace("{OUR_ROOT}", str(OUR_ROOT))
+    text = text.replace("{M2QD_CSPA_ROOT}", str(M2QD_ROOT))
+    text = text.replace("{M2QD_ROOT}", str(M2QD_ROOT))
+    text = text.replace("{BASELINE_ROOT}", str(BASELINE_ROOT))
+    text = text.replace("{REPO_ROOT}", str(repo_root))
+    text = text.replace("{BENCH_DIR}", str(repo_root / "multi_t2s_paper_benchmark"))
+    path = Path(text)
+    if not path.is_absolute():
+        path = config_dir / path
+    return path.resolve()
+
+
+def optional_arg(cmd: list[str], flag: str, value: str | None) -> None:
+    if value is None:
+        return
+    text = str(value).strip()
+    if text:
+        cmd.extend([flag, text])
+
+
+def build_command(config_path: Path, dataset_default: str) -> tuple[list[str], Path, Path]:
+    config_path = config_path.resolve()
+    script_dir = config_path.parent
+    settings, branch_lines = parse_config(config_path)
+
+    repo_root = expand_path_value(settings.get("repo_root"), default=REPO_ROOT, config_dir=script_dir, script_dir=script_dir, repo_root=REPO_ROOT)
+    runner = expand_path_value(settings.get("runner"), default=DEFAULT_RUNNER, config_dir=script_dir, script_dir=script_dir, repo_root=repo_root)
+    out_dir = expand_path_value(settings.get("out_dir"), default=script_dir / f"results_{dataset_default}_our", config_dir=script_dir, script_dir=script_dir, repo_root=repo_root)
+    public_data_root = expand_path_value(
+        settings.get("public_data_root"),
+        default=repo_root / "Time2State" / "Baselines" / "public_ts_datasets",
+        config_dir=script_dir,
+        script_dir=script_dir,
+        repo_root=repo_root,
+    )
+
+    datasets = split_values(settings.get("datasets")) or [dataset_default]
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    cmd = [
+        sys.executable,
+        "-u",
+        str(runner),
+        "--repo-root",
+        str(repo_root),
+        "--out-dir",
+        str(out_dir),
+        "--datasets",
+        *datasets,
+        "--public-data-root",
+        str(public_data_root),
+    ]
+
+    if branch_lines:
+        generated = out_dir / f"_generated_{dataset_default}_branches.txt"
+        generated.write_text(
+            f"# Generated by our/{dataset_default} launcher from {config_path.name}\n"
+            + "\n".join(branch_lines)
+            + "\n",
+            encoding="utf-8",
+        )
+        cmd.extend(["--branch-config-txt", str(generated)])
+
+    for key, flag in [
+        ("branches", "--branches"),
+        ("nb_steps", "--nb-steps"),
+        ("m", "--m"),
+        ("n", "--n"),
+        ("out_channels", "--out-channels"),
+        ("kernel_size", "--kernel-size"),
+        ("meta_min_len", "--meta-min-len"),
+        ("state_cluster_smooth", "--state-cluster-smooth"),
+        ("seed", "--seed"),
+        ("device", "--device"),
+        ("gpu", "--gpu"),
+        ("limit_rows", "--limit-rows"),
+        ("max_series_per_dataset", "--max-series-per-dataset"),
+        ("max_synthetic", "--max-synthetic"),
+        ("public_max_rows", "--public-max-rows"),
+        ("pamap2_feature_mode", "--pamap2-feature-mode"),
+        ("select_top_k_branches", "--select-top-k-branches"),
+        ("branch_select_metric", "--branch-select-metric"),
+        ("meta_vote_weight_mode", "--meta-vote-weight-mode"),
+        ("peer_health_weight", "--peer-health-weight"),
+        ("peer_consensus_weight", "--peer-consensus-weight"),
+        ("pid_kp", "--pid-kp"),
+        ("pid_ki", "--pid-ki"),
+        ("pid_kd", "--pid-kd"),
+        ("pid_win_ref", "--pid-win-ref"),
+        ("pid_scale_sigma", "--pid-scale-sigma"),
+        ("pid_softmax_tau", "--pid-softmax-tau"),
+        ("rounds", "--rounds"),
+        ("case_indexes", "--case-indexes"),
+        ("only_case_ids", "--only-case-ids"),
+        ("priority_case_ids", "--priority-case-ids"),
+        ("m2qd_alpha", "--m2qd-alpha"),
+        ("fusion_backend", "--fusion-backend"),
+        ("cspa_k_mode", "--cspa-k-mode"),
+        ("cspa_engine", "--cspa-engine"),
+        ("cspa_agglomerative_max_rows", "--cspa-agglomerative-max-rows"),
+        ("cspa_batch_size", "--cspa-batch-size"),
+    ]:
+        optional_arg(cmd, flag, settings.get(key))
+
+    case_ids = settings.get("case_ids", "").strip()
+    if case_ids:
+        cmd.extend(["--case-ids", case_ids])
+
+    if parse_bool(settings.get("cspa_apply_meta_min_len", "0")):
+        cmd.append("--cspa-apply-meta-min-len")
+
+    if parse_bool(settings.get("skip_completed", "0")):
+        cmd.append("--skip-completed")
+    if parse_bool(settings.get("allow_oracle_debug", "0")):
+        cmd.append("--allow-oracle-debug")
+
+    if parse_bool(settings.get("ucrseg_adaptive_scales", "0")):
+        cmd.append("--ucrseg-adaptive-scales")
+    if parse_bool(settings.get("ucrseg_normal_scales", "0")) or any(key.startswith("ucrseg_normal_") for key in settings):
+        cmd.append("--ucrseg-normal-scales")
+    if parse_bool(settings.get("ucrseg_worst_first", "0")):
+        cmd.append("--ucrseg-worst-first")
+
+    for key, flag in [
+        ("ucrseg_adaptive_base_len", "--ucrseg-adaptive-base-len"),
+        ("ucrseg_adaptive_min_win", "--ucrseg-adaptive-min-win"),
+        ("ucrseg_adaptive_min_step", "--ucrseg-adaptive-min-step"),
+        ("ucrseg_normal_mu", "--ucrseg-normal-mu"),
+        ("ucrseg_normal_sigma", "--ucrseg-normal-sigma"),
+        ("ucrseg_normal_low", "--ucrseg-normal-low"),
+        ("ucrseg_normal_high", "--ucrseg-normal-high"),
+        ("ucrseg_normal_win_count", "--ucrseg-normal-win-count"),
+        ("ucrseg_normal_step_ratios", "--ucrseg-normal-step-ratios"),
+    ]:
+        optional_arg(cmd, flag, settings.get(key))
+
+    return cmd, runner, out_dir
+
+
+def main(dataset_default: str, default_config_name: str) -> int:
+    parser = argparse.ArgumentParser()
+    parser.add_argument("--config", type=Path, default=Path(__file__).resolve().parent.parent / dataset_default / default_config_name)
+    parser.add_argument("--dry-run", action="store_true")
+    args = parser.parse_args()
+
+    cmd, runner, out_dir = build_command(args.config, dataset_default)
+    print("Config :", args.config.resolve())
+    print("Runner :", runner)
+    print("Output :", out_dir)
+    print("Command:")
+    print(" ".join(f'"{part}"' if " " in part else part for part in cmd))
+
+    if args.dry_run:
+        return 0
+
+    completed = subprocess.run(cmd, cwd=str(BENCH_DIR))
+    return int(completed.returncode)

@@ -1,0 +1,3 @@
+﻿dataset,metric,multi_t2s,paper_Time2State,best_paper_baseline,best_paper_baseline_value,delta_vs_paper_Time2State,delta_vs_best_paper_baseline,beats_paper_Time2State,beats_best_paper_baseline
+Synthetic,ARI,0.629819039942189,0.8503,HDP-HSMM,0.6619,-0.22048096005781093,-0.032080960057811025,False,False
+Synthetic,NMI,0.7942092433209919,0.8407,HDP-HSMM,0.8105,-0.04649075667900815,-0.016290756679008145,False,False

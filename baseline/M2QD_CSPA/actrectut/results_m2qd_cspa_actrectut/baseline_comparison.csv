@@ -1,0 +1,3 @@
+﻿dataset,metric,multi_t2s,paper_Time2State,best_paper_baseline,best_paper_baseline_value,delta_vs_paper_Time2State,delta_vs_best_paper_baseline,beats_paper_Time2State,beats_best_paper_baseline
+ActRecTut,ARI,0.5560640741412937,0.767,TICC,0.7839,-0.21093592585870635,-0.22783592585870638,False,False
+ActRecTut,NMI,0.6775953268634731,0.717,TICC,0.7466,-0.03940467313652685,-0.06900467313652692,False,False
