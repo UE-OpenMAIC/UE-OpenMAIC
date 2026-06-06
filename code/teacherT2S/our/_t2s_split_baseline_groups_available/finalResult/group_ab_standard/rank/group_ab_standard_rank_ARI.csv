@@ -1,0 +1,9 @@
+﻿group,metric,rank_case_universe,n_methods,CD_alpha_0_05,rank_imputation,label,avg_rank
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,Ours,2.087866108786611
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,E2USD,3.3221757322175733
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,CLaP,3.3556485355648538
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,Time2State,4.2761506276150625
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,ClaSP,4.667420814479638
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,TICC,5.121338912133891
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,AutoPlait,5.399159663865547
+group_ab_standard,ARI,241,8,0.6763174943609024,missing ranks filled by each method's observed mean rank,HVGH,7.4423076923076925

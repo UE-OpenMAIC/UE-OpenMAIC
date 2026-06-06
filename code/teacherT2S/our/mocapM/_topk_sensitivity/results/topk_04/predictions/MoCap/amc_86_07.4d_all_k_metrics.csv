@@ -1,0 +1,4 @@
+﻿K,selected_by_rule,ARI,NMI,n_pred_states,segments,dominant_ratio,balance_entropy,mean_segment_length,segment_count_raw,coherence,selection_score,meta_min_len,branch_select_metric,meta_vote_weight_mode,selected_branch_names
+6,1,0.887729946250986,0.8770961831694538,6,12,0.5,0.8769379223663348,725.0833333333334,12,1.0,0.6692344805915837,24,PID,pid_weight,MoCap_alt64_b14_w144_s36|MoCap_alt64_b21_w176_s29|MoCap_alt64_b22_w176_s44|MoCap_alt64_b34_w224_s56
+7,0,0.8214513017709283,0.8399451055849281,7,20,0.42857142857142855,0.8814866679939993,435.05,20,0.0,0.477514524141357,24,PID,pid_weight,MoCap_alt64_b14_w144_s36|MoCap_alt64_b21_w176_s29|MoCap_alt64_b22_w176_s44|MoCap_alt64_b34_w224_s56
+8,0,0.8214513017709283,0.8399451055849281,7,20,0.375,0.8814866679939993,435.05,20,0.0,0.44537166699849984,24,PID,pid_weight,MoCap_alt64_b14_w144_s36|MoCap_alt64_b21_w176_s29|MoCap_alt64_b22_w176_s44|MoCap_alt64_b34_w224_s56

@@ -1,0 +1,2 @@
+﻿dataset,case_count,mean_ARI,mean_NMI,mean_pred_states,mean_segments,total_seconds
+PAMAP2,8,0.6806471641385508,0.7979973076067315,12.625,106.25,10866.509078025818

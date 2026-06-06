@@ -1,0 +1,121 @@
+﻿# PID ablation variant: peer_select_pid_weight
+# Remove PID from branch selection, keep PID meta voting weights.
+# Generated automatically. Only PID/selection/voting/out_dir keys are changed.
+
+# MoCap 64 candidate branches, PID no-scale score selects top 16.
+
+repo_root={REPO_ROOT}
+runner={OUR_ROOT}/_shared/our_multit2s_runner.py
+out_dir=D:\code\teacherT2S\our\mocap\_pid_ablation\results\peer_select_pid_weight
+public_data_root={REPO_ROOT}/Time2State/Baselines/public_ts_datasets
+
+conda_env=multit2s_cuda
+# For quick check use 1. Change to 9 for full MoCap.
+max_series_per_dataset=9
+# Run these case_ids first, but still continue with the remaining loaded cases.
+# Example: priority_case_ids=amc_86_14
+priority_case_ids=amc_86_14
+
+# Run only these case_ids. Leave blank to run all loaded cases.
+# Example: only_case_ids=amc_86_14
+only_case_ids=
+
+limit_rows=
+skip_completed=0
+seed=2125282736
+device=cuda
+gpu=0
+
+m=10
+n=4
+out_channels=4
+nb_steps=20
+kernel_size=
+# Branch grid is defined exclusively by the [branches] table below.
+# Do not also pass a separate branches= list, otherwise the config becomes ambiguous.
+
+meta_min_len=24
+state_cluster_smooth=9
+public_max_rows=12000
+
+select_top_k_branches=16
+branch_select_metric=PEER
+meta_vote_weight_mode=pid_weight
+
+# PID-inspired reliability parameters. No explicit ScalePrior is used.
+# PEER/PID selection and deterministic tie-breaking in the clean runner do not use ground-truth ARI/NMI.
+pid_kp=0.45
+pid_ki=0.35
+pid_kd=0.20
+pid_softmax_tau=0.15
+
+# PEER is used as a component inside PID.
+peer_health_weight=0.45
+peer_consensus_weight=0.55
+
+[branches]
+enabled,dataset,branch_name,win,step,m,n,out_channels,nb_steps,kernel_size,win_type,branch_min_len
+1,MoCap,MoCap_64core_b01_w128_s26,128,26,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b02_w128_s32,128,32,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b03_w128_s43,128,43,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b04_w128_s64,128,64,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b05_w144_s29,144,29,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b06_w144_s36,144,36,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b07_w144_s48,144,48,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b08_w144_s72,144,72,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b09_w160_s32,160,32,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b10_w160_s40,160,40,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b11_w160_s53,160,53,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b12_w160_s80,160,80,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b13_w176_s35,176,35,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b14_w176_s44,176,44,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b15_w176_s59,176,59,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b16_w176_s88,176,88,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b17_w192_s38,192,38,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b18_w192_s48,192,48,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b19_w192_s64,192,64,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b20_w192_s96,192,96,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b21_w208_s42,208,42,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b22_w208_s52,208,52,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b23_w208_s69,208,69,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b24_w208_s104,208,104,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b25_w224_s45,224,45,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b26_w224_s56,224,56,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b27_w224_s75,224,75,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b28_w224_s112,224,112,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b29_w240_s48,240,48,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b30_w240_s60,240,60,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b31_w240_s80,240,80,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b32_w240_s120,240,120,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b33_w256_s50,256,50,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b34_w256_s64,256,64,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b35_w256_s85,256,85,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b36_w256_s128,256,128,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b37_w272_s54,272,54,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b38_w272_s68,272,68,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b39_w272_s91,272,91,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b40_w272_s136,272,136,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b41_w288_s58,288,58,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b42_w288_s72,288,72,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b43_w288_s96,288,96,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b44_w288_s144,288,144,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b45_w304_s61,304,61,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b46_w304_s76,304,76,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b47_w304_s101,304,101,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b48_w304_s152,304,152,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b49_w320_s64,320,64,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b50_w320_s80,320,80,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b51_w320_s107,320,107,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b52_w320_s160,320,160,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b53_w336_s67,336,67,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b54_w336_s84,336,84,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b55_w336_s112,336,112,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b56_w336_s168,336,168,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b57_w352_s70,352,70,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b58_w352_s88,352,88,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b59_w352_s117,352,117,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b60_w352_s176,352,176,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b61_w384_s77,384,77,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b62_w384_s96,384,96,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b63_w384_s128,384,128,10,4,4,20,,rect,
+1,MoCap,MoCap_64core_b64_w384_s192,384,192,10,4,4,20,,rect,

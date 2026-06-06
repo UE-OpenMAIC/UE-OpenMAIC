@@ -1,0 +1,18 @@
+============================================================
+Collect all methods ARI/NMI - DIRECT PYTHON no-flash FIXED
+Our root      : D:\code\teacherT2S\our
+Baseline root : D:\code\teacherT2S\baseline
+Output dir    : D:\code\teacherT2S\our\_ari_nmi_summary
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Script        : D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py
+Split script  : D:\code\teacherT2S\our\split_main_ablation_tables.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_all_methods_ari_nmi_DIRECT_FIXED_2026_05_09_14_48_31.log
+============================================================
+
+[1/3] Checking files... 
+[2/3] Checking Python packages... 
+D:\software\anaconda\envs\multit2s_cuda\python.exe
+pandas import ok
+Python check ok. 
+[3/4] Running collector... 
+^C

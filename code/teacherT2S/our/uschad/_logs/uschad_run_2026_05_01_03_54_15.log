@@ -1,0 +1,17 @@
+============================================================
+USC-HAD MultiT2S controlled run - no flash logger
+Date      : 2026/05/01 ÷‹ŒÂ  3:54:15.23
+Dataset   : USC-HAD
+Config    : D:\code\teacherT2S\our\uschad\uschad_config.txt
+Conda env : multit2s_cuda
+Output    : D:\code\teacherT2S\our\uschad\results_uschad_our
+Repo root : D:\code\teacherT2S
+Data dir  : D:\code\teacherT2S\Time2State\data\USC-HAD
+Public    : D:\code\teacherT2S\Time2State\Baselines\public_ts_datasets
+PYTHONPATH: D:\code\teacherT2S\TSpy-dev;
+============================================================
+
+[WARN] Strict USC-HAD data directory does not exist: D:\code\teacherT2S\Time2State\data\USC-HAD
+[1/4] Conda command: conda
+[2/4] Checking conda environment: multit2s_cuda
+[OK] Conda environment is ready.

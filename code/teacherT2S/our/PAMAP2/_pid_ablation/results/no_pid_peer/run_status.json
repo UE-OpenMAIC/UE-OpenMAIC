@@ -1,0 +1,56 @@
+{
+  "repo_root": "D:\\code\\teacherT2S",
+  "out_dir": "D:\\code\\teacherT2S\\our\\PAMAP2_zero\\_pid_ablation\\results\\no_pid_peer",
+  "datasets_requested": [
+    "pamap2"
+  ],
+  "branches": "128:50,128:100,256:50,256:100,512:50,512:100",
+  "branch_config_txt": "D:\\code\\teacherT2S\\our\\PAMAP2_zero\\_pid_ablation\\results\\no_pid_peer\\_generated_PAMAP2_zero_branches.txt",
+  "branch_config_counts": {
+    "pamap2": 64
+  },
+  "nb_steps": 20,
+  "meta_min_len_cli_default": 24,
+  "meta_min_len_note": "If branch_config_txt has a meta_min_len column, the first non-empty value for each dataset overrides --meta-min-len.",
+  "public_data_root": "D:\\code\\teacherT2S\\Time2State\\Baselines\\public_ts_datasets",
+  "public_max_rows": 0,
+  "pamap2_feature_mode_requested": "auto",
+  "pamap2_feature_mode_resolved": "full_sensor",
+  "pamap2_remove_zero": true,
+  "skip_completed": false,
+  "select_top_k_branches": 16,
+  "branch_select_metric": "PEER",
+  "meta_vote_weight_mode": "branch_reliability",
+  "peer_health_weight": 0.45,
+  "peer_consensus_weight": 0.55,
+  "pid_kp": 0.45,
+  "pid_ki": 0.35,
+  "pid_kd": 0.2,
+  "pid_scale_prior_enabled": false,
+  "pid_win_ref": "disabled",
+  "pid_scale_sigma": "disabled",
+  "pid_softmax_tau": 0.15,
+  "loader_mode": "strict_exp_of_Time2State_preprocessing",
+  "loader_mode_note": "Data reading, feature columns, normalization, NaN handling, and PAMAP2/USC-HAD fit-predict protocols are reproduced from exp_of_Time2State.py where applicable.",
+  "branch_selection_warning": "Clean runner hard-rejects ARI/NMI/ARI_NMI branch selection and oracle_score voting. Branch ARI/NMI are written only after selection for diagnostics.",
+  "all_k_export": true,
+  "all_k_export_note": "For each case, *_all_k_metrics.csv, *_all_k_meta_states.csv, and all_k_clusters/* are exported to diagnose K/meta-cluster candidates.",
+  "dataset_status": [
+    {
+      "dataset": "pamap2",
+      "key": "pamap2",
+      "ok": true,
+      "cases": 8,
+      "loader": "strict_exp_of_Time2State_preprocessing",
+      "note": "No public-format filtering/downsampling; preprocessing follows exp_of_Time2State.py."
+    }
+  ],
+  "runtime_status": {
+    "ok": true,
+    "python": "D:\\software\\anaconda\\envs\\multit2s_cuda\\python.exe",
+    "numpy": "2.2.6",
+    "pandas": "2.3.3",
+    "torch": "2.5.1"
+  },
+  "error": null
+}

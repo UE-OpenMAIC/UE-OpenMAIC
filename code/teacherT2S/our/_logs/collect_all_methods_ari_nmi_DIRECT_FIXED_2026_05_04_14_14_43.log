@@ -1,0 +1,38 @@
+============================================================
+Collect all methods ARI/NMI - DIRECT PYTHON no-flash FIXED
+Our root      : D:\code\teacherT2S\our
+Baseline root : D:\code\teacherT2S\baseline
+Output dir    : D:\code\teacherT2S\our\_ari_nmi_summary
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Script        : D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_all_methods_ari_nmi_DIRECT_FIXED_2026_05_04_14_14_43.log
+============================================================
+
+[1/3] Checking files... 
+[2/3] Checking Python packages... 
+D:\software\anaconda\envs\multit2s_cuda\python.exe
+pandas import ok
+Python check ok. 
+[3/3] Running collector... 
+[INFO] our_root      : D:\code\teacherT2S\our
+[INFO] baseline_root : D:\code\teacherT2S\baseline
+[INFO] out_dir       : D:\code\teacherT2S\our\_ari_nmi_summary
+Traceback (most recent call last):
+  File "D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py", line 554, in <module>
+    raise SystemExit(main())
+  File "D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py", line 536, in main
+    write_outputs(out_dir, main_df, file_df)
+  File "D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py", line 459, in write_outputs
+    main_df.to_csv(main_csv, index=False, encoding="utf-8-sig")
+  File "D:\software\anaconda\envs\multit2s_cuda\lib\site-packages\pandas\util\_decorators.py", line 333, in wrapper
+    return func(*args, **kwargs)
+  File "D:\software\anaconda\envs\multit2s_cuda\lib\site-packages\pandas\core\generic.py", line 3989, in to_csv
+    return DataFrameRenderer(formatter).to_csv(
+  File "D:\software\anaconda\envs\multit2s_cuda\lib\site-packages\pandas\io\formats\format.py", line 1014, in to_csv
+    csv_formatter.save()
+  File "D:\software\anaconda\envs\multit2s_cuda\lib\site-packages\pandas\io\formats\csvs.py", line 251, in save
+    with get_handle(
+  File "D:\software\anaconda\envs\multit2s_cuda\lib\site-packages\pandas\io\common.py", line 873, in get_handle
+    handle = open(
+PermissionError: [Errno 13] Permission denied: 'D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\all_methods_main_table.csv'
+[ERROR] Collector failed. ErrorLevel=1 

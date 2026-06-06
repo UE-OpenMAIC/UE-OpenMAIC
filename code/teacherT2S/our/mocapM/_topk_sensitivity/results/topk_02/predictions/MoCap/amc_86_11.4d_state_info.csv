@@ -1,0 +1,13 @@
+﻿global_state_name,run_idx,win,step,local_state,branch_weight,cluster_id
+MoCap_alt64_b14_w144_s36_state0,1,144,36,0,0.80588848896686,0
+MoCap_alt64_b14_w144_s36_state1,1,144,36,1,0.80588848896686,1
+MoCap_alt64_b14_w144_s36_state2,1,144,36,2,0.80588848896686,2
+MoCap_alt64_b14_w144_s36_state3,1,144,36,3,0.80588848896686,3
+MoCap_alt64_b14_w144_s36_state4,1,144,36,4,0.80588848896686,4
+MoCap_alt64_b14_w144_s36_state5,1,144,36,5,0.80588848896686,5
+MoCap_alt64_b25_w192_s32_state0,2,192,32,0,1.0,0
+MoCap_alt64_b25_w192_s32_state1,2,192,32,1,1.0,2
+MoCap_alt64_b25_w192_s32_state2,2,192,32,2,1.0,3
+MoCap_alt64_b25_w192_s32_state3,2,192,32,3,1.0,4
+MoCap_alt64_b25_w192_s32_state4,2,192,32,4,1.0,5
+MoCap_alt64_b25_w192_s32_state5,2,192,32,5,1.0,5

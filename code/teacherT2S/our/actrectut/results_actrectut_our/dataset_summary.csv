@@ -1,0 +1,2 @@
+﻿dataset,case_count,mean_ARI,mean_NMI,mean_pred_states,mean_segments,total_seconds
+ActRecTut,20,0.7552356044950181,0.7473004514087898,10.6,75.9,20481.82382464409

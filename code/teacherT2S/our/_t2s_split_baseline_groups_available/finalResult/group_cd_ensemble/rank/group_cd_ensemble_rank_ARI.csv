@@ -1,0 +1,4 @@
+﻿group,metric,rank_case_universe,n_methods,CD_alpha_0_05,rank_imputation,label,avg_rank
+group_cd_ensemble,ARI,239,3,0.21439673931571146,missing ranks filled by each method's observed mean rank,Ours,1.6485355648535565
+group_cd_ensemble,ARI,239,3,0.21439673931571146,missing ranks filled by each method's observed mean rank,EC-TDWM,2.1213389121338913
+group_cd_ensemble,ARI,239,3,0.21439673931571146,missing ranks filled by each method's observed mean rank,M2QD-CSPA,2.2301255230125525

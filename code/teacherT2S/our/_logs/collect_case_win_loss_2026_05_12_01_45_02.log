@@ -1,0 +1,40 @@
+============================================================
+Collect per-case win/loss statistics
+Our root      : D:\code\teacherT2S\our
+Baseline root : D:\code\teacherT2S\baseline
+Summary dir   : D:\code\teacherT2S\our\_ari_nmi_summary
+Output dir    : D:\code\teacherT2S\our\_case_win_loss_summary
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Script        : D:\code\teacherT2S\our\collect_case_win_loss_summary.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_case_win_loss_2026_05_12_01_45_02.log
+============================================================
+
+[1/2] Checking Python packages... 
+python package check ok
+[2/2] Running collector... 
+[INFO] our_root      : D:\code\teacherT2S\our
+[INFO] baseline_root : D:\code\teacherT2S\baseline
+[INFO] summary_dir   : D:\code\teacherT2S\our\_ari_nmi_summary
+[INFO] out_dir       : D:\code\teacherT2S\our\_case_win_loss_summary
+[1/4] Loading main case metrics...
+      rows=1649
+[2/4] Comparing main methods against Ours...
+      comparison rows=3990
+[3/4] Loading ablation case metrics...
+      rows=1123
+[4/4] Comparing ablations against full_pid...
+      comparison rows=2652
+[DONE] Wrote:
+  D:\code\teacherT2S\our\_case_win_loss_summary\ablation_case_metric_table.csv
+  D:\code\teacherT2S\our\_case_win_loss_summary\ablation_vs_full_pid_case_comparison.csv
+  D:\code\teacherT2S\our\_case_win_loss_summary\ablation_vs_full_pid_score_win_loss_overall.png
+  D:\code\teacherT2S\our\_case_win_loss_summary\ablation_vs_full_pid_score_winrate_heatmap.png
+  D:\code\teacherT2S\our\_case_win_loss_summary\ablation_vs_full_pid_win_loss_summary.csv
+  D:\code\teacherT2S\our\_case_win_loss_summary\main_case_metric_table.csv
+  D:\code\teacherT2S\our\_case_win_loss_summary\main_vs_ours_case_comparison.csv
+  D:\code\teacherT2S\our\_case_win_loss_summary\main_vs_ours_score_win_loss_overall.png
+  D:\code\teacherT2S\our\_case_win_loss_summary\main_vs_ours_score_winrate_heatmap.png
+  D:\code\teacherT2S\our\_case_win_loss_summary\main_vs_ours_win_loss_summary.csv
+  D:\code\teacherT2S\our\_case_win_loss_summary\warnings.txt
+DONE. 
+Output: D:\code\teacherT2S\our\_case_win_loss_summary 

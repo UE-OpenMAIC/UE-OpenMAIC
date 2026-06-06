@@ -1,0 +1,2 @@
+﻿dataset,case_count,mean_ARI,mean_NMI,mean_pred_states,mean_segments,total_seconds
+UCR-SEG,32,0.4377616686784511,0.4577446029050889,3.34375,18.25,1535.0025584697723

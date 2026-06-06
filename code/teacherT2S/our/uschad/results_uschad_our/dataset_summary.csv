@@ -1,0 +1,2 @@
+﻿dataset,case_count,mean_ARI,mean_NMI,mean_pred_states,mean_segments,total_seconds
+USC-HAD,70,0.6926393308637456,0.8434095901538753,10.942857142857143,19.514285714285716,64511.8238158226

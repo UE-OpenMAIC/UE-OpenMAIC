@@ -1,0 +1,130 @@
+﻿# PID ablation variant: full_pid
+# Full method: PID branch selection + PID meta voting.
+# Generated automatically. Dataset preprocessing and branch table are inherited from base config.
+# For formal runs, leave rounds/case_ids blank; do not use seed-gate selection.
+
+# ActRecTut alternate 64 candidate branches, PID no-scale score selects top 16.
+# Candidate design goal: use a fixed multi-scale window grid covering
+# short-, medium-, and relatively long-duration temporal patterns.
+# For reproducibility, this branch grid is treated as a fixed evaluation
+# configuration once the final experiments are launched.
+#
+# Metric backend in this comparison version: sklearn.metrics.adjusted_rand_score and
+# sklearn.metrics.normalized_mutual_info_score(..., average_method="geometric").
+# Output includes:
+#   all_branch_results.csv
+#   all_case_results.csv
+#   case_branch_level_summary.csv
+
+repo_root={REPO_ROOT}
+runner={OUR_ROOT}/_shared/our_multit2s_runner.py
+out_dir=D:\code\teacherT2S\our\actrectut\_pid_ablation\results\full_pid
+public_data_root={REPO_ROOT}/Time2State/Baselines/public_ts_datasets
+
+conda_env=multit2s_cuda
+max_series_per_dataset=
+# Optional debug selection. Leave blank to run all ActRecTut cases.
+# rounds is 1-based in loader order: 1=subject1_walk, 2=subject2_walk.
+# case_ids accepts exact ids, for example: subject1_walk or subject1_walk,subject2_walk
+rounds=
+case_ids=
+limit_rows=
+skip_completed=0
+seed=0
+device=cuda
+gpu=0
+
+m=20
+n=4
+out_channels=4
+nb_steps=20
+kernel_size=
+# Branch grid is defined exclusively by the [branches] table below.
+# Do not also pass a separate branches= list, otherwise the config becomes ambiguous.
+
+meta_min_len=24
+state_cluster_smooth=9
+public_max_rows=0
+
+select_top_k_branches=16
+branch_select_metric=PID
+meta_vote_weight_mode=pid_weight
+allow_oracle_debug=0
+
+# PID-inspired reliability parameters. No explicit ScalePrior is used.
+# PEER/PID selection and deterministic tie-breaking in the clean runner do not use ground-truth ARI/NMI.
+pid_kp=0.45
+pid_ki=0.35
+pid_kd=0.20
+pid_softmax_tau=0.15
+
+# PEER is used as a component inside PID.
+peer_health_weight=0.45
+peer_consensus_weight=0.55
+
+[branches]
+enabled,dataset,branch_name,win,step,m,n,out_channels,nb_steps,kernel_size,win_type,branch_min_len
+1,ActRecTut,ActRecTut_small64_b01_w48_s8,48,8,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b02_w48_s12,48,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b03_w48_s18,48,18,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b04_w48_s24,48,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b05_w56_s9,56,9,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b06_w56_s14,56,14,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b07_w56_s21,56,21,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b08_w56_s28,56,28,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b09_w64_s11,64,11,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b10_w64_s16,64,16,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b11_w64_s24,64,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b12_w64_s32,64,32,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b13_w72_s12,72,12,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b14_w72_s18,72,18,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b15_w72_s27,72,27,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b16_w72_s36,72,36,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b17_w80_s13,80,13,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b18_w80_s20,80,20,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b19_w80_s30,80,30,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b20_w80_s40,80,40,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b21_w88_s15,88,15,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b22_w88_s22,88,22,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b23_w88_s33,88,33,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b24_w88_s44,88,44,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b25_w96_s16,96,16,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b26_w96_s24,96,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b27_w96_s36,96,36,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b28_w96_s48,96,48,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b29_w104_s17,104,17,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b30_w104_s26,104,26,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b31_w104_s39,104,39,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b32_w104_s52,104,52,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b33_w112_s19,112,19,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b34_w112_s28,112,28,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b35_w112_s42,112,42,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b36_w112_s56,112,56,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b37_w120_s20,120,20,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b38_w120_s30,120,30,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b39_w120_s45,120,45,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b40_w120_s60,120,60,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b41_w128_s21,128,21,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b42_w128_s32,128,32,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b43_w128_s48,128,48,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b44_w128_s64,128,64,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b45_w136_s23,136,23,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b46_w136_s34,136,34,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b47_w136_s51,136,51,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b48_w136_s68,136,68,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b49_w144_s24,144,24,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b50_w144_s36,144,36,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b51_w144_s54,144,54,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b52_w144_s72,144,72,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b53_w160_s27,160,27,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b54_w160_s40,160,40,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b55_w160_s60,160,60,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b56_w160_s80,160,80,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b57_w176_s29,176,29,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b58_w176_s44,176,44,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b59_w176_s66,176,66,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b60_w176_s88,176,88,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b61_w192_s32,192,32,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b62_w192_s48,192,48,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b63_w192_s72,192,72,20,4,4,40,3,rect,
+1,ActRecTut,ActRecTut_small64_b64_w192_s96,192,96,20,4,4,40,3,rect,

@@ -1,0 +1,11 @@
+﻿original_label,normalized_label,canonical_group_label,included_in_group
+AutoPlait,autoplait,AutoPlait,True
+CLaP,clap,CLaP,True
+E2USD,e2usd,E2USD,True
+EC_TDWM,ectdwm,,False
+HVGH,hvgh,HVGH,True
+M2QD_CSPA,m2qdcspa,,False
+Ours,ours,Ours,True
+TICC,ticc,TICC,True
+Time2State,time2state,Time2State,True
+clasp,clasp,ClaSP,True

@@ -1,0 +1,2 @@
+﻿dataset,case_count,mean_ARI,mean_NMI,mean_pred_states,mean_segments,total_seconds
+MoCap,9,0.79589065390609,0.8056118501505107,5.444444444444445,8.444444444444445,2243.5937938690186

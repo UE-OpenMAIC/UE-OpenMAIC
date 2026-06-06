@@ -1,0 +1,3 @@
+﻿dataset,metric,multi_t2s,paper_Time2State,best_paper_baseline,best_paper_baseline_value,delta_vs_paper_Time2State,delta_vs_best_paper_baseline,beats_paper_Time2State,beats_best_paper_baseline
+MoCap,ARI,0.8270322392643004,0.7529,AutoPlait,0.8057,0.07413223926430035,0.02133223926430039,True,True
+MoCap,NMI,0.8210294299393819,0.767,AutoPlait,0.8289,0.05402942993938187,-0.007870570060618087,True,False

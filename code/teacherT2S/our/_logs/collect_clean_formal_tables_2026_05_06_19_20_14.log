@@ -1,0 +1,88 @@
+============================================================
+Collect clean formal tables
+Our root      : D:\code\teacherT2S\our
+Baseline root : D:\code\teacherT2S\baseline
+Output dir    : D:\code\teacherT2S\our\_ari_nmi_summary
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Collector     : D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py
+Cleaner       : D:\code\teacherT2S\our\split_clean_formal_tables.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_clean_formal_tables_2026_05_06_19_20_14.log
+============================================================
+
+[1/2] Running collector...
+[INFO] our_root      : D:\code\teacherT2S\our
+[INFO] baseline_root : D:\code\teacherT2S\baseline
+[INFO] out_dir       : D:\code\teacherT2S\our\_ari_nmi_summary
+[WARN] Excel output failed, CSV files are still available: ModuleNotFoundError("No module named 'openpyxl'")
+
+[DONE] Wrote:
+  D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_main_table.csv
+  D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_file_summary.csv
+  D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_ari_nmi_summary.xlsx
+
+[PREVIEW]
+    method     dataset                        protocol             status win_size step  cases  ARI_mean  NMI_mean
+      Ours   actrectut          final-all-case-results                 ok                    2  0.786213  0.761775
+      Ours   actrectut          final-all-case-results                 ok                    2  0.787037  0.757376
+      Ours   actrectut          final-all-case-results                 ok                    2  0.738862  0.732811
+      Ours   actrectut          final-all-case-results                 ok                    2  0.757699  0.740835
+      Ours   actrectut          final-all-case-results                 ok                    2  0.779570  0.751271
+      Ours   actrectut          final-all-case-results                 ok                   20  0.748117  0.737401
+Time2State   actrectut                   T2S-grid-mean                 ok                  120  0.727012  0.700309
+Time2State   actrectut T2S-fixed-param-from-E2USD-code missing_in_results      128    1      0       NaN       NaN
+     E2USD   actrectut                 E2USD-grid-mean                 ok                  200  0.545753  0.654043
+     E2USD   actrectut         E2USD-paper-fixed-param                 ok      128    1    200  0.545753  0.654043
+      Ours       mocap          final-all-case-results                 ok                    9  0.782818  0.806502
+      Ours       mocap          final-all-case-results                 ok                    9  0.824648  0.824871
+      Ours       mocap          final-all-case-results                 ok                    9  0.792355  0.801447
+      Ours       mocap          final-all-case-results                 ok                    9  0.795891  0.805612
+      Ours       mocap          final-all-case-results                 ok                    9  0.823030  0.823292
+      Ours       mocap          final-all-case-results                 ok                    9  0.824648  0.824871
+Time2State       mocap                   T2S-grid-mean                 ok                   54  0.605206  0.685629
+Time2State       mocap T2S-fixed-param-from-E2USD-code                 ok      256   50      9  0.629285  0.715746
+     E2USD       mocap                 E2USD-grid-mean                 ok                   90  0.719548  0.736335
+     E2USD       mocap         E2USD-paper-fixed-param                 ok      256   50     90  0.719548  0.736335
+      Ours      pamap2          final-all-case-results                 ok                    8  0.693692  0.805257
+      Ours      pamap2          final-all-case-results                 ok                    8  0.672746  0.792440
+      Ours      pamap2          final-all-case-results                 ok                    8  0.669028  0.783907
+      Ours      pamap2          final-all-case-results                 ok                    8  0.680647  0.797997
+      Ours      pamap2          final-all-case-results                 ok                    8  0.675261  0.795768
+      Ours      pamap2          final-all-case-results                 ok                    8  0.672746  0.792440
+Time2State pamap2_zero                   T2S-grid-mean                 ok                    8  0.548669  0.698296
+Time2State pamap2_zero T2S-fixed-param-from-E2USD-code                 ok      512  100      8  0.548669  0.698296
+     E2USD pamap2_zero                 E2USD-grid-mean                 ok                   80  0.468880  0.646971
+     E2USD pamap2_zero         E2USD-paper-fixed-param                 ok      512  100     80  0.468880  0.646971
+      Ours   synthetic          final-all-case-results                 ok                  100  0.919558  0.906751
+      Ours   synthetic          final-all-case-results                 ok                  100  0.890581  0.876233
+      Ours   synthetic          final-all-case-results                 ok                  100  0.871761  0.858928
+      Ours   synthetic          final-all-case-results                 ok                  100  0.873895  0.860467
+      Ours   synthetic          final-all-case-results                 ok                  100  0.893271  0.878090
+      Ours   synthetic          final-all-case-results                 ok                  100  0.890932  0.876359
+Time2State   synthetic                   T2S-grid-mean                 ok                  600  0.660732  0.775383
+Time2State   synthetic T2S-fixed-param-from-E2USD-code                 ok      256   50    100  0.496697  0.690958
+     E2USD   synthetic                 E2USD-grid-mean                 ok                 1000  0.863025  0.847162
+     E2USD   synthetic         E2USD-paper-fixed-param                 ok      256   50   1000  0.863025  0.847162
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.210504  0.228991
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.437762  0.457745
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.408979  0.426876
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.419745  0.432046
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.433922  0.455566
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.437762  0.457745
+Time2State     ucr-seg                   T2S-grid-mean                 ok                  186  0.297075  0.372629
+Time2State     ucr-seg T2S-fixed-param-from-E2USD-code                 ok      512   50     32  0.377179  0.490902
+     E2USD     ucr-seg                 E2USD-grid-mean                 ok                  320  0.345764  0.446685
+     E2USD     ucr-seg         E2USD-paper-fixed-param                 ok      512   50    320  0.345764  0.446685
+      Ours     usc-had          final-all-case-results                 ok                   70  0.692639  0.843410
+Time2State     usc-had                   T2S-grid-mean                 ok                  420  0.577834  0.751324
+Time2State     usc-had T2S-fixed-param-from-E2USD-code                 ok      512   50     70  0.686240  0.821155
+     E2USD     usc-had                 E2USD-grid-mean                 ok                  700  0.584141  0.773795
+     E2USD     usc-had         E2USD-paper-fixed-param                 ok      512   50    700  0.584141  0.773795
+[2/2] Writing clean tables...
+Clean formal tables written:
+   D:\code\teacherT2S\our\_ari_nmi_summary\main_results_table_clean3.csv
+   D:\code\teacherT2S\our\_ari_nmi_summary\main_results_compact_clean3.csv
+   D:\code\teacherT2S\our\_ari_nmi_summary\ours_vs_best_baseline_clean3.csv
+   D:\code\teacherT2S\our\_ari_nmi_summary\pid_ablation_table_clean.csv
+   D:\code\teacherT2S\our\_ari_nmi_summary\pid_ablation_dataset_avg_clean.csv
+Clean main rows: 18
+Clean ablation rows: 25

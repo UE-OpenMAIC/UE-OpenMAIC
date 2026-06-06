@@ -1,0 +1,3 @@
+﻿K,selected_by_rule,ARI,NMI,n_pred_states,segments,dominant_ratio,balance_entropy,mean_segment_length,segment_count_raw,coherence,selection_score,meta_min_len,branch_select_metric,meta_vote_weight_mode,selected_branch_names
+7,1,0.6927509767052678,0.6943467376180664,6,16,0.2857142857142857,0.8797136482046316,378.375,16,1.0,0.5413569834797293,24,PID,pid_weight,MoCap_alt64_b21_w176_s29|MoCap_alt64_b30_w208_s52
+8,0,0.6866409153582774,0.6840880196348077,7,19,0.375,0.8345014279502755,318.63157894736844,19,0.0,0.4336253569875689,24,PID,pid_weight,MoCap_alt64_b21_w176_s29|MoCap_alt64_b30_w208_s52

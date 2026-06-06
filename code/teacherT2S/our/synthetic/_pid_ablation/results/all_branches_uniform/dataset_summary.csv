@@ -1,0 +1,2 @@
+﻿dataset,case_count,mean_ARI,mean_NMI,mean_pred_states,mean_segments,total_seconds
+Synthetic,100,0.9195579467837526,0.9067512819465553,5.5,19.03,50369.2814745903

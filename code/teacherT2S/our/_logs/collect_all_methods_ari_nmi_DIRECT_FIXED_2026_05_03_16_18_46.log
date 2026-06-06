@@ -1,0 +1,51 @@
+============================================================
+Collect all methods ARI/NMI - DIRECT PYTHON no-flash FIXED
+Our root      : D:\code\teacherT2S\our
+Baseline root : D:\code\teacherT2S\baseline
+Output dir    : D:\code\teacherT2S\our\_ari_nmi_summary
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Script        : D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_all_methods_ari_nmi_DIRECT_FIXED_2026_05_03_16_18_46.log
+============================================================
+
+[1/3] Checking files... 
+[2/3] Checking Python packages... 
+D:\software\anaconda\envs\multit2s_cuda\python.exe
+pandas import ok
+Python check ok. 
+[3/3] Running collector... 
+[INFO] our_root      : D:\code\teacherT2S\our
+[INFO] baseline_root : D:\code\teacherT2S\baseline
+[INFO] out_dir       : D:\code\teacherT2S\our\_ari_nmi_summary
+[WARN] Excel output failed, CSV files are still available: ModuleNotFoundError("No module named 'openpyxl'")
+
+[DONE] Wrote:
+  D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_main_table.csv
+  D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_file_summary.csv
+  D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_ari_nmi_summary.xlsx
+
+[PREVIEW]
+    method     dataset                        protocol             status win_size step  cases  ARI_mean  NMI_mean
+      Ours   actrectut          final-all-case-results                 ok                   20  0.748117  0.737401
+Time2State   actrectut                   T2S-grid-mean                 ok                  120  0.727012  0.700309
+Time2State   actrectut T2S-fixed-param-from-E2USD-code missing_in_results      128    1      0       NaN       NaN
+      Ours       mocap          final-all-case-results                 ok                    9  0.824648  0.824871
+Time2State       mocap                   T2S-grid-mean                 ok                   54  0.605206  0.685629
+Time2State       mocap T2S-fixed-param-from-E2USD-code                 ok      256   50      9  0.629285  0.715746
+     E2USD       mocap                 E2USD-grid-mean                 ok                   63  0.720837  0.736453
+     E2USD       mocap         E2USD-paper-fixed-param                 ok      256   50     63  0.720837  0.736453
+      Ours      pamap2          final-all-case-results                 ok                    8  0.672746  0.792440
+Time2State pamap2_zero                   T2S-grid-mean                 ok                    8  0.548669  0.698296
+Time2State pamap2_zero T2S-fixed-param-from-E2USD-code                 ok      512  100      8  0.548669  0.698296
+      Ours   synthetic          final-all-case-results                 ok                  100  0.890932  0.876359
+Time2State   synthetic                   T2S-grid-mean                 ok                  600  0.660732  0.775383
+Time2State   synthetic T2S-fixed-param-from-E2USD-code                 ok      256   50    100  0.496697  0.690958
+      Ours     ucr-seg          final-all-case-results                 ok                   32  0.437762  0.457745
+Time2State     ucr-seg                   T2S-grid-mean                 ok                  186  0.297075  0.372629
+Time2State     ucr-seg T2S-fixed-param-from-E2USD-code                 ok      512   50     32  0.377179  0.490902
+      Ours     usc-had          final-all-case-results                 ok                   70  0.681739  0.840637
+Time2State     usc-had                   T2S-grid-mean                 ok                  420  0.577834  0.751324
+Time2State     usc-had T2S-fixed-param-from-E2USD-code                 ok      512   50     70  0.686240  0.821155
+DONE. 
+Main table: D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_main_table.csv 
+Excel: D:\code\teacherT2S\our\_ari_nmi_summary\all_methods_ari_nmi_summary.xlsx 

@@ -1,0 +1,30 @@
+============================================================
+Collect all methods ARI/NMI - DIRECT PYTHON no-flash
+Our root      : D:\code\teacherT2S\our\
+Baseline root : D:\code\teacherT2S\baseline
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Script        : D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_all_methods_ari_nmi_DIRECT_2026_05_03_15_35_38.log
+============================================================
+
+[1/3] Checking files... 
+[2/3] Checking Python packages... 
+D:\software\anaconda\envs\multit2s_cuda\python.exe
+pandas import ok
+Python check ok. 
+[3/3] Running collector... 
+[INFO] our_root      : D:\code\teacherT2S\our" --baseline-root D:\code\teacherT2S\baseline 
+[INFO] baseline_root : D:\code\teacherT2S\our" --baseline-root D:\code\teacherT2S\baseline
+[INFO] out_dir       : D:\code\teacherT2S\our" --baseline-root D:\code\teacherT2S\baseline \_ari_nmi_summary
+[WARN] baseline_root not found: D:\code\teacherT2S\our" --baseline-root D:\code\teacherT2S\baseline
+Traceback (most recent call last):
+  File "D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py", line 554, in <module>
+    raise SystemExit(main())
+  File "D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py", line 536, in main
+    write_outputs(out_dir, main_df, file_df)
+  File "D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py", line 454, in write_outputs
+    out_dir.mkdir(parents=True, exist_ok=True)
+  File "D:\software\anaconda\envs\multit2s_cuda\lib\pathlib.py", line 1175, in mkdir
+    self._accessor.mkdir(self, mode)
+OSError: [WinError 123] 文件名、目录名或卷标语法不正确。: 'D:\\code\\teacherT2S\\our" --baseline-root D:\\code\\teacherT2S\\baseline \\_ari_nmi_summary'
+[ERROR] Collector failed. ErrorLevel=1 

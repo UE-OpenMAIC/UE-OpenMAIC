@@ -1,0 +1,24 @@
+============================================================
+Collect clean formal tables
+Our root      : D:\code\teacherT2S\our
+Baseline root : D:\code\teacherT2S\baseline
+Output dir    : D:\code\teacherT2S\our\_ari_nmi_summary
+Python        : D:\software\anaconda\envs\multit2s_cuda\python.exe
+Collector     : D:\code\teacherT2S\our\collect_all_methods_ari_nmi_summary.py
+Cleaner       : D:\code\teacherT2S\our\split_clean_formal_tables.py
+Log file      : D:\code\teacherT2S\our\_logs\collect_clean_formal_tables_2026_05_09_14_20_44.log
+============================================================
+
+[1/2] Running collector...
+[INFO] our_root      : D:\code\teacherT2S\our
+[INFO] baseline_root : D:\code\teacherT2S\baseline
+[INFO] out_dir       : D:\code\teacherT2S\our\_ari_nmi_summary
+
+[INFO] Collecting Ours...
+
+[INFO] Discovering baseline methods...
+  autoplait -> AutoPlait
+  e2usd -> E2USD
+  t2s -> Time2State
+  ticc -> TICC
+^C

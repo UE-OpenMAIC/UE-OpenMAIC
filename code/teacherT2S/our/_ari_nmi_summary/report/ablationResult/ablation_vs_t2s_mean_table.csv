@@ -1,0 +1,7 @@
+﻿Method,Variant,Avg ARI,Avg NMI,ARI gain vs T2S (%),NMI gain vs T2S (%),Datasets used
+Full method,full_pid,0.7214,0.7631,26.7,14.93,"Synthetic, MoCap, ActRecTut, PAMAP2, UCR-SEG, USC-HAD"
+PID selection + uniform fusion,pid_select_uniform,0.714,0.7571,25.4,14.03,"Synthetic, MoCap, ActRecTut, PAMAP2, UCR-SEG, USC-HAD"
+All branches + uniform fusion,all_branches_uniform,0.6625,0.7188,16.34,8.26,"Synthetic, MoCap, ActRecTut, PAMAP2, UCR-SEG, USC-HAD"
+Peer selection + PID-weighted fusion,peer_select_pid_weight,0.6995,0.7454,22.85,12.26,"Synthetic, MoCap, ActRecTut, PAMAP2, UCR-SEG, USC-HAD"
+Peer fusion w/o PID,no_pid_peer,0.6908,0.7395,21.31,11.38,"Synthetic, MoCap, ActRecTut, PAMAP2, UCR-SEG, USC-HAD"
+Time2State,Time2State,0.5694,0.6639,0.0,0.0,"Synthetic, MoCap, ActRecTut, PAMAP2, UCR-SEG, USC-HAD"

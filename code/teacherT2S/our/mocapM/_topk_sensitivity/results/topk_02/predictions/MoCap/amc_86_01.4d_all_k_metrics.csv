@@ -1,0 +1,2 @@
+﻿K,selected_by_rule,ARI,NMI,n_pred_states,segments,dominant_ratio,balance_entropy,mean_segment_length,segment_count_raw,coherence,selection_score,meta_min_len,branch_select_metric,meta_vote_weight_mode,selected_branch_names
+6,1,0.7938131553304936,0.7792610134947237,5,9,0.5,0.8361598275007012,508.6666666666667,9,1.0,0.6590399568751754,24,PID,pid_weight,MoCap_alt64_b29_w208_s35|MoCap_alt64_b53_w304_s51

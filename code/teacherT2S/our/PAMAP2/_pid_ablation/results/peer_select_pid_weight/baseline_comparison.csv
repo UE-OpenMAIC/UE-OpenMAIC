@@ -1,0 +1,3 @@
+﻿dataset,metric,multi_t2s,paper_Time2State,best_paper_baseline,best_paper_baseline_value,delta_vs_paper_Time2State,delta_vs_best_paper_baseline,beats_paper_Time2State,beats_best_paper_baseline
+PAMAP2,ARI,0.6806471641385508,0.3135,TICC,0.3008,0.36714716413855075,0.37984716413855074,True,True
+PAMAP2,NMI,0.7979973076067315,0.5509,HDP-HSMM,0.5477,0.24709730760673154,0.2502973076067315,True,True

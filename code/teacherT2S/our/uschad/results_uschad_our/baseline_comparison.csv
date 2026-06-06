@@ -1,0 +1,3 @@
+﻿dataset,metric,multi_t2s,paper_Time2State,best_paper_baseline,best_paper_baseline_value,delta_vs_paper_Time2State,delta_vs_best_paper_baseline,beats_paper_Time2State,beats_best_paper_baseline
+USC-HAD,ARI,0.6926393308637456,0.6522,HDP-HSMM,0.4678,0.040439330863745626,0.22483933086374563,True,True
+USC-HAD,NMI,0.8434095901538753,0.8028,HDP-HSMM,0.7219,0.04060959015387533,0.1215095901538753,True,True
