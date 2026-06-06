@@ -326,9 +326,3 @@ If you use this repository, please cite the corresponding paper:
 
 ## Contact
 
-For questions about the code or reproduction materials, please contact:
-
-```text
-Chufei Yan
-yanchufei@nenu.edu.cn
-```
