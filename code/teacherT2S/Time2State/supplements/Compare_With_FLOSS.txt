@@ -1,0 +1,418 @@
+      An Experimental Comparison between Time2State and FLOSS
+
+
+                                  Chengyu Wang, Kui Wu, Tongqing Zhou, Zhiping Cai
+
+
+
+                                                          Abstract
+
+         The objectives of this experimental study include: (1) clarifying confusion and misconceptions, (2) highlight-
+         ing the challenges involved in augmenting FLOSS with state detection capabilities, and (3) comparing the
+         performance of Time2State and (augmented) FLOSS.
+
+
+1     Clarification of Terminologies
+
+In Time2State Wang et al. (2023), we classify related works into two categories: change point detection (CPD) methods and
+time series segmentation (TSS) methods.
+
+1.1   Change Point Detection (CPD)
+
+The term CPD is ambiguous, and its use in Wang et al. (2023) and Gharghabi et al. (2019) carries entirely distinct connotations,
+leading to confusion and misinterpretation.
+In Gharghabi et al. (2019), CPD is defined as “a method for detecting various changes in statistical properties of time series,
+such as the mean, variance or spectral density." In this sense, FLOSS is not considered CPD, but rather a tool for identifying
+the boundary points between semantic segments.
+Conversely, in Wang et al. (2023), “change points" refer specifically to the boundary points between semantic segments, and as
+such, FLOSS and ClaSP Schäfer et al. (2021) are classified as CPD methods. This inconsistent use of terminology in Wang et al.
+(2023) may cause confusion and misunderstanding. To avoid the problem, we will use the term “boundary point detection" in
+place of “change point detection" throughout the remainder of this report.
+In summary, FLOSS and ClaSP are boundary point detection methods.
+
+1.2   Time Series Segmentation (TSS)
+
+The term TSS is also ambiguous, and its use in Wang et al. (2023) and Gharghabi et al. (2019) carries distinct connotations.
+In Gharghabi et al. (2019), TSS refers to methods that divide a time series into semantic segments, with each segment having a
+specific meaning. However, FLOSS only detects the boundary points between these semantic segments, leaving it to humans to
+provide a state label for each segment. As an example, consider the time series shown in Fig. 1. FLOSS detects the boundary
+points between the “NM" segments but cannot determine if they have the same semantic meaning (i.e., the same state) without
+human input. In other words, it depends on humans to label whether or not the first and the second “NW" segments have the
+same semantic meaning.
+In Wang et al. (2023), TSS refers to methods that not only divide a time series into semantic segments but also automatically
+assign a state label to each segment. This automated labeling feature allows the same label to be assigned to the two “NM"
+segments in Fig. 1. This difference explains why FLOSS and ClaSP are not considered TSS in Wang et al. (2023). We refer to
+this automatic labeling capability as “state detection" throughout the following discussion.
+With these distinctions clarified, we can understand the critical difference between FLOSS and Time2State. FLOSS divides a
+time series into semantic segments by detecting boundary points between them but relies on humans to determine if different
+segments share the same state. Time2State, on the other hand, not only divides a time series into semantic segments but also
+automatically labels the state of each segment.
+Therefore, strictly speaking, FLOSS and Time2State are distinct methods. To make FLOSS comparable to Time2State, we need
+to augment it with state detection capabilities.
+
+
+Preprint. Under review.
+Figure 1: An example of semantic segmentation Gharghabi et al. (2019). FLOSS can find out the boundaries between semantic
+segments, but the semantic labels (or states) in the middle are given by humans.
+
+
+1.3   Segment, Regime, and State
+
+In Gharghabi et al. (2019), the authors used the terms “regime" and “state" interchangeably:
+
+         “The height of the Arc Curve should be the lowest at the location of the boundary between the change of
+         regimes/states.” and “Assume we have a system S, which can be in two or more discrete states (or regimes).”
+
+Following the above description, it is clear that regime and segment are distinct concepts in Gharghabi et al. (2019), and
+the phrase “Extracting regimes from the CAC" seems to suggest that FLOSS is capable of identifying states. This may be
+misleading because FLOSS just finds out the boundary points between segments. Of course, if all the states in a time series
+are unique, e.g., a time series of state sequence A, B, C, D, E, finding the boundary points is equivalent to finding the states.
+Nevertheless, if the time series consists of recurring states, e.g., state sequence A, B, C, A, B, A, C, FLOSS cannot find the
+states. It even has difficulties in finding the boundary points without using a parameter temporal constraint:
+
+         “We assume here that the regimes are distinct, for example walk, jog, run. If a regime can be repeated, say
+         walk, jog, walk, our algorithm may have difficulties; that issue will be dealt with in Sect. 3.5."
+
+To further explain why the statements in Gharghabi et al. (2019) are misleading, we quote the content from Gharghabi et al.
+(2019):
+
+        “Our basic regime extracting algorithm requires the user to input k, the number of regimes. This is similar
+        to many popular clustering algorithms, such as k-means, which require the user to input the k number of
+        clusters. Later we will demonstrate a technique to remove the need to specify k, given some training data to
+        learn from (see Sect. 4.3).” and
+        “While this algorithm is obvious and intuitive, for concreteness, we formally outline in Table 2. Note that
+        numRegimes is not a parameter of the segmentation algorithm per se; it is a parameter of our regime
+        extraction algorithm. By analogy, you can build a dendrogram without specifying parameters, but any
+        algorithm to convert it to partitional clusters will always have a parameter. There may be other ways to
+        extract regime; Table 2 just offers a concrete and simple method.”
+
+If we follow the above description, for a time series of state sequence A, B, C, A, B, A, C, the number of regimes (states)
+should be 3. Nevertheless, using k = 3 as input to FLOSS would lead to completely wrong results. To make FLOSS work
+correctly, the input should be k = 6, as shown in Fig. 2. With the help of temporal constraint, FLOSS can identify the boundary
+points, but it cannot know that the first A segment and the fourth A segment belong to the same state. We have not found any
+part of the FLOSS source code that assigns state labels to segments.
+The dataset (UCR-SEG) considered by the authors of Gharghabi et al. (2019) is special. In the UCR-SEG dataset, the
+states/regimes are (nearly) unique, i.e., each state occurs only once and does not recur in each time series, with only one
+
+
+                                                               2
+synthetic time series in the dataset1 as an exception. In this special case, identifying segment boundaries is (nearly) equivalent
+to identifying states.
+
+
+
+
+          (a) The algorithm for extracting regimes in Gharghabi et al. (b) The implementation of the algorithm (http://www.cs.
+          (2019). This figure is borrowed from Gharghabi et al. (2019). ucr.edu/~eamonn/FLOSS/).
+
+                     Figure 2: The pseudo code and implementation of the regime extraction method of FLOSS.
+
+
+2         Augmenting FLOSS for State Detection
+2.1       Generalizing FLOSS to Multi-dimensional Time Series
+
+We have adopted the approach proposed in Gharghabi et al. (2019) for applying FLOSS to multivariate time series data, which
+involves averaging the CAC curves. However, as this step was not included in the original FLOSS code2 , we implemented this
+method ourselves, using the RunSegmentation function defined in the RunSegmentation.m file.
+We also notice that the FLOSS paper mentioned that "Just using two (or some other small subset) of all the dimensions can
+segment the activities much more accurately than either using all dimensions or a single dimension. This can be seen as a
+classic ’goldilocks’ observation, and a similar observation is made in the context of time series classification in (Hu et al.
+2016). This begs the question of which small subset of dimensions to use. We leave such considerations for future work."
+Nevertheless, we have not found an automated way to select channels for better segmentation. We thus simply input all channels
+to FLOSS, just like the same way we treat all other baselines in the Time2State paper.
+
+2.2       Detecting States with Clustering
+
+We follow the same settings used in the Time2State paper to add a clustering component to FLOSS. The clustering component
+is implemented in Python, using the Time Series KMeans3 (TSKMeans) algorithm, which is a standard time series clustering
+method.
+We used euclidean and dtw as the distance measure. When we tested euclidean, we pad shorter segments with zeroes to
+ensure they have the same length, as the segments detected by FLOSS may not have the same length. Note that dtw requires
+downsampling for handling some datasets. This is because (1) the running time of dtw is high if the datasets consist of long
+segments. For example, the running time of dtw on a time series in ActRecTut exceeds 30 minutes; (2) the memory overhead of
+dtw is also high. We encountered a memory allocation error while using dtw on the synthetic dataset. The details of these errors
+are provided in Section B.1.
+We also tested another standard time series clustering method, namely, KShape4 , to cluster the segments found by FLOSS.
+Nevertheless, KShape did not produce meaningful results as KShape simply output an error message “Resumed because of
+empty cluster”.
+
+3         Evaluation
+3.1       Experimental Environment
+
+All experiments are conducted on a machine equipped with a 11th Gen Intel(R) Core(TM) i7-11700K CPU @ 3.60GHz and 64
+GB RAM, running Windows 11 with access to an NVIDIA 3090Ti GPU. The version of Matlab is 2020b.
+      1
+        The dataset includes 32 time series.
+      2
+        The FLOSS implementation used in this study is available at http://www.cs.ucr.edu/~eamonn/FLOSS/
+      3
+        The TSKMeans implementation can be found at https://tslearn.readthedocs.io
+      4
+        The KShape implementation can be found at the same site with TSKMeans
+
+
+                                                                  3
+3.2     Dowmsampling
+
+We need to downsample some large datasets in order to obtain results in a reasonable time. To be specific, PAMAP2 is of
+length 255K∼408K and USC-HAD is of length 25.4K∼56.3K. We thus conduct 2× and 4× downsampling on PAMAP2 and
+USC-HAD, respectively, in order to speed up the experiments. Note that The other datasets have not been downsampled. The
+results reported in the original paper of Time2State come from raw data that has not been downsampled.
+In order to use dtw as the distance measure for clustering on USC-HAD, Synthetic, and ActRecTut, we conducted 5×
+downsampling on these datasets again. These 5× downsampled datasets are only used to evaluate FLOSS+TSKMeans when
+using dtw as the distance measure, because otherwise, we cannot obtain a result even after a long time (e.g., 24 hours).
+
+3.3     Hyperparameter Optimization
+
+3.3.1    FLOSS
+The number of segments (denoted as N), and the number of states (denoted as K) are specified according to the ground
+truth. Step size is set to 3 according to the default setting in the FLOSS code. slWindow (subsequenceLength) is set to 100, 80,
+50, 40, 16 for MoCap, ActRecTut, Synthetic, USC-HAD and PAMAP2. respectively. For PAMAP2, the subsequence length is
+set to 65 in the FLOSS paper (Section 4.8), so we set slWindow to 65/4≈16 on 4× downsampled PAMAP2. Each time series in
+the same dataset shares the same set of hyperparameters as these data come from the same domain.
+The parameters on the UCR-SEG dataset are the same as the original code without any changes. The hyperparameters are
+specified for each time series respectively.
+It is worth mentioning that there might be a bug in the FLOSS source code that prevented us from searching for a better window
+size on these datasets. The details of the bug are described in Section 3.5.
+
+3.3.2    Time2State
+Time2State does not need to specify K and N . Nevertheless, it requires two parameters, namely window size (denoted as w)
+and step size (denoted as s). For each dataset, we adjust the w and s, following the method introduced in Wang et al. (2023).
+
+3.4     Metrics
+
+We use Adjusted Rand Index (ARI) and Normalized Mutual Information (NMI) as the evaluation metrics, which are used for
+evaluating clustering results. ARI and NMI are calculated on the labels of each time point. These metrics intuitively show the
+matching degree and state assignment performance.
+
+3.5     Bug Reoprt
+
+When the value of slWindow exceeds a certain threshold (such as 100 on the USC-HAD dataset), FLOSS generates an error
+that originates from the findLocalMinimums function. This issue is consistently reproducible and occurs on the ActRecTut,
+Synthetic, and USC-HAD datasets. This error has prevented us from further exploring the possibility of improving performance
+on these datasets by adjusting the slWindow to large values.
+
+3.6     Results
+
+3.6.1    State Detection Results
+We implemented a visualization tool for visualizing all results of FLOSS and Time2State. Part of the visualization results
+are displayed in A.1. The visualization results of all time series for FLOSS and Time2State are saved in .png format in figs/
+and figs_Time2State/, respectively. The quantitative results are shown in Fig. 3. Note that we cannot obtain the results for
+FLOSS+TSKMeans using DTW as the distance measure for PAMAP2 dataset due to the long running time. Even if we
+downsampled PAMAP2 by 10×, TSKMeans-dtw did not return any result after 24 hours.
+
+Time2State The performance of Time2State is consistent with that in Wang et al. (2023). It is worth noting that the experiment
+is only conducted once here; the result reported in Wang et al. (2023) is the average of ten independent executions.
+
+FLOSS+TSKMeans For UCR-SEG dataset, FLOSS performs extremely well. This is because for this dataset, N ≈ K (Note
+that K and N are specified according to the ground truth). In this case, each segment has a (roughly) unique state. Our test
+shows that using dtw or euclidean for clustering does not cause any performance differences on UCR-SEG.
+While FLOSS performs well on UCR-SEG, its performance on other datasets is not satisfactory. This might be due to the
+inappropriate setting of slWindow, but the bug reported above prevents us from searching for a more extensive range of
+
+
+                                                               4
+                                                             (a) ARI
+
+
+
+
+                                                             (b) NMI
+
+                               Figure 3: Performances of (Augmented) FLOSS and Time2State
+
+
+slWindow values. Another possible reason may be related to section 4.3 of the FLOSS paper, which involves adding a temporal
+constraint. However, we were unable to locate where to specify the temporal constraint (TC) parameter in the implementation
+code (Time_series_Self_Join_Fast.m). It appears that TC has not been exposed through the FLOSS API.
+In conclusion, FLOSS has the potential for further improvement, but it is necessary to address the bug we reported in Section 3.5
+and provide a way to adjust the TC parameter. We would greatly appreciate the authors of FLOSS’s help in fully realizing
+FLOSS’s potential.
+
+3.6.2   Results in the Presence of Outliers
+
+We further investigate the two methods in the presence of some outliers in the dataset. Time2State is more sensitive to outliers.
+As a case study shown in Fig. 4, Time2State is affected by some outliers (visually) and outputs the subsequences near these
+outliers as new states (the part framed in red boxes). FLOSS, in contrast, is more resilient to the outliers. This resilience comes
+with the help of its input parameter given in advance, i.e., the number of segments.
+The sensitivity to outliers is a double-edged sword: on the one hand, it means the capability of detecting rare states, e.g., the
+states marked in red boxes; on the other hand, it means more work on checking some unwanted state switches, e.g., the state
+marked by the blue box.
+
+
+4   Conclusion and Discussion
+
+Although both FLOSS and Time2State can identify boundary points between semantic segments, their initial design goals and
+solution methodologies make them distinct. FLOSS is specifically designed for detecting segment boundaries, but it relies on
+humans to assign a semantic label (a.k.a. state) to each segment. Time2State is designed for automatic state detection and,
+in the meantime, returns the boundaries between segments. Thus, to make the two methods comparable, we must augment
+FLOSS by clustering the segments found by FLOSS into states.
+Another subtle but critical difference between the two methods is their input parameters. Augmented FLOSS requires the input
+of N and K to work effectively, while Time2State does not need these parameters. This difference makes them suitable for
+different scenarios. Augmented FLOSS is more suitable for homogeneous datasets where the values of N and K apply to each
+time series within the dataset and can be predetermined. On the other hand, Time2State is better suited for heterogeneous
+datasets where each time series may have a different number of segments and states, making a method that doesn’t require the
+definition of N and K more desirable.
+
+
+                                                                5
+                             (a) FLOSS                                               (b) Time2State
+
+Figure 4: Results of FLOSS and Time2Series in the presence of outliers. This time series is from the UCR-SEG dataset, namely,
+WalkJogRun2. On the positive side, Time2State outputs the subsequences near the outliers as new states (the parts framed in red
+boxes). On the negative side, Time2state outputs more boundaries when there are some subtle changes in the raw data, resulting
+in an unwanted state switch (the part framed in the blue box).
+
+
+References
+Shaghayegh Gharghabi, Chin-Chia Michael Yeh, Yifei Ding, Wei Ding, Paul Hibbing, Samuel LaMunion, Andrew Kaplan,
+  Scott E Crouter, and Eamonn Keogh. 2019. Domain agnostic online semantic segmentation for multi-dimensional time
+  series. Data mining and knowledge discovery 33 (2019), 96–130.
+Patrick Schäfer, Arik Ermshaus, and Ulf Leser. 2021. ClaSP - Time Series Segmentation. In Proceedings of the 30th ACM
+  International Conference on Information & Knowledge Management. Association for Computing Machinery, New York, NY,
+  USA, 1578–1587.
+C.Y. Wang, K. Wu, T.Q. Zhou, and Z.P. Cai. June 2023. Time2State: An Unsupervised Framework for Inferring the Latent
+  States in Time Series Data. In ACM SIGMOD.
+
+
+
+
+                                                              6
+A     Appendix
+A.1     Result Visualization
+
+The visualization results of FLOSS and Time2State are as follows. We selected the first time series from each dataset. The
+results of all time series for FLOSS and Time2State are saved in figs/ and figs_Time2State/, respectively.
+
+A.1.1    Results on MoCap
+
+
+
+
+                                      Figure 5: FLOSS+TSKMeans-dtw on MoCap.
+
+
+
+
+                                            Figure 6: Time2State on MoCap.
+
+
+
+
+                                                            7
+A.1.2   Results on Synthetic
+
+
+
+
+                               Figure 7: FLOSS+TSKMeans-dtw on Synthetic.
+
+
+
+
+                                    Figure 8: Time2State on Synthetic.
+
+
+
+
+                                                    8
+A.1.3   Results on ActRecTut
+
+
+
+
+                               Figure 9: FLOSS+TSKMeans-dtw on ActRecTut.
+
+
+
+
+                                    Figure 10: Time2State on ActRecTut.
+
+
+
+
+                                                    9
+A.1.4   Results on PAMAP2
+
+
+
+
+                            Figure 11: FLOSS+TSKMeans-euclidean on PAMAP2.
+
+
+
+
+                                   Figure 12: Time2State on PAMAP2.
+
+
+
+
+                                                 10
+A.1.5   Results on USC-HAD
+
+
+
+
+                             Figure 13: FLOSS+TSKMeans-dtw on USC-HAD.
+
+
+
+
+                                  Figure 14: Time2State on USC-HAD.
+
+
+
+
+                                                 11
+A.1.6   Results on UCR-SEG
+
+
+
+
+                              Figure 15: FLOSS on UCR-SEG.
+
+
+
+
+                             Figure 16: Time2State on UCR-SEG.
+
+
+
+
+                                            12
+ B      Error Information
+ B.1      Error Infromation of TSKMeans with ‘dtw’ as distance measure
+ 1   T r a c e b a c k ( most r e c e n t c a l l l a s t ) :
+ 2   F i l e " c : \ U s e r s \ USER \ D e s k t o p \ Compare_With_FLOSS \ c l u s t e r _ s e g s _ o f _ F L O S S . py " , l i n e 3 8 , i n <module >
+ 3   cluster_on ( dataset )
+ 4   F i l e " c : \ U s e r s \ USER \ D e s k t o p \ Compare_With_FLOSS \ c l u s t e r _ s e g s _ o f _ F L O S S . py " , l i n e 3 2 , i n c l u s t e r _ o n
+ 5   c l u s t e r i n g _ r e s u l t = c l u s t e r _ s e g s ( data , found_cps= cps_json [ file_name ] , n _ s t a t e s =num_states )
+ 6   F i l e " c : \ U s e r s \ USER \ D e s k t o p \ Compare_With_FLOSS \ m i n i u t i l s . py " , l i n e 7 3 , i n c l u s t e r _ s e g s
+ 7   t s _ k m e a n s = TimeSeriesKMeans ( n _ c l u s t e r s = n _ s t a t e s , m e t r i c = ’ dtw ’ ) . f i t ( s e g m e n t s )
+ 8   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ c l u s t e r i n g \ kmeans . py " , l i n e 7 8 0 , i n f i t
+ 9   s e l f . _ f i t _ o n e _ i n i t ( X_ , x _ s q u a r e d _ n o r m s , r s )
+10   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ c l u s t e r i n g \ kmeans . py " , l i n e 6 6 5 , i n _ f i t _ o n e _ i n i t
+11   s e l f . _ u p d a t e _ c e n t r o i d s (X)
+12   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ c l u s t e r i n g \ kmeans . py " , l i n e 7 1 3 , i n _ u p d a t e _ c e n t r o i d s
+13   self . cluster_centers_ [k] = dtw_barycenter_averaging (
+14   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ b a r y c e n t e r s \ dba . py " , l i n e 4 9 8 , i n d t w _ b a r y c e n t e r _ a v e r a g i n g
+15   bary , l o s s = d t w _ b a r y c e n t e r _ a v e r a g i n g _ o n e _ i n i t (
+16   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ b a r y c e n t e r s \ dba . py " , l i n e 5 9 1 , i n d t w _ b a r y c e n t e r _ a v e r a g i n g _ o n e _ i n i t
+17   diag_sum_v_k , l i s t _ w _ k = _ m m_ v al e nc e _w a rp i ng ( l i s t _ p _ k , b a r y c e n t e r _ s i z e ,
+18   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ b a r y c e n t e r s \ dba . py " , l i n e 3 0 3 , i n _m m _v a le n ce _ wa r pi n g
+19   list_v_k , list_w_k = _subgradient_valence_warping (
+20   F i l e "D : \ Anaconda3 \ e n v s \ ml \ l i b \ s i t e − p a c k a g e s \ t s l e a r n \ b a r y c e n t e r s \ dba . py " , l i n e 2 6 0 , i n _ s u b g r a d i e n t _ v a l e n c e _ w a r p i n g
+21   w_k = numpy . z e r o s ( ( b a r y c e n t e r _ s i z e , s z _ k ) )
+22   numpy . c o r e . _ e x c e p t i o n s . MemoryError : U n a b l e t o a l l o c a t e 1 . 8 2 GiB f o r an a r r a y w i t h s h a p e ( 1 5 6 5 0 , 1 5 6 5 0 ) and d a t a t y p e f l o a t 6 4
+
+
+
+
+ B.2      Error Information of KShape
+ 1   Resumed b e c a u s e o f empty c l u s t e r
+
+
+
+
+                                                                                                                      13
+

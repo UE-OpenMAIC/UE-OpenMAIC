@@ -1,1 +1,2 @@
 baseline/autoplait/pamap2/results_autoplait_pamap2/inputs/PAMAP2_zero_subject*.txt filter=lfs diff=lfs merge=lfs -text
+code/teacherT2S/Time2State/TSpy/old/input.mp4 filter=lfs diff=lfs merge=lfs -text

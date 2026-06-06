@@ -1,0 +1,18 @@
+Time2State: An Unsupervised Framework for Inferring the Latent
+                  States in Time Series Data
+
+PARAMETER STUDY
+
+
+
+
+            (a) USC-HAD                           (b) MoCap                            (c) ActRecTut
+
+
+
+
+            (d) UCR-SEG                          (e) Synthetic                         (f) PAMAP2
+
+
+               Figure 1: The effect of 𝑀 (# inter-state samples) and 𝑁 (# intra-state samples).
+

@@ -1,0 +1,201 @@
+﻿video_id,asr_txt,text_start_sec,text_end_sec,text_mid_sec,text_duration_sec,text,stage,stage_start_sec,stage_end_sec,marker_skip_ratio,marker_mid_type,dropped_by_marker
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,0.0,0.68,0.34,0.68,上课,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,3.66,9.58,6.62,5.92,听声儿的啊同学们好老师好请坐,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,283.94,291.94,287.94,8.0,那因为两只手它接触的就是在手心那我们总结一下换,未知阶段,,,0.2604166666666667,none,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,333.72,341.52,337.62,7.7999999999999545,什么状态静止的因为它没动那然后它这个这个我推迟的静止状态和他,未知阶段,,,0.1702127659574468,none,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,346.2,350.74,348.47,4.5400000000000205,都是静止的哪不一样啊他没运动,未知阶段,,,0.3888888888888889,none,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,807.9,809.22,808.56,1.32000000000005,冰壶吧,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,930.1,938.04,934.0699999999999,7.939999999999941,那个摩擦力分类分哪三种来的静摩擦力滑动摩擦力滚动摩,未知阶段,,,0.6421052631578947,blue,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,938.04,945.96,942.0,7.920000000000073,擦力两个线这三个摩擦力分别是阻碍相对运动,未知阶段,,,0.17894736842105263,green,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,945.96,952.12,949.04,6.159999999999968,趋势还是阻碍相对运动第一个静摩擦力阻碍相对运动趋势,未知阶段,,,0.35135135135135137,green,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,954.76,960.22,957.49,5.460000000000036,好吧第二个滑动摩擦力阻碍相对运动,未知阶段,,,0.4307692307692308,green,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,965.48,970.6,968.04,5.1200000000000045,那第三个阻碍相对运动哎,未知阶段,,,0.6774193548387096,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1115.8,1123.72,1119.76,7.920000000000073,这样不能说半点是啊说明什么最大劲摩擦力大于,未知阶段,,,0.43157894736842106,none,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1123.72,1125.88,1124.8000000000002,2.160000000000082,滑动摩擦力,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1304.46,1312.22,1308.3400000000001,7.759999999999991,这时候如果没有摩擦力或者摩擦力太小就像下雪天结冰的地面人,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1312.22,1314.54,1313.38,2.3199999999999363,会不停滑倒而无法行动,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1828.82,1836.78,1832.8,7.960000000000036,登冰脚的鞋底为橡胶制成是为了增大摩擦力防止运动员在登,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1836.78,1844.6,1840.69,7.819999999999936,冰鼓的时候摔倒然后滑行脚的鞋底为塑料制成是为了减小摩擦力方便用这个在,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1844.6,1852.46,1848.53,7.860000000000127,冰上滑行滑行这样的话它可以把这个冰壶送的更远一些是吧好请坐,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1852.46,1859.18,1855.8200000000002,6.720000000000027,其他小组是不是有没有其他答案或者是不同的见解没有,未知阶段,,,0.49382716049382713,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1868.0,1875.86,1871.9299999999998,7.8599999999999,讨论题呢是一个发散思维的题当你们我给的建,未知阶段,,,0.5684210526315789,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,1875.86,1883.52,1879.69,7.660000000000082,议啊当你们讨论出来一点的时候立刻就有人在纸上赶紧记录下来到时候看咱,未知阶段,,,0.40217391304347827,none,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,2322.28,2326.12,2324.2,3.8399999999996908,这个小短片他给我们简单的介绍了一下啊,未知阶段,,,0.6086956521739131,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,2336.68,2344.26,2340.4700000000003,7.580000000000382,就算车轮转得飞快汽车也还是停留在原地不会往前走我们甚至不能走路了,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,2344.86,2352.52,2348.69,7.6599999999998545,因为走路也需要摩擦力如果没有了摩擦力人还能不能往前走呢当然不能,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,2352.52,2358.78,2355.65,6.260000000000218,所以生活中可不能没有摩擦力它的作用本是非常大好了,未知阶段,,,1.0,red,1
+12/12,D:\code\teacherT2S\yolo\surprisal_batch_output\12\12\asr_segments_editable.txt,2362.6,2368.86,2365.73,6.260000000000218,"好好, 那我们这堂课呢, 主要来学习的是三个问题。",未知阶段,,,0.16,green,1
+23/23,D:\code\teacherT2S\yolo\surprisal_batch_output\23\23\asr_segments_editable.txt,0.0,7.96,3.98,7.96,上课老师们好同学们好请坐老师昨天给大家布置了,未知阶段,,,0.2916666666666667,none,1
+23/23,D:\code\teacherT2S\yolo\surprisal_batch_output\23\23\asr_segments_editable.txt,7.96,15.66,11.81,7.7,一个任务让大家回去之后找一找生活中的百分数大家都找了吗找了老师,未知阶段,,,0.17391304347826086,none,1
+23/23,D:\code\teacherT2S\yolo\surprisal_batch_output\23\23\asr_segments_editable.txt,93.25999999999999,100.4,96.83,7.140000000000015,好请你来说就是手机已经充的电量是电池总容量的 44 %,未知阶段,,,0.9411764705882353,blue,1
+23/23,D:\code\teacherT2S\yolo\surprisal_batch_output\23\23\asr_segments_editable.txt,785.92,788.66,787.29,2.740000000000009,下课老师再见,未知阶段,,,0.5,none,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,30.0,31.36,30.68,1.3599999999999994,准备好了吗?,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,31.58,34.1,32.84,2.520000000000003,预备开始,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,35.0,42.92,38.96,7.920000000000002,摸摸你的小脚哆哆哆哆摸摸你的膝盖,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,50.92,58.48,54.7,7.559999999999995,你的小腰发发发发拍拍你的双手梭梭梭梭,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,66.08,74.06,70.07,7.980000000000004,高举你的双手哆哆哆哆,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,81.96000000000001,89.92,85.94,7.959999999999994,哆 请同学们坐下 同学们身体都活动开了吗那么接下,未知阶段,,,0.3125,none,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,222.2,229.78,225.99,7.5800000000000125,小雨小雨沙沙沙沙沙沙种子种子在说话在说话哎呀呀我要出土哎呦呦我要长大,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,401.0,402.32,401.65999999999997,1.3199999999999932,准备好了吗,未知阶段,,,0.25,none,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,403.38,410.94,407.15999999999997,7.560000000000002,小雨小雨沙沙沙沙沙沙小雨,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,410.94,418.56,414.75,7.6200000000000045,小雨沙沙沙沙沙沙种子种子在说话,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,418.56,426.52,422.53999999999996,7.9599999999999795,在说话哎呀呀哎呀呀雨水真甜哎呦呦小雨真甜哎呦呦我要发芽我要发芽,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,494.74,500.44,497.59000000000003,5.699999999999989,请同学们边唱边思考怎么给这首歌加上动作,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,500.44,505.72,503.08000000000004,5.28000000000003,这会现在就开始动一动,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,521.74,529.58,525.6600000000001,7.840000000000032,我看到很多同学的动作都非常的有趣老师也给大家准备了一套运动动作,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,529.58,533.16,531.37,3.5799999999999272,大家站起来跟老师一起学一学好不好,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,538.72,541.36,540.04,2.6399999999999864,准备好了吗我们开始了,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,555.96,563.56,559.76,7.599999999999909,小雨小雨沙沙沙沙沙沙种子种子在说话在说话哎呀呀雨水真甜哎呦呦我要发芽,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,652.02,659.96,655.99,7.940000000000055,请大家坐下我们的女生组表现得真好呀接下来到我们的男生组了请男生们站起,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,659.96,660.14,660.05,0.17999999999994998,来,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,661.1,662.06,661.5799999999999,0.9599999999999227,准备好了吗,未知阶段,,,1.0,blue,1
+24/24,D:\code\teacherT2S\yolo\surprisal_batch_output\24\24\asr_segments_editable.txt,663.9,665.5,664.7,1.6000000000000227,我们要开始了	小雨小雨沙沙沙沙沙沙种子种子在说话在说话哎呀呀雨水真甜哎呦呦我要发芽,未知阶段,,,1.0,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,15.78,23.74,19.759999999999998,7.959999999999999,的这是鲁迅先生说的对这句话是鲁迅先生说的那同学们对于鲁迅先生了解多少,未知阶段,,,0.23157894736842105,none,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,23.74,31.72,27.729999999999997,7.98,呢谁来说一说你来说鲁迅先生原名周树人字豫才浙江绍兴人你知道,未知阶段,,,0.6145833333333334,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,39.0,46.88,42.94,7.880000000000003,请你来鲁迅先生是我国伟大的文学家思想家革命家鲁迅先生是我国伟大的,未知阶段,,,0.5578947368421052,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,71.18,79.14,75.16,7.959999999999994,49 年 10 月 19 日是鲁迅先生逝世 13 周年纪,未知阶段,,,0.9052631578947369,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,79.14,86.92,83.03,7.780000000000001,念日当时全国各地人民第一次公开隆重的开展了各种纪念活动,未知阶段,,,1.0,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,86.92,94.7,90.81,7.780000000000001,现代著名诗人臧克家亲自参加了首都人民的纪念活动瞻仰了鲁,未知阶段,,,1.0,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,94.7,102.7,98.7,8.0,迅故居诗人对着这遗迹回忆鲁迅的一生心里感慨万分便,未知阶段,,,1.0,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,102.7,110.47999999999999,106.59,7.779999999999987,于 11 月 1 日写了这首诗此诗自发表以来一直受到读者喜爱,未知阶段,,,1.0,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,110.47999999999999,118.14,114.31,7.660000000000011,广为流传接下来就让我们一起来读这一首广为流传的诗歌,未知阶段,,,0.2608695652173913,none,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,259.1,266.8,262.95000000000005,7.699999999999989,你来说一种是欺压人民的人一种是为人民做贡献的人一种是欺压人民,未知阶段,,,0.7934782608695652,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,287.24,294.9,291.07,7.659999999999968,谁能来好请你来第一第一种人虽生犹死第二种是虽死虽,未知阶段,,,0.7391304347826086,blue,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,294.9,302.52,298.71,7.6200000000000045,死犹生同学们赞同他的观点吗赞同第一种人是虽生犹死,未知阶段,,,0.20652173913043478,none,1
+27/27,D:\code\teacherT2S\yolo\surprisal_batch_output\27\27\asr_segments_editable.txt,806.3,811.76,809.03,5.460000000000036,自己写的作文这节课就上到这里下课老师再见,未知阶段,,,0.19696969696969696,none,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,2.42,6.26,4.34,3.84,老师好同学们好请坐,未知阶段,,,0.8043478260869565,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,214.12,221.78,217.95,7.659999999999997,那么大家思考它是哪个类型二位二统幻想法,未知阶段,,,0.3804347826086957,none,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,224.54,227.42000000000002,225.98000000000002,2.880000000000024,二位五筒幻象法,未知阶段,,,0.8,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,229.64,232.72,231.18,3.0800000000000125,三位四筒幻象法,未知阶段,,,0.7837837837837838,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,333.26,335.38,334.32,2.1200000000000045,"好, 大家复杂了, 非常好。",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,353.78,360.02,356.9,6.240000000000009,李国峰一路有两个幻想法那你能告诉我哪个是幻想法吗,未知阶段,,,0.30666666666666664,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,363.14,370.82,366.98,7.680000000000007,"这个和这个这个是二维四通电磁外环, 这是二维二通激动外环。",未知阶段,,,1.0,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,370.98,372.42,371.70000000000005,1.4399999999999977,"好, 回答得非常好。",未知阶段,,,1.0,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,381.98,386.2,384.09000000000003,4.21999999999997,"新加坡。 对对对, 三维三通的幻想法。",未知阶段,,,0.5686274509803921,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,386.6,387.48,387.04,0.8799999999999955,"好, 请坐。",未知阶段,,,1.0,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,388.52,391.42,389.97,2.900000000000034,"三维三通, 三维二通的幻想法。",未知阶段,,,1.0,blue,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,391.42,396.1,393.76,4.680000000000007,好请坐一个幻想法不过有两个类型,未知阶段,,,0.3392857142857143,none,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,405.56,413.5,409.53,7.939999999999998,每个方格里的几乎不一样好请坐它每个方格里的点数不一样第一个是,未知阶段,,,0.5833333333333334,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,465.72,467.08,466.4,1.3599999999999568,大家看我画得对吗?,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,468.68,470.2,469.44,1.5199999999999818,画得很正确,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,472.46,475.65999999999997,474.05999999999995,3.1999999999999886,下面我们要了解实验室的幻想法,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,476.84000000000003,478.92,477.88,2.079999999999984,大家看桌面上的幻想法,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,479.92,482.74,481.33000000000004,2.819999999999993,每个小组都告诉我们它叫什么名字,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,502.56,506.3,504.43,3.740000000000009,"好, 大家現在再仔細看劉鋒想法",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,507.58,512.72,510.15,5.140000000000043,"劉鋒裡我沒有提及到的小明哥, 小明哥, 小明哥小明哥, 小明哥",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,514.78,522.74,518.76,7.960000000000036,四个角上分别有 AB TT 四个字母大家注意这个电,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,522.74,530.6,526.6700000000001,7.860000000000014,磁换向法非常的重所以大家一定要安装的时候注意安全那么 AB 是必须连,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,530.6,538.22,534.4100000000001,7.6200000000000045,接压缸的 P 必须连接压缸 T 必须连接回油口,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,538.22,545.42,541.8199999999999,7.199999999999932,那么现在大家把混相法安装在线台上,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,594.96,597.52,596.24,2.5599999999999454,中文字幕李宗盛,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,610.64,611.12,610.88,0.4800000000000182,"好,",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,613.12,618.74,615.9300000000001,5.6200000000000045,大家都给你体验结束了那么现在一二组互相检查三组互相检查,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,626.96,630.14,628.55,3.17999999999995,"主要看 A, B, D, D 连接的对不对",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,637.16,639.26,638.21,2.1000000000000227,"都对吗对好,",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,640.44,643.84,642.1400000000001,3.3999999999999773,那大家回到回来的位置大家把它拆下来,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,673.54,675.4,674.47,1.8600000000000136,"完成後, 可以回到座位上。",未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,686.12,689.12,687.62,3.0,这节课我们都学习了什么,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,692.96,699.2,696.08,6.240000000000009,这节课有一个任务,未知阶段,,,1.0,red,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,700.12,707.78,703.95,7.659999999999968,"首先是大家画中幻象还有分类和图形符号第二个, 我们要查找关于物业森的",未知阶段,,,0.29347826086956524,none,1
+3/3,D:\code\teacherT2S\yolo\surprisal_batch_output\3\3\asr_segments_editable.txt,712.86,716.62,714.74,3.759999999999991,老师再见你们再见,未知阶段,,,1.0,red,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,100.38,108.36,104.37,7.980000000000004,"好, 先第一位同学你来说你找到的颜色是我找到的颜色有灰然后苍苍应该是白色",未知阶段,,,0.4791666666666667,none,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,108.36,116.24000000000001,112.30000000000001,7.88000000000001,"然后十指黑, 黑色只用回答一个就可以了你自己来说一说你找到的尘灰看到了一位怎样的老",未知阶段,,,0.32978723404255317,none,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,116.24000000000001,123.88,120.06,7.639999999999986,翁一个下层劳动劳动者劳动者的一个形象是的就是他面如尘土色那第二位同学你找到的是,未知阶段,,,0.4673913043478261,blue,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,123.88,125.86,124.87,1.980000000000004,我找到的是苍苍,未知阶段,,,0.7083333333333334,blue,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,126.9,134.78,130.84,7.8799999999999955,诶苍苍说明这是一位怎样的老翁呀一位年岁已长的对头发花白年迈衰老的老翁第三,未知阶段,,,0.24210526315789474,blue,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,134.78,141.07999999999998,137.93,6.299999999999983,位同学你找到的是我找到的是那个哦是,未知阶段,,,0.7333333333333333,blue,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,141.07999999999998,148.98,145.02999999999997,7.900000000000006,两鬓苍苍十指黑他那个还有那个炭也是黑的因为炭,未知阶段,,,1.0,blue,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,148.98,156.2,152.58999999999997,7.219999999999999,在院前然后炭把他的十指染得非常的黑好你找到的是十指黑里面的黑色那下一位同学呢,未知阶段,,,0.47126436781609193,none,1
+34/34,D:\code\teacherT2S\yolo\surprisal_batch_output\34\34\asr_segments_editable.txt,310.12,317.88,314.0,7.759999999999991,终南山在秦岭山脉在长安城外很好你关注到了注释所以这里的南山就是我们,未知阶段,,,0.4838709677419355,blue,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,0.0,2.44,1.22,2.44,老师好,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,3.32,4.88,4.1,1.56,"同学们好, 请坐",未知阶段,,,0.3684210526315789,green,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,14.3,22.12,18.21,7.82,"我们学过有油箱、 助力器、 压动、 单向炮、 幻象炮和液压缸嗯, 好, 回答得非常全面, 请",未知阶段,,,0.9468085106382979,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,22.12,22.36,22.240000000000002,0.23999999999999844,坐,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,45.94,53.64,49.79,7.700000000000003,"请我们掺了斗杆的动力好, 请坐本节课我们的任务就是连接挖掘",未知阶段,,,0.5978260869565217,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,81.72,89.46000000000001,85.59,7.740000000000009,一是换项码二是单项码三是压缝四是过温器五是油箱六是液压杆,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,89.46000000000001,93.8,91.63,4.339999999999989,好情况回答得非常的好下面我们进行流露分析,未知阶段,,,0.46153846153846156,none,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,168.6,175.02,171.81,6.420000000000016,栏目,未知阶段,,,0.6363636363636364,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,201.72,209.34,205.53,7.6200000000000045,"好, 請兩位同學先以涵蓋宿我们组要实验的是斗杆的缩回由 Y 4 失电",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,210.26,218.24,214.25,7.980000000000018,进油路由油箱经过过滤器在过滤器经过液压缝然后由液压缝经过单向阀单向阀,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,218.24,225.96,222.10000000000002,7.719999999999999,经过换向阀换向阀之后流入液压缝上枪然后这是回油路由液压缝,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,225.96,233.4,229.68,7.439999999999998,下枪经过换向阀最后回到油箱我们组实验的是头发的伸出,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,233.4,241.4,237.4,8.0,"Y 4 得电, 流向到过滤器, 到液氧棒, 到氮氧阀, 再到过氧阀, 最后到液氧",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,241.4,243.5,242.45,2.0999999999999943,"缸下降, 这是进入路径。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,243.64,248.04,245.83999999999997,4.400000000000006,"回入路径是液氧缸上降, 到过氧阀, 最后回到流向。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,248.44,251.36,249.9,2.920000000000016,"好, 感谢两位同学的精彩分析。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,278.04,281.68,279.86,3.6399999999999864,"在实验台进行连接之前, 我要进行温情提示。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,281.94,287.84000000000003,284.89,5.900000000000034,"第一, 拿到油管时, 一定要使浮口朝上避免油液歪漏。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,287.84000000000003,293.86,290.85,6.019999999999982,"第二, 物品要轻拿轻放, 避免砸伤自己及其他人。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,294.04,294.62,294.33000000000004,0.5799999999999841,"第三,",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,295.5,302.28,298.89,6.779999999999973,"拆卸物品时, 一定要将其物归原处, 培养良好的企业意识。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,302.72,304.12,303.42,1.3999999999999773,比赛开始!,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,346.24,347.56,346.9,1.3199999999999932,中文字幕李宗盛,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,369.46,376.78,373.12,7.319999999999993,请不吝点赞订阅转发打赏支持明镜与点点栏,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,376.78,377.6,377.19,0.82000000000005,目,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,380.5,385.08,382.78999999999996,4.579999999999984,"第一小組率先完成任務, 讓我們一起來驗證它的迴路連接。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,400.74,405.26,403.0,4.519999999999982,"迴路連接完全正確, 現在請各小組分別進行驗證。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,435.3,437.82,436.56,2.519999999999982,中文字幕李宗盛,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,466.26,467.78,467.02,1.5199999999999818,中文字幕 —— Y K,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,537.68,545.58,541.63,7.900000000000091,"传导, 文化皆是白色, 这一传导可以做四十六倍, 重量相当于一百一",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,545.58,547.22,546.4000000000001,1.6399999999999864,十分放暖水的水稻。,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,554.02,561.52,557.77,7.5,"油缸排氣伸縮, 車上的漆白的液壓油管, 都要吸附座, 噴灰油量, 控制速度,",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,561.62,568.1,564.86,6.480000000000018,"通常小分裂的馬蹄器, 只有一張油門, 但這台, 有 21 個。",未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,569.46,576.8,573.13,7.339999999999918,有理论的反对应正教育你因为这个情况引致了一场四空八卦的事情发生,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,576.8,583.22,580.01,6.420000000000073,控制性的突破让中国掌握了超大的美丽亚马逊级的制造机制,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,584.62,590.16,587.39,5.539999999999964,通过观看视频同学们听到和看到了什么呢,未知阶段,,,0.8636363636363636,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,591.68,595.88,593.78,4.2000000000000455,你观看这是一台夜夜玩游戏好请坐还有吗,未知阶段,,,0.74,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,598.16,603.06,600.6099999999999,4.899999999999977,"有 21 个愣, 对我杠, 700 元的货好, 请坐还有吗?",未知阶段,,,0.4406779661016949,blue,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,605.3,613.26,609.28,7.960000000000036,"它是中国巨大的万物好, 请坐这是咱们中国的骄傲现在的中国已经进入了",未知阶段,,,0.25,none,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,644.3,646.16,645.23,1.8600000000000136,老师再见,未知阶段,,,1.0,red,1
+4/4,D:\code\teacherT2S\yolo\surprisal_batch_output\4\4\asr_segments_editable.txt,648.12,648.8,648.46,0.67999999999995,请坐,未知阶段,,,1.0,red,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,25.92,33.86,29.89,7.939999999999998,"洞下槽村位于恩施土家族苗族自治州中部在神秘的北纬 30 度附近, 地处武陵",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,33.86,37.3,35.58,3.4399999999999977,"山腹地, 在这里大量种植了恩施玉露。",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,38.32,45.98,42.15,7.659999999999997,"恩施玉露香气馥郁持久, 滋味鲜爽甘醇, 汤色明亮稳定, 深受消费者喜爱。",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,46.24,49.6,47.92,3.3599999999999994,"至今, 洞下槽村累计发展茶叶 1.",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,49.78,52.58,51.18,2.799999999999997,"1 万亩, 年收入近 6 000 万元。",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,52.58,60.48,56.53,7.899999999999999,该村拥有茶叶企业两家茶叶专业合作社五家带动全村 800 户以上农户年均增,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,60.48,64.18,62.33,3.70000000000001,收 2 万元以上全村人民吃上了茶叶饭,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,163.98,171.4,167.69,7.420000000000016,"土壤是偏酸性嗯土壤是偏酸性还有吗还有降水充足, 水源丰富",未知阶段,,,1.0,red,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,171.4,178.18,174.79000000000002,6.780000000000001,哦水源丰富然后气候比较适宜气候适宜还有,未知阶段,,,1.0,red,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,339.65999999999997,347.62,343.64,7.960000000000036,有利的条件有比如说他这个福利政策支持还有种地经验非常丰富不利的,未知阶段,,,0.90625,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,347.62,354.86,351.24,7.240000000000009,条件的话他交通条件比较不好再加上人口劳动力流失比较严重嗯劳动力流失比较严重,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,388.66,396.58,392.62,7.919999999999959,杭州市用心、 用情、 用力对口支援恩施州围绕资金、 项目、 就业、 人才变,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,396.58,401.4,398.99,4.819999999999993,输血式扶贫为造血式扶贫助力恩施实现高质量发展,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,402.36,410.26,406.31,7.899999999999977,杭州号称中国茶都在如何树立品牌发展茶产业这方面都有丰富的经验除了茶产业在,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,410.26,418.1,414.18,7.840000000000032,电商方面杭州也是国内数一数二的这些优势就像专门给恩施开了一列快车一边把杭州茶,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,418.1,425.98,422.04,7.8799999999999955,产业先进的种植管理和品牌运营的经验输送到恩施本地一边让恩施茶业搭着专列走出大,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,425.98,433.94,429.96000000000004,7.9599999999999795,山在提升恩施种茶产茶水平这方面杭州在恩施有一定基础条件的地方投入大量资金建,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,433.94,441.78,437.86,7.839999999999975,"设大宗茶出口茶基地用标准化订单的方式提升当地茶的生产水平在杭州, 茶都名园,",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,441.86,449.7,445.78,7.839999999999975,"还专门设立了恩施茶品牌的展示展销中心, 在这里向全世界宣传恩施硒茶品牌, 帮助恩施",未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,449.7,454.15999999999997,451.92999999999995,4.4599999999999795,扩大消费市场。 有没有哪个同学看完这个材料有所感悟的?,未知阶段,,,1.0,blue,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,454.86,456.24,455.55,1.3799999999999955,"好, 安国东同学。",未知阶段,,,0.4375,none,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,456.88,463.42,460.15,6.5400000000000205,"恩施出现给恩施茶业带来了发展的机遇, 然后第二个是它的品牌效应。",未知阶段,,,1.0,red,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,463.5,466.0,464.75,2.5,"对, 品牌效应。 第三个是有大量资金的支持。",未知阶段,,,1.0,red,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,466.26,468.14,467.2,1.8799999999999955,谁给它资金支持的? 国家。,未知阶段,,,1.0,red,1
+44/44,D:\code\teacherT2S\yolo\surprisal_batch_output\44\44\asr_segments_editable.txt,468.14,476.06,472.1,7.920000000000016,杭州对不对杭州还有吗没有了嗯那其实视频中是不是还提到了杭州还引进了先进的技,未知阶段,,,0.42105263157894735,none,1
+46/46,D:\code\teacherT2S\yolo\surprisal_batch_output\46\46\asr_segments_editable.txt,144.6,146.24,145.42000000000002,1.6400000000000148,请这位同学回答一下,未知阶段,,,0.2631578947368421,none,1
+46/46,D:\code\teacherT2S\yolo\surprisal_batch_output\46\46\asr_segments_editable.txt,148.44,149.32,148.88,0.8799999999999955,有衣藻,未知阶段,,,1.0,red,1
+46/46,D:\code\teacherT2S\yolo\surprisal_batch_output\46\46\asr_segments_editable.txt,150.12,152.66,151.39,2.539999999999992,对衣藻还有吗草履虫,未知阶段,,,1.0,red,1
+46/46,D:\code\teacherT2S\yolo\surprisal_batch_output\46\46\asr_segments_editable.txt,153.52,154.8,154.16000000000003,1.2800000000000011,大肠杆菌,未知阶段,,,1.0,red,1
+46/46,D:\code\teacherT2S\yolo\surprisal_batch_output\46\46\asr_segments_editable.txt,158.78,162.46,160.62,3.680000000000007,好请坐这位同学刚才说到衣藻,未知阶段,,,0.9545454545454546,red,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,23.34,27.72,25.53,4.379999999999999,"对, 都是光合作用那现在有没有同学能够回想起光合作用的原理呢绿色植物通利用光能将二氧化碳和水转化成有机物质嗯很好还有氧气",未知阶段,,,0.5576923076923077,red,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,100.56,105.36,102.96000000000001,4.799999999999997,源会有哪几种可能呢二氧化碳水,未知阶段,,,0.4482758620689655,none,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,106.8,108.53999999999999,107.66999999999999,1.7399999999999949,还有没有别的情况呢,未知阶段,,,0.2857142857142857,none,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,489.3,490.58,489.94,1.2799999999999727,6,未知阶段,,,1.0,red,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,498.46,506.44,502.45,7.980000000000018,能之后可以把水转化成氧气和还原氢然后并释放能量过程很好那其实呢,未知阶段,,,1.0,red,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,506.44,509.08,507.76,2.6399999999999864,我们这里应该修改一下,未知阶段,,,1.0,red,1
+49/49,D:\code\teacherT2S\yolo\surprisal_batch_output\49\49\asr_segments_editable.txt,510.56,512.02,511.28999999999996,1.4599999999999795,就是这样一个过程,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,257.04,260.0,258.52,2.9599999999999795,"首先, 用镊子夹取棉花, 将其塞入试管中",未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,260.0,268.88,264.44,8.879999999999995,拿取玻璃棒将其推至试管底部,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,271.6,274.32,272.96000000000004,2.7199999999999704,在试管底部放一个干燥的棉花团,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,281.94,285.94,283.94,4.0,再将这个棉花团滴加水使它湿润,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,287.48,289.48,288.48,2.0,注意水不能加的太多,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,305.98,309.16,307.57000000000005,3.180000000000007,将适量的铁粉放入湿棉花的右侧,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,315.7,320.52,318.11,4.819999999999993,倾斜试管,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,329.34,337.34000000000003,333.34000000000003,8.000000000000057,同学们注意这里它在酒精灯外套了一个金属网罩目的呢是提高反应温度营,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,337.34000000000003,338.58,337.96000000000004,1.2399999999999523,造一个高温的条件,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,344.4,345.94,345.16999999999996,1.5400000000000205,先进行预热,未知阶段,,,1.0,red,1
+51/51,D:\code\teacherT2S\yolo\surprisal_batch_output\51\51\asr_segments_editable.txt,361.94,363.68,362.81,1.740000000000009,注意观察现象,未知阶段,,,1.0,red,1
+53/53,D:\code\teacherT2S\yolo\surprisal_batch_output\53\53\asr_segments_editable.txt,0.5,8.42,4.46,7.92,"俗话说呀, 人往高处走, 水往低处流那同学们有没有见过悬浮在空中的",未知阶段,,,1.0,blue,1
+53/53,D:\code\teacherT2S\yolo\surprisal_batch_output\53\53\asr_segments_editable.txt,8.42,13.28,10.85,4.859999999999999,"液体呢? 老师啊, 最近学了一个魔术下面就给大家表演一下",未知阶段,,,1.0,blue,1
+53/53,D:\code\teacherT2S\yolo\surprisal_batch_output\53\53\asr_segments_editable.txt,14.5,20.04,17.27,5.539999999999999,"这是一个普通的玻璃杯现在呢, 老师向其中加满水",未知阶段,,,0.7611940298507462,blue,1
