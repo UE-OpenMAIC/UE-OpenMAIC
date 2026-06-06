@@ -1,0 +1,16 @@
+{
+  "total_cases": 9,
+  "ok_cases": 9,
+  "failed_cases": 0,
+  "repo_root": "D:\\code\\teacherT2S",
+  "data_root": "D:\\code\\teacherT2S\\Time2State\\data",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\clasp\\mocap\\results_clasp_mocap",
+  "datasets_requested": [
+    "mocap"
+  ],
+  "this_run_cases": 9,
+  "this_run_ok": 9,
+  "this_run_failed": 0,
+  "total_seconds_this_run": 62.640738010406494,
+  "note": "ClaSP-TKMeans uses true K for segment clustering; num_change_points is fixed by config."
+}

@@ -1,0 +1,20 @@
+# ClaSP-TKMeans adaptation baseline config for synthetic
+repo_root = {REPO_ROOT}
+runner = {SHARD_DIR}\clasp_runner.py
+out_dir = {CONFIG_DIR}\results_clasp_synthetic
+data_root = {REPO_ROOT}\Time2State\data
+datasets = synthetic
+
+# ClaSP detects change points; TimeSeriesKMeans clusters segments with true K.
+window_size = 100
+num_change_points = 40
+offset = 0.05
+num_states = 0
+max_rows = 0
+seed = 1379
+cp_margin_ratio = 0.01
+skip_completed = 1
+
+# For quick test:
+# max_cases = 1
+# max_rows = 2000

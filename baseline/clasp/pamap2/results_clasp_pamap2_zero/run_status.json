@@ -1,0 +1,16 @@
+{
+  "total_cases": 8,
+  "ok_cases": 8,
+  "failed_cases": 0,
+  "repo_root": "D:\\code\\teacherT2S",
+  "data_root": "D:\\code\\teacherT2S\\Time2State\\data",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\clasp\\pamap2_zero\\results_clasp_pamap2_zero",
+  "datasets_requested": [
+    "pamap2-zero"
+  ],
+  "this_run_cases": 8,
+  "this_run_ok": 8,
+  "this_run_failed": 0,
+  "total_seconds_this_run": 1752.9067177772522,
+  "note": "ClaSP-TKMeans uses true K for segment clustering; num_change_points is fixed by config."
+}

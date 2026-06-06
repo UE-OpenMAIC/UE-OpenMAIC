@@ -1,0 +1,17 @@
+# ClaSP-TKMeans adaptation baseline config for pamap2_zero
+repo_root = {REPO_ROOT}
+runner = {SHARD_DIR}\clasp_runner.py
+out_dir = {CONFIG_DIR}\results_clasp_pamap2_zero
+data_root = D:\code\teacherT2S\Time2State\data
+datasets = pamap2_zero
+
+window_size = 100
+num_change_points = 15
+offset = 0.02
+num_states = 0
+max_rows = 0
+seed = 1379
+cp_margin_ratio = 0.01
+skip_completed = 1
+
+pamap2_downsample = 25
