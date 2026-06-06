@@ -1,0 +1,1 @@
+/mnt/d/code/teacherT2S/baseline/autoplait/ucrseg/results_autoplait_ucrseg/inputs/UCR-SEG_GrandMalSeizures2_10_4550.txt

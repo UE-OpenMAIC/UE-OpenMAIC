@@ -1,0 +1,1 @@
+/mnt/d/code/teacherT2S/baseline/autoplait/ucrseg/results_autoplait_ucrseg/inputs/UCR-SEG_Fetal2013_70_6000_12000.txt

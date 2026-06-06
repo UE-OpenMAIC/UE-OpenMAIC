@@ -1,0 +1,24 @@
+# Strict AutoPlait baseline config for actrectut
+# This config is launched by baseline/autoplait/_shard/launcher.py
+
+repo_root = {REPO_ROOT}
+runner = {SHARD_DIR}\autoplait_runner.py
+out_dir = {CONFIG_DIR}\results_autoplait_actrectut
+data_root = {REPO_ROOT}\Time2State\data
+
+datasets = actrectut
+
+# Existing original AutoPlait binary from your E2Usd-main checkout.
+# If this file is a Linux binary and Windows reports WinError 193, compile autoplait.exe
+# and change this path to the compiled exe.
+autoplait_bin = {SHARD_DIR}\autoplait_wsl_bridge.cmd
+
+# AutoPlait's C code applies ZnormSequence internally.
+# Python preprocessing only converts the original time series into whitespace-separated input.
+segment_index_base = auto
+
+cp_margin_ratio = 0.01
+skip_completed = 0
+
+# For a quick test, uncomment:
+# max_cases = 1

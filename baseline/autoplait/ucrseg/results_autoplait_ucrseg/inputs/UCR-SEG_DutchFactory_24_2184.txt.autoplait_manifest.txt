@@ -1,0 +1,1 @@
+/mnt/d/code/teacherT2S/baseline/autoplait/ucrseg/results_autoplait_ucrseg/inputs/UCR-SEG_DutchFactory_24_2184.txt

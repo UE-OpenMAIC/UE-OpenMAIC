@@ -1,0 +1,1 @@
+/mnt/d/code/teacherT2S/baseline/autoplait/mocap/results_autoplait_mocap/inputs/MoCap_amc_86_09.4d.txt
