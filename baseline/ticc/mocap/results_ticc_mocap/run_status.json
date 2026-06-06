@@ -1,0 +1,17 @@
+{
+  "total_cases": 17,
+  "ok_cases": 17,
+  "failed_cases": 0,
+  "repo_root": "D:\\code\\teacherT2S",
+  "data_root": "D:\\code\\teacherT2S\\Time2State\\data",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ticc\\mocap\\results_ticc_mocap_w5_iter10",
+  "datasets_requested": [
+    "mocap"
+  ],
+  "this_run_cases": 9,
+  "this_run_ok": 9,
+  "this_run_failed": 0,
+  "total_seconds_this_run": 232.60966897010803,
+  "oracle_k_note": "number_of_clusters is set from ground-truth number of states, matching original TICC baseline scripts",
+  "shard_dir": "D:\\code\\teacherT2S\\baseline\\ticc\\_shard"
+}

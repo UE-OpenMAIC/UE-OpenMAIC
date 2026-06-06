@@ -1,0 +1,17 @@
+{
+  "total_cases": 20,
+  "ok_cases": 20,
+  "failed_cases": 0,
+  "repo_root": "D:\\code\\teacherT2S",
+  "data_root": "D:\\code\\teacherT2S\\Time2State\\data",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\ticc\\actrectut\\results_ticc_actrectut_w3_iter10_b3000_thr1e3",
+  "datasets_requested": [
+    "actrectut"
+  ],
+  "this_run_cases": 20,
+  "this_run_ok": 20,
+  "this_run_failed": 0,
+  "total_seconds_this_run": 965.5067801475525,
+  "oracle_k_note": "number_of_clusters is set from ground-truth number of states, matching original TICC baseline scripts",
+  "shard_dir": "D:\\code\\teacherT2S\\baseline\\ticc\\_shard"
+}
