@@ -1,0 +1,31 @@
+{
+  "status": "ok",
+  "dataset": "actrectut",
+  "e2usd_root": "D:\\code\\teacherT2S\\E2Usd-main",
+  "win_sizes": [
+    128
+  ],
+  "steps": [
+    1
+  ],
+  "repeats": 10,
+  "summary": {
+    "grid_mean": {
+      "ARI": 0.5457531597978673,
+      "NMI": 0.6540427614325383,
+      "AMI": 0.6341780956068368,
+      "Covering": 0.4975844070311751,
+      "CP_F1": 0.44463615474326157
+    },
+    "best_by_mean_ARI": {
+      "win_size": 128,
+      "step": 1,
+      "ARI": 0.5457531597978673,
+      "NMI": 0.6540427614325383,
+      "AMI": 0.6341780956068367,
+      "Covering": 0.49758440703117507,
+      "CP_F1": 0.44463615474326157
+    },
+    "n_rows": 200
+  }
+}

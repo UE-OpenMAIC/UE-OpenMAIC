@@ -1,0 +1,53 @@
+# E2USD strict-fixed baseline for uschad
+# Goal:
+#   Use E2Usd-main fixed win/step for this dataset,
+#   but load data with the same strict preprocessing protocol as our_multit2s_runner.py.
+#
+# Important:
+#   paper_fixed=1 means win_size/step below are documented fixed values.
+#   The runner will use the E2USD train.py fixed mapping:
+#     Synthetic 256/50, MoCap 256/50, ActRecTut 128/1,
+#     PAMAP2 512/100, USC-HAD 512/50, UCR-SEG 512/50.
+
+repo_root={REPO_ROOT}
+e2usd_root=
+runner={SHARD_DIR}/e2usd_runner_selected.py
+out_dir={CONFIG_DIR}/results_e2usd_uschad_strict_fixed
+
+dataset=usc-had
+conda_env=multit2s_cuda
+
+# Strict E2Usd-main fixed-parameter mode.
+paper_fixed=1
+win_size=512
+step=50
+
+# E2USD default/main settings, with dataset-specific details preserved.
+m=20
+n=4
+out_channels=4
+nb_steps=40
+kernel_size=3
+win_type=rect
+
+seed=0
+device=cuda
+gpu=0
+max_cases=
+repeats=10
+skip_completed=0
+save_predictions=1
+cp_margin_ratio=0.01
+
+# Data search priority in runner:
+#   1. {REPO_ROOT}/Time2State/data
+#   2. E2Usd-main/data
+#   3. public_ts_datasets fallback
+# Leave blank unless auto-detection fails.
+data_root=
+public_data_root=
+ucrseg_dirname=
+
+# PAMAP2/PAMAP2_zero
+pamap2_feature_mode=paper9acc
+pamap2_remove_zero=0

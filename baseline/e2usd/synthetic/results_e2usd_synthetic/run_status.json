@@ -1,0 +1,31 @@
+{
+  "status": "ok",
+  "dataset": "synthetic",
+  "e2usd_root": "D:\\code\\teacherT2S\\E2Usd-main",
+  "win_sizes": [
+    256
+  ],
+  "steps": [
+    50
+  ],
+  "repeats": 10,
+  "summary": {
+    "grid_mean": {
+      "ARI": 0.8630250750214953,
+      "NMI": 0.8471616559643721,
+      "AMI": 0.8447558059950616,
+      "Covering": 0.8983909605609022,
+      "CP_F1": 0.6924484119476558
+    },
+    "best_by_mean_ARI": {
+      "win_size": 256,
+      "step": 50,
+      "ARI": 0.8630250750214953,
+      "NMI": 0.8471616559643721,
+      "AMI": 0.8447558059950615,
+      "Covering": 0.8983909605609022,
+      "CP_F1": 0.6924484119476558
+    },
+    "n_rows": 1000
+  }
+}
