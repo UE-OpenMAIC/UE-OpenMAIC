@@ -5,9 +5,9 @@ This repository is built upon and extends the original OpenMAIC project:
 **Original OpenMAIC Repository:**  
 https://github.com/THU-MAIC/OpenMAIC
 
-OpenMAIC, short for **Open Multi-Agent Interactive Classroom**, is an open-source AI platform for generating rich and interactive classroom experiences with AI teachers, AI classmates, slides, quizzes, simulations, whiteboard interaction, and real-time discussions.
+OpenMAIC, short for **Open Multi-Agent Interactive Classroom**, is an open-source AI platform for generating interactive classroom experiences with AI teachers, AI classmates, slides, quizzes, simulations, whiteboard interaction, and real-time discussions.
 
-Based on this foundation, this repository extends OpenMAIC toward **state-driven virtual AI teacher generation** by integrating unsupervised time-series state detection, teacher posture state modeling, cross-video prototype alignment, and UE-based virtual teacher motion organization.
+Based on OpenMAIC, this repository extends the classroom framework toward **state-driven virtual AI teacher generation** by integrating unsupervised time-series state detection, teacher posture state modeling, cross-video prototype alignment, and UE-based virtual teacher motion organization.
 
 This repository provides the code and ethically releasable materials for the paper:
 
@@ -41,14 +41,21 @@ The original OpenMAIC project focuses on multi-agent interactive classroom gener
 UE-OpenMAIC/
 │
 ├── OpenMAIC/
-│   └── UE/OpenMAIC-related virtual AI teacher system materials.
+│   └── Inherited OpenMAIC application-side framework and UE/OpenMAIC-related materials.
 │
 ├── baseline/
 │   └── Baseline reproduction scripts and running instructions.
 │
 ├── benchmark/
-│   └── Expert annotations, expert-evaluation results, final validation tables,
-│       benchmark records, and paper-related result documents.
+│   └── doc/
+│       ├── expertA/
+│       ├── expertB/global/
+│       ├── expertC/global/
+│       ├── expertD/global/
+│       ├── _eval_BCD_global_3class_teacher_mask_grid/
+│       ├── _final_expert_validation_table/
+│       ├── datasetN/
+│       └── digitalAction/
 │
 ├── code/
 │   └── teacherT2S/
@@ -67,20 +74,26 @@ UE-OpenMAIC/
 │       │   └── make_final_expert_validation_table.py
 │       │
 │       ├── our/
-│       │   ├── ER-MSSF benchmark implementation.
-│       │   └── mocap_topk_sensitivity/
-│       │       └── MoCap Top-K sensitivity experiment.
+│       │   ├── synthetic/
+│       │   ├── mocap/
+│       │   ├── mocap_topk_sensitivity/
+│       │   ├── actrectut/
+│       │   ├── PAMAP2/
+│       │   ├── ucrseg/
+│       │   ├── uschad/
+│       │   └── _shared/
 │       │
 │       └── ourClap/
-│           └── CLaP transfer experiment scripts.
+│           ├── _shared/
+│           ├── result/
+│           └── requirements_clap.txt
 │
 ├── dataset/
-│   └── Ethically releasable processed data, demo data, and data preparation notes.
+│   └── poseDataSet/
 │
-├── requirements.txt
-├── README.md
-├── LICENSE
-└── .gitignore
+├── .gitattributes
+├── .gitignore
+└── README.md
 ```
 
 ---
@@ -93,8 +106,8 @@ The framework constructs multiple candidate Time2State branches from different t
 
 The branch reliability score combines three aspects:
 
-- **state-distribution health**,
-- **inter-branch consistency**,
+- **state-distribution health**;
+- **inter-branch consistency**;
 - **prediction stability**.
 
 For the virtual AI teacher application, ER-MSSF is applied to teacher posture time series extracted from classroom videos. The detected local states are further aligned across videos through X1-only prototype aggregation, producing global teaching posture states that are used for state-driven virtual teacher motion organization.
@@ -114,9 +127,9 @@ For the virtual AI teacher application, ER-MSSF is applied to teacher posture ti
 | Cross-video prototype alignment | `code/teacherT2S/Time2State/align_cross_video_prototypes_x1_orientation8.py` |
 | Expert-label evaluation | `code/teacherT2S/Time2State/evaluate_expert_labels_teacher_mask.py` |
 | Final expert validation table | `code/teacherT2S/Time2State/make_final_expert_validation_table.py` |
-| Expert annotations and evaluation records | `benchmark/` |
+| Expert annotations and evaluation records | `benchmark/doc/` |
 | UE/OpenMAIC virtual teacher materials | `OpenMAIC/` |
-| Dataset and privacy notes | `dataset/README.md` |
+| Processed teacher-pose examples | `dataset/poseDataSet/` |
 
 ---
 
@@ -129,15 +142,6 @@ code/teacherT2S/Time2State/
 ```
 
 The main scripts are:
-
-```text
-run_teacher_state_detection_orientation8.py
-align_cross_video_prototypes_x1_orientation8.py
-evaluate_expert_labels_teacher_mask.py
-make_final_expert_validation_table.py
-```
-
-Their roles are:
 
 | Script | Function |
 |---|---|
@@ -163,10 +167,16 @@ Please update the input and output paths according to your local data location b
 
 ## Benchmark and Expert Annotation Files
 
-The `benchmark/` directory contains paper-related benchmark documents and expert annotation materials, including:
+The expert annotation and teacher-application evaluation records are located in:
 
 ```text
-benchmark/
+benchmark/doc/
+```
+
+This directory contains:
+
+```text
+benchmark/doc/
 │
 ├── expertA/
 ├── expertB/global/
@@ -180,10 +190,10 @@ benchmark/
 
 These files support the teacher-application evaluation part of the paper, including:
 
-- expert annotation records,
-- B/C/D expert global-label evaluation,
-- consensus-label evaluation,
-- conservative merged-label evaluation,
+- expert annotation records;
+- B/C/D expert global-label evaluation;
+- consensus-label evaluation;
+- conservative merged-label evaluation;
 - final expert validation table.
 
 Raw classroom videos and raw audio are not included for privacy reasons.
@@ -239,9 +249,7 @@ The MoCap Top-K sensitivity experiment is located in:
 code/teacherT2S/our/mocap_topk_sensitivity/
 ```
 
-This experiment analyzes the influence of the number of selected branches in the fusion stage.
-
-The sensitivity experiment is used only for post-hoc robustness analysis. In the main experiments, the default Top-K value is fixed before evaluation and kept consistent across datasets.
+This experiment analyzes the influence of the number of selected branches in the fusion stage. The sensitivity experiment is used only for post-hoc robustness analysis. In the main experiments, the default Top-K value is fixed before evaluation and kept consistent across datasets.
 
 ---
 
@@ -251,20 +259,22 @@ Raw classroom videos and raw audio recordings are **not released** because they 
 
 This repository releases:
 
-- code for ER-MSSF and related experiments,
-- processed and ethically releasable materials where applicable,
-- expert annotation records and evaluation scripts where appropriate,
-- public benchmark preparation instructions,
-- selected anonymized examples or derived features when available,
+- code for ER-MSSF and related experiments;
+- processed and ethically releasable materials where applicable;
+- expert annotation records and evaluation scripts where appropriate;
+- public benchmark preparation instructions;
+- selected anonymized examples or derived features when available;
 - configuration files and reproduction scripts.
 
-For public benchmark datasets, please obtain the datasets from their official sources or prepare them according to the instructions in:
+The directory
 
 ```text
-dataset/README.md
+dataset/poseDataSet/
 ```
 
-or the corresponding data folder under:
+contains processed and ethically releasable teacher-pose state detection outputs. It does not contain raw classroom videos or raw audio recordings.
+
+For public benchmark datasets, please obtain the datasets from their official sources or prepare them according to the corresponding data folder under:
 
 ```text
 code/teacherT2S/Time2State/data/
@@ -291,10 +301,17 @@ NVIDIA GeForce RTX 4090 GPU
 Intel Core Ultra 9 265K CPU
 ```
 
-A typical Python environment can be prepared with:
+A typical Python environment for the Time2State-side scripts can be prepared with:
 
 ```bash
+cd code/teacherT2S/Time2State
 pip install -r requirements.txt
+```
+
+For CLaP transfer experiments, please refer to:
+
+```text
+code/teacherT2S/ourClap/requirements_clap.txt
 ```
 
 Some baseline methods may require additional dependencies. Please refer to the README files in the corresponding subdirectories.
@@ -326,3 +343,9 @@ If you use this repository, please cite the corresponding paper:
 
 ## Contact
 
+For questions about the code or reproduction materials, please contact:
+
+```text
+Chufei Yan
+yanchufei@nenu.edu.cn
+```
