@@ -1,0 +1,2 @@
+﻿K,dominant_ratio,balance_entropy,mean_segment_length,segment_count,meta_min_len,coherence,selection_score,fusion_backend,cspa_k_mode,cspa_engine,ec_tdwm_k_mode,ec_tdwm_engine,ec_tdwm_iterations,ec_tdwm_final_change
+9,,0.9493793711203878,98.02941176470588,204,24,,0.0,ec_tdwm,median,,median,minibatch_kmeans,20,0.007300730073007301
