@@ -1,0 +1,650 @@
+﻿expert_name,video_id,source_file,line_idx,expert_start_sec,expert_end_sec,expert_duration_sec,expert_label_raw,expert_label,time_repair_note,raw_line
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,1,0.0,32.0,32.0,自然讲授,自然讲授,,0.00-0.32 自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,2,32.0,36.0,4.0,板书书写,板书书写,,0.32-0.36 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,3,36.0,59.0,23.0,板书书写,板书书写,,0.36-0.58 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,4,59.0,61.0,2.0,侧向讲授,侧向讲授,,0.59-1.01 侧向讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,5,61.0,68.0,7.0,板书书写,板书书写,,1.01-1.07 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,6,68.0,84.0,16.0,侧向讲授,侧向讲授,,1.08-1.23 侧向讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,7,84.0,106.0,22.0,自然讲授,自然讲授,,1.24-1.45 自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,8,106.0,110.0,4.0,侧向讲授,侧向讲授,,1.46-1.49 侧向讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,9,110.0,125.0,15.0,自然讲授,自然讲授,,1.50-2.04 自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,10,125.0,131.0,6.0,板书书写,板书书写,,2.05-2.10 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,11,131.0,139.0,8.0,侧向讲解,侧向讲授,,2.11-2.18 侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,12,139.0,144.0,5.0,自然讲解,自然讲授,,2.19-2.23 自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,13,144.0,159.0,15.0,板书书写,板书书写,,2.24-2.38 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,14,159.0,172.0,13.0,侧向讲解,侧向讲授,,2.39-2.51侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,15,172.0,177.0,5.0,自然讲授,自然讲授,,2.52-2.56自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,16,177.0,191.0,14.0,侧向讲解,侧向讲授,,2.57-3.10侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,17,191.0,208.0,17.0,板书书写,板书书写,,3.11-3.27 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,18,208.0,211.0,3.0,侧向讲解,侧向讲授,,3.28-3.30侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,19,211.0,217.0,6.0,自然讲解,自然讲授,,3.31-3.37自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,20,217.0,221.0,4.0,侧向讲解,侧向讲授,,3.37-3.40侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,21,221.0,228.0,7.0,板书书写,板书书写,,3.41-3.47 板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,22,228.0,233.0,5.0,侧向讲解,侧向讲授,,3.48-3.52 侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,23,233.0,240.0,7.0,自然讲解,自然讲授,,3.53-3.59自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,24,240.0,248.0,8.0,板书书写,板书书写,,4.00-4.07板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,25,248.0,257.0,9.0,侧向讲解,侧向讲授,,4.08-4.16侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,26,257.0,261.0,4.0,板书书写,板书书写,,4.17-4.20板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,27,261.0,268.0,7.0,自然讲解,自然讲授,,4.21-4.27自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,28,268.0,284.0,16.0,板书书写,板书书写,,4.28-4.43板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,29,284.0,290.0,6.0,侧身讲解,侧向讲授,,4.44-4.49 侧身讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,30,290.0,296.0,6.0,板书书写,板书书写,,4.50-4.55板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,31,296.0,298.0,2.0,自然讲解,自然讲授,,4.56-4.57自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,32,298.0,301.0,3.0,侧身讲解,侧向讲授,,4.58-5.00侧身讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,33,301.0,308.0,7.0,自然讲解,自然讲授,,5.01-5.07自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,34,308.0,320.0,12.0,板书书写,板书书写,,5.08-5.19板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,35,320.0,325.0,5.0,自然讲授,自然讲授,,5.20-5.24自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,36,325.0,336.0,11.0,板书书写,板书书写,,5.25-5.35板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,37,336.0,342.0,6.0,自然讲授,自然讲授,,5.36-5.41自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,38,342.0,359.0,17.0,板书书写,板书书写,,5.42-5.58板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,39,359.0,368.0,9.0,侧向讲解,侧向讲授,,5.59-6.07侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,40,368.0,370.0,2.0,板书书写,板书书写,,6.08-6.09板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,41,370.0,372.0,2.0,自然讲授,自然讲授,,6.10-6.11 自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,42,372.0,385.0,13.0,侧向讲解,侧向讲授,,6.12-6.24侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,43,385.0,401.0,16.0,板书书写,板书书写,,6.25-6.40板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,44,401.0,404.0,3.0,侧身讲解,侧向讲授,,6.41-6.43侧身讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,45,404.0,429.0,25.0,自然讲授,自然讲授,,6.44-7.08自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,46,429.0,435.0,6.0,侧向讲解,侧向讲授,,7.09-7.14 侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,47,435.0,454.0,19.0,侧向讲解,侧向讲授,,7.15-7.33侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,48,454.0,463.0,9.0,自然讲解,自然讲授,,7.34-7.42自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,49,463.0,467.0,4.0,侧向讲解,侧向讲授,,7.43-7.46侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,50,467.0,476.0,9.0,自然讲解,自然讲授,,7.47-7.55自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,51,476.0,482.0,6.0,板书书写,板书书写,,7.56-8.01板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,52,482.0,508.0,26.0,自然讲解,自然讲授,,8.02-8.27自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,53,508.0,513.0,5.0,侧向讲解,侧向讲授,,8.28-8.32侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,54,513.0,519.0,6.0,自然讲解,自然讲授,,8.33-8.38自然讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,55,519.0,532.0,13.0,侧向讲解,侧向讲授,,8.39-8.51侧向讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,56,532.0,538.0,6.0,板书书写,板书书写,,8.52-8.57板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,57,538.0,545.0,7.0,侧身讲解,侧向讲授,,8.58-9.04侧身讲解
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,58,545.0,564.0,19.0,板书书写,板书书写,,9.05-9.23板书书写
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,59,564.0,573.0,9.0,自然讲授,自然讲授,,9.24-9.32自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,60,573.0,585.0,12.0,侧向讲授,侧向讲授,,9.33-9.44侧向讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,61,585.0,596.0,11.0,自然讲授,自然讲授,,9.45-9.55自然讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,62,596.0,603.0,7.0,侧向讲授,侧向讲授,,9.56-10.02侧向讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,63,603.0,623.0,20.0,侧向讲授,侧向讲授,,10.03-10.22侧向讲授
+expertB,32/32,D:\code\teacherT2S\doc\expertB\global\32_32.txt,64,623.0,630.0,7.0,自然讲授,自然讲授,,10.23-10.30自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,1,0.0,46.0,46.0,自然讲授,自然讲授,,0.00-0.45 自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,2,46.0,63.0,17.0,板书书写,板书书写,,0.46-1.02 板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,3,63.0,80.0,17.0,自然讲授,自然讲授,,1.03-1.19 自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,4,80.0,107.0,27.0,板书书写,板书书写,,1.20-1.46 板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,5,107.0,144.0,37.0,自然讲授,自然讲授,,1.47-2.23 自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,6,144.0,160.0,16.0,板书书写,板书书写,,2.24-2.40板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,7,160.0,164.0,4.0,自然讲授,自然讲授,,2.4-2.43自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,8,164.0,174.0,10.0,板书书写,板书书写,,2.44-2.53板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,9,174.0,181.0,7.0,板书书写,板书书写,,2.54-3.01板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,10,183.0,190.0,7.0,自然讲授,自然讲授,,3.03-3.09自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,11,190.0,206.0,16.0,板书书写,板书书写,,3.10-3.25板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,12,206.0,218.0,12.0,自然讲授,自然讲授,,3.26-3.37自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,13,218.0,254.0,36.0,板书书写,板书书写,,3.38-4.13板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,14,254.0,272.0,18.0,自然讲授,自然讲授,,4.14-4.31自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,15,272.0,302.0,30.0,板书书写,板书书写,,4.32-5.01板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,16,302.0,311.0,9.0,自然讲授,自然讲授,,5.02-5.10自然讲授
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,17,311.0,317.0,6.0,板书书写,板书书写,,5.11-5.16板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,18,317.0,322.0,5.0,自然讲解,自然讲授,,5.17-5.21自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,19,322.0,335.0,13.0,板书书写,板书书写,,5.22-5.34板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,20,335.0,340.0,5.0,自然讲解,自然讲授,,5.35-5.39自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,21,340.0,350.0,10.0,板书书写,板书书写,,5.40-5.49板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,22,350.0,378.0,28.0,自然讲解,自然讲授,,5.50-6.17自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,23,378.0,382.0,4.0,板书书写,板书书写,,6.18-6.21板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,24,382.0,389.0,7.0,侧向讲解,侧向讲授,,6.22-6.28侧向讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,25,389.0,393.0,4.0,板书书写,板书书写,,6.29-6.32板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,26,393.0,495.0,102.0,自然讲解,自然讲授,,6.33-8.14自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,27,495.0,500.0,5.0,板书书写,板书书写,,8.15-8.19板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,28,500.0,506.0,6.0,自然讲解,自然讲授,,8.20-8.25自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,29,506.0,526.0,20.0,板书书写,板书书写,,8.26-8.45板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,30,526.0,529.0,3.0,自然讲解,自然讲授,,8.46-8.48自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,31,529.0,541.0,12.0,板书书写,板书书写,,8.49-9.00板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,32,541.0,554.0,13.0,自然讲解,自然讲授,,9.01-9.13自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,33,554.0,557.0,3.0,板书书写,板书书写,,9.14-9.16板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,34,557.0,579.0,22.0,自然讲解,自然讲授,,9.17-9.38自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,35,579.0,595.0,16.0,板书书写,板书书写,,9.39-9.54板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,36,595.0,609.0,14.0,自然讲解,自然讲授,,9.55-10.08自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,37,609.0,619.0,10.0,板书书写,板书书写,,10.09-10.18板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,38,619.0,631.0,12.0,自然讲解,自然讲授,,10.19-10.30自然讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,39,631.0,633.0,2.0,板书书写,板书书写,,10.31-10.32板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,40,633.0,642.0,9.0,侧向讲解,侧向讲授,,10.33-10.41 侧向讲解
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,41,642.0,647.0,5.0,板书书写,板书书写,,10.42-10.46板书书写
+expertB,38/38,D:\code\teacherT2S\doc\expertB\global\38_38.txt,42,647.0,717.0,70.0,自然讲解,自然讲授,,10.47-11.57自然讲解
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,1,0.0,6.0,6.0,侧身讲授,侧向讲授,,0.00-0.05 侧身讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,2,6.0,24.0,18.0,自然讲授,自然讲授,,0.06-0.23自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,3,24.0,33.0,9.0,侧面讲授,侧向讲授,,0.24-0.32侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,4,33.0,36.0,3.0,板书书写,板书书写,,0.33-0.35板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,5,36.0,54.0,18.0,侧面讲授,侧向讲授,,0.36-0.53侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,6,54.0,66.0,12.0,自然讲授,自然讲授,,0.54-1.05自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,7,66.0,81.0,15.0,侧面讲授,侧向讲授,,1.06-1.20侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,8,81.0,96.0,15.0,自然讲授,自然讲授,,1.21-1.35自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,9,96.0,102.0,6.0,侧面讲授,侧向讲授,,1.36-1.41侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,10,102.0,105.0,3.0,自然讲授,自然讲授,,1.42-1.44自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,11,105.0,120.0,15.0,侧面讲授,侧向讲授,,1.45-1.59 侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,12,120.0,126.0,6.0,自然讲授,自然讲授,,2.00-2.05自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,13,126.0,130.0,4.0,侧面讲授,侧向讲授,,2.06-2.09侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,14,130.0,138.0,8.0,自然讲授,自然讲授,,2.10-2.17自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,15,138.0,142.0,4.0,侧面讲授,侧向讲授,,2.18-2.21侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,16,142.0,145.0,3.0,板书书写,板书书写,,2.22-2.24板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,17,145.0,150.0,5.0,自然讲授,自然讲授,,2.25-2.29自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,18,150.0,166.0,16.0,板书书写,板书书写,,2.30-2.45 板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,19,166.0,169.0,3.0,自然讲授,自然讲授,,2.46-2.48自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,20,169.0,174.0,5.0,板书书写,板书书写,,2.49-2.53板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,21,174.0,183.0,9.0,侧面讲授,侧向讲授,,2.54-3.02侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,22,183.0,219.0,36.0,自然讲授,自然讲授,,3.03-3.38自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,23,219.0,229.0,10.0,板书书写,板书书写,,3.39-3.48板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,24,229.0,246.0,17.0,自然讲授,自然讲授,,3.49-4.05 自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,25,246.0,254.0,8.0,侧面讲授,侧向讲授,,4.06-4.13侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,26,254.0,268.0,14.0,板书书写,板书书写,,4.14-4.27板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,27,268.0,270.0,2.0,自然讲授,自然讲授,,4.28-4.29自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,28,270.0,276.0,6.0,板书书写,板书书写,,4.30-4.35板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,29,276.0,281.0,5.0,自然讲授,自然讲授,,4.36-4.40自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,30,281.0,290.0,9.0,侧面讲授,侧向讲授,,4.41-4.50侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,31,290.0,296.0,6.0,自然讲授,自然讲授,,4.50-4.55自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,32,296.0,326.0,30.0,自然讲授,自然讲授,,4.56-5.25自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,33,326.0,330.0,4.0,侧面讲授,侧向讲授,,5.26-5.29侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,34,330.0,333.0,3.0,自然讲授,自然讲授,,5.30-5.32自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,35,333.0,355.0,22.0,侧面讲授,侧向讲授,,5.33-5.54侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,36,355.0,357.0,2.0,板书书写,板书书写,,5.55-5.56板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,37,357.0,377.0,20.0,侧面讲授,侧向讲授,,5.57-6.16侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,38,377.0,382.0,5.0,板书书写,板书书写,,6.17-6.21板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,39,382.0,386.0,4.0,侧面讲授,侧向讲授,,6.22-6.25侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,40,386.0,394.0,8.0,板书书写,板书书写,,6.26-6.34板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,41,394.0,403.0,9.0,侧面讲授,侧向讲授,,6.34-6.42侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,42,403.0,408.0,5.0,自然讲授,自然讲授,,6.43-6.47自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,43,408.0,411.0,3.0,板书书写,板书书写,,6.48-6.51板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,44,411.0,417.0,6.0,侧面讲授,侧向讲授,,6.51-6.56 侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,45,417.0,420.0,3.0,自然讲授,自然讲授,,6.57-6.59自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,46,420.0,425.0,5.0,侧面讲授,侧向讲授,,7.00-7.04侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,47,425.0,432.0,7.0,自然讲授,自然讲授,,7.05-7.11自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,48,432.0,434.0,2.0,侧面讲授,侧向讲授,,7.12-7.13侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,49,434.0,446.0,12.0,侧面讲授,侧向讲授,,7.14-7.25侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,50,446.0,450.0,4.0,自然讲授,自然讲授,,7.26-7.29自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,51,450.0,516.0,66.0,板书书写,板书书写,,7.30-8.35板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,52,516.0,534.0,18.0,自然讲授,自然讲授,,8.36-8.53自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,53,534.0,538.0,4.0,侧面讲授,侧向讲授,,8.54-8.57侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,54,538.0,557.0,19.0,自然讲授,自然讲授,,8.58-9.16自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,55,557.0,561.0,4.0,侧面讲授,侧向讲授,,9.17-9.20侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,56,561.0,570.0,9.0,自然讲授,自然讲授,,9.21-9.29自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,57,570.0,577.0,7.0,侧面讲授,侧向讲授,,9.30-9.36侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,58,577.0,585.0,8.0,侧面讲授,侧向讲授,,9.37-9.44侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,59,585.0,589.0,4.0,板书书写,板书书写,,9.45-9.48板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,60,589.0,594.0,5.0,自然讲授,自然讲授,,9.49-9.53自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,61,594.0,600.0,6.0,自然讲授,自然讲授,,9.54-9.59自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,62,600.0,603.0,3.0,板书书写,板书书写,,10.00-10.02板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,63,603.0,615.0,12.0,自然讲授,自然讲授,,10.03-10.14自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,64,615.0,620.0,5.0,板书书写,板书书写,,10.15-10.19板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,65,620.0,629.0,9.0,侧面讲授,侧向讲授,,10.20-10.28侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,66,629.0,632.0,3.0,板书书写,板书书写,,10.29-10.31板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,67,632.0,636.0,4.0,侧面讲授,侧向讲授,,10.32-10.35侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,68,636.0,641.0,5.0,侧面讲授,侧向讲授,,10.36-10.40侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,69,641.0,644.0,3.0,自然讲授,自然讲授,,10.41-10.43自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,70,644.0,650.0,6.0,侧面讲授,侧向讲授,,10.44-10.49侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,71,650.0,653.0,3.0,板书书写,板书书写,,10.50-10.52板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,72,653.0,655.0,2.0,自然讲授,自然讲授,,10.53-10.54自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,73,655.0,660.0,5.0,侧面讲授,侧向讲授,,10.55-10.59侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,74,660.0,662.0,2.0,板书书写,板书书写,,11.00-11.01板书书写
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,75,662.0,668.0,6.0,自然讲授,自然讲授,,11.02-11.07自然讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,76,668.0,670.0,2.0,侧面讲授,侧向讲授,,11.08-11.09侧面讲授
+expertB,39/39,D:\code\teacherT2S\doc\expertB\global\39_39.txt,77,670.0,673.0,3.0,自然讲授,自然讲授,,11.10-11.13自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,1,0.0,10.0,10.0,自然讲授,自然讲授,,0.00-0.09 自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,2,10.0,13.0,3.0,侧面讲授,侧向讲授,,0.10-0.12侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,3,13.0,29.0,16.0,自然讲授,自然讲授,,0.13-0.28自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,4,29.0,34.0,5.0,侧面讲授,侧向讲授,,0.29-0.33侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,5,34.0,37.0,3.0,自然讲授,自然讲授,,0.34-0.36自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,6,37.0,47.0,10.0,侧面讲授,侧向讲授,,0.37-0.46侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,7,47.0,65.0,18.0,自然讲授,自然讲授,,0.47-1.04自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,8,65.0,79.0,14.0,板书书写,板书书写,,1.05-1.18 板书书写
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,9,79.0,84.0,5.0,自然讲授,自然讲授,,1.19-1.23自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,10,84.0,88.0,4.0,侧面讲授,侧向讲授,,1.24-1.27侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,11,88.0,92.0,4.0,自然讲授,自然讲授,,1.28-1.31自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,12,92.0,101.0,9.0,侧面讲授,侧向讲授,,1.32-1.40侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,13,101.0,105.0,4.0,自然讲授,自然讲授,,1.41-1.44自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,14,105.0,107.0,2.0,侧面讲授,侧向讲授,,1.45-1.46侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,15,107.0,152.0,45.0,自然讲授,自然讲授,,1.47-2.31自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,16,152.0,158.0,6.0,侧面讲授,侧向讲授,,2.32-2.37侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,17,158.0,166.0,8.0,自然讲授,自然讲授,,2.38-2.45自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,18,166.0,175.0,9.0,侧面讲授,侧向讲授,,2.46-2.54侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,19,175.0,179.0,4.0,自然讲授,自然讲授,,2.55-2.58自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,20,179.0,212.0,33.0,板书书写,板书书写,,2.59-3.31板书书写
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,21,212.0,246.0,34.0,自然讲授,自然讲授,,3.32-4.05 自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,22,246.0,257.0,11.0,侧面讲授,侧向讲授,,4.06-4.16侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,23,257.0,375.0,118.0,自然讲授,自然讲授,,4.17-6.14自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,24,375.0,384.0,9.0,自然讲授,自然讲授,,6.15-6.23自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,25,384.0,394.0,10.0,板书书写,板书书写,,6.24-6.33 板书书写
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,26,394.0,404.0,10.0,自然讲授,自然讲授,,6.34-6.43自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,27,404.0,433.0,29.0,侧面讲授,侧向讲授,,6.44-7.12侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,28,433.0,436.0,3.0,自然讲授,自然讲授,,7.13-7.15自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,29,436.0,444.0,8.0,侧面讲授,侧向讲授,,7.16-7.23侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,30,444.0,493.0,49.0,板书书写,板书书写,,7.24-8.12板书书写
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,31,493.0,498.0,5.0,侧面讲授,侧向讲授,,8.13-8.17侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,32,498.0,502.0,4.0,侧面讲授,侧向讲授,,8.18-8.21侧面讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,33,502.0,512.0,10.0,自然讲授,自然讲授,,8.22-8.31自然讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,34,512.0,520.0,8.0,侧向讲授,侧向讲授,,8.32-8.39侧向讲授
+expertB,51/51,D:\code\teacherT2S\doc\expertB\global\51_51.txt,35,520.0,584.0,64.0,自然讲授,自然讲授,,8.40-9.44自然讲授
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,1,0.0,34.0,34.0,自然讲授,自然讲授,,0.00-0.33 自然讲授
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,2,34.0,36.0,2.0,板书书写,板书书写,,0.34-0.35 板书书写
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,3,36.0,37.0,1.0,侧,侧向讲授,,0.36-0.37侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,4,37.0,41.0,4.0,自,自然讲授,,0.37-0.40 自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,5,41.0,50.0,9.0,板,板书书写,,0.41-0.49板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,6,50.0,53.0,3.0,侧,侧向讲授,,0.50-0.52侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,7,53.0,54.0,1.0,板,板书书写,,0.53-0.54板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,8,54.0,56.0,2.0,侧,侧向讲授,,0.54-0.55侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,9,56.0,58.0,2.0,板,板书书写,,0.56-0.57板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,10,58.0,65.0,7.0,侧,侧向讲授,,0.58-1.04侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,11,65.0,69.0,4.0,板,板书书写,,1.05-1.08板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,12,69.0,83.0,14.0,侧,侧向讲授,,1.09-1.22侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,13,83.0,106.0,23.0,自,自然讲授,,1.23-1.45自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,14,106.0,107.0,1.0,侧,侧向讲授,,1.46-1.47侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,15,107.0,125.0,18.0,自,自然讲授,,1.47-2.04自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,16,125.0,133.0,8.0,板,板书书写,,2.05-2.12板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,17,133.0,140.0,7.0,侧,侧向讲授,,2.13-2.19侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,18,140.0,143.0,3.0,自,自然讲授,,2.20-2.22自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,19,143.0,158.0,15.0,板,板书书写,,2.23-2.37板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,20,158.0,171.0,13.0,侧,侧向讲授,,2.38-2.51侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,21,171.0,177.0,6.0,自,自然讲授,,2.51-2.56自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,22,177.0,195.0,18.0,侧,侧向讲授,,2.57-3.14侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,23,195.0,208.0,13.0,板,板书书写,,3.15-3.27板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,24,208.0,212.0,4.0,侧,侧向讲授,,3.28-3.31侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,25,212.0,218.0,6.0,自,自然讲授,,3.32-3.37自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,26,218.0,221.0,3.0,侧,侧向讲授,,3.38-3.40侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,27,221.0,222.0,1.0,自,自然讲授,,3.41-3.42自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,28,222.0,227.0,5.0,板,板书书写,,3.42-3.47板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,29,233.0,235.0,2.0,自,自然讲授,,3.53-3.54自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,30,235.0,236.0,1.0,侧,侧向讲授,,3.55-3.56侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,31,236.0,241.0,5.0,自,自然讲授,,3.56-4.0自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,32,241.0,247.0,6.0,板,板书书写,,4.01-4.06板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,33,247.0,256.0,9.0,侧,侧向讲授,,4.07-4.15侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,34,256.0,261.0,5.0,板,板书书写,,4.16-4.20板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,35,261.0,269.0,8.0,自,自然讲授,,4.21-4.28自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,36,269.0,295.0,26.0,板,板书书写,,4.29-4.54板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,37,295.0,298.0,3.0,自,自然讲授,,4.55-4.57自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,38,298.0,302.0,4.0,侧,侧向讲授,,4.58-5.01侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,39,302.0,308.0,6.0,自,自然讲授,,5.02-5.07自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,40,308.0,310.0,2.0,侧,侧向讲授,,5.08-5.09侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,41,310.0,317.0,7.0,板,板书书写,,5.10-5.16板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,42,317.0,326.0,9.0,自,自然讲授,,5.17-5.25自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,43,326.0,335.0,9.0,板,板书书写,,5.26-5.34板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,44,335.0,344.0,9.0,自,自然讲授,,5.35-5.43自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,45,344.0,357.0,13.0,板,板书书写,,5.44-5.56板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,46,357.0,358.0,1.0,自,自然讲授,,5.57-5.58自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,47,358.0,368.0,10.0,侧,侧向讲授,,5.58-6.07侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,48,368.0,370.0,2.0,板,板书书写,,6.08-6.09板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,49,370.0,382.0,12.0,侧,侧向讲授,,6.10-6.21侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,50,382.0,383.0,1.0,自,自然讲授,,6.22-6.23自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,51,383.0,389.0,6.0,板,板书书写,,6.23-6.28板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,52,389.0,392.0,3.0,自,自然讲授,,6.29-6.31自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,53,392.0,401.0,9.0,板,板书书写,,6.32-6.40板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,54,401.0,405.0,4.0,侧,侧向讲授,,6.41-6.44侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,55,405.0,429.0,24.0,自,自然讲授,,6.45-7.08自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,56,429.0,455.0,26.0,侧,侧向讲授,,7.09-7.34侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,57,455.0,463.0,8.0,自,自然讲授,,7.35-7.42自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,58,463.0,469.0,6.0,侧,侧向讲授,,7.43-7.48侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,59,469.0,475.0,6.0,自,自然讲授,,7.49-7.54自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,60,475.0,478.0,3.0,侧,侧向讲授,,7.55-7.57侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,61,478.0,481.0,3.0,板,板书书写,,7.58-8.0板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,62,481.0,503.0,22.0,自,自然讲授,,8.01-8.22自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,63,503.0,504.0,1.0,侧,侧向讲授,,8.23-8.24侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,64,504.0,509.0,5.0,自,自然讲授,,8.24-8.29自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,65,509.0,512.0,3.0,侧,侧向讲授,,8.29-8.31侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,66,512.0,521.0,9.0,自,自然讲授,,8.32-8.40自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,67,521.0,525.0,4.0,侧,侧向讲授,,8.41-8.44侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,68,525.0,529.0,4.0,板,板书书写,,8.45-8.48板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,69,529.0,546.0,17.0,侧,侧向讲授,,8.49-9.05侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,70,546.0,563.0,17.0,板,板书书写,,9.06-9.22板
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,71,563.0,572.0,9.0,自,自然讲授,,9.23-9.32自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,72,572.0,591.0,19.0,侧,侧向讲授,,9.32-9.50侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,73,591.0,595.0,4.0,自,自然讲授,,9.51-9.54自
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,74,595.0,623.0,28.0,侧,侧向讲授,,9.55-10.22侧
+expertC,32/32,D:\code\teacherT2S\doc\expertC\global\32_32.txt,75,623.0,632.0,9.0,自,自然讲授,,10.23-1032自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,1,0.0,47.0,47.0,自,自然讲授,,0.0-0.47自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,2,47.0,62.0,15.0,板,板书书写,,0.47-1.02板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,3,62.0,81.0,19.0,自,自然讲授,,1.02-1.21自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,4,81.0,108.0,27.0,板,板书书写,,1.21-1.48板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,5,108.0,142.0,34.0,自,自然讲授,,1.48-2.22自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,6,142.0,162.0,20.0,板,板书书写,,2.22-2.41板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,7,162.0,165.0,3.0,自,自然讲授,,2.42-2.45自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,8,165.0,183.0,18.0,板,板书书写,,2.45-3.03板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,9,183.0,191.0,8.0,自,自然讲授,,3.03-3.10自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,10,191.0,206.0,15.0,板,板书书写,,3.11-3.25板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,11,206.0,214.0,8.0,侧,侧向讲授,,3.26-3.33侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,12,214.0,219.0,5.0,自,自然讲授,,3.34-3.38自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,13,219.0,254.0,35.0,板,板书书写,,3.39-4.14板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,14,254.0,272.0,18.0,自,自然讲授,,4.14-4.32自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,15,272.0,275.0,3.0,板,板书书写,,4.32-4.34板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,16,275.0,277.0,2.0,自,自然讲授,,4.35-4.37自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,17,277.0,287.0,10.0,板,板书书写,,4.37-4.46板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,18,287.0,293.0,6.0,侧,侧向讲授,,4.47-4.52侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,19,293.0,303.0,10.0,板,板书书写,,4.53-5.02板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,20,303.0,312.0,9.0,自,自然讲授,,5.03-5.11自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,21,312.0,318.0,6.0,板,板书书写,,5.12-5.17板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,22,318.0,322.0,4.0,自,自然讲授,,5.18-5.22自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,23,322.0,335.0,13.0,板,板书书写,,5.22-5.34板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,24,335.0,339.0,4.0,自,自然讲授,,5.35-5.38自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,25,339.0,351.0,12.0,板,板书书写,,5.39-5.51板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,26,351.0,379.0,28.0,自,自然讲授,,5.51-6.19自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,27,379.0,390.0,11.0,侧,侧向讲授,,6.19-6.30侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,28,390.0,394.0,4.0,板,板书书写,,6.30-6.33板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,29,394.0,439.0,45.0,自,自然讲授,,6.34-7.19自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,30,439.0,443.0,4.0,侧,侧向讲授,,7.19-7.22侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,31,443.0,492.0,49.0,自,自然讲授,,7.23-8012自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,32,492.0,495.0,3.0,侧,侧向讲授,,8.12-8.15侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,33,495.0,501.0,6.0,板,板书书写,,8.15-8.21板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,34,501.0,505.0,4.0,侧,侧向讲授,,8.21-8.24侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,35,505.0,527.0,22.0,板,板书书写,,8.25-8.46板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,36,527.0,529.0,2.0,侧,侧向讲授,,8.47-8.48侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,37,529.0,542.0,13.0,板,板书书写,,8.49-9.01板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,38,542.0,553.0,11.0,自,自然讲授,,9.02-9.13自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,39,553.0,556.0,3.0,板,板书书写,,9.13-9.15板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,40,556.0,570.0,14.0,侧,侧向讲授,,9.16-9.30侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,41,570.0,579.0,9.0,自,自然讲授,,9.30-9.38自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,42,579.0,594.0,15.0,板,板书书写,,9.39-9.54板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,43,594.0,603.0,9.0,自,自然讲授,,9.54-10.03自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,44,603.0,619.0,16.0,板,板书书写,,10.03-10.19板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,45,619.0,627.0,8.0,自,自然讲授,,10.19-10.27自
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,46,627.0,633.0,6.0,板,板书书写,,10.27-10.33板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,47,633.0,643.0,10.0,侧,侧向讲授,,10.33-10.42侧
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,48,643.0,648.0,5.0,板,板书书写,,10.43-10.47板
+expertC,38/38,D:\code\teacherT2S\doc\expertC\global\38_38.txt,49,648.0,718.0,70.0,自,自然讲授,,10.48-11.58自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,1,0.0,8.0,8.0,侧,侧向讲授,,0.0-0.08侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,2,8.0,20.0,12.0,自,自然讲授,,0.08-0.20自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,3,20.0,22.0,2.0,侧,侧向讲授,,0.20-0.22侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,4,22.0,24.0,2.0,自,自然讲授,,0.22-0.24自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,5,24.0,51.0,27.0,侧,侧向讲授,,0.24-0.51侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,6,51.0,67.0,16.0,自,自然讲授,,0.51-1.06自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,7,67.0,84.0,17.0,侧,侧向讲授,,1.07-1.24侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,8,84.0,89.0,5.0,自,自然讲授,,1.24-1.29自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,9,89.0,93.0,4.0,侧,侧向讲授,,1.29-1.33侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,10,93.0,97.0,4.0,自,自然讲授,,1.33-1.37自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,11,97.0,121.0,24.0,侧,侧向讲授,,1.37-2.01侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,12,121.0,125.0,4.0,自,自然讲授,,2.01-2.05自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,13,125.0,131.0,6.0,侧,侧向讲授,,2.05-2.11侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,14,131.0,139.0,8.0,自,自然讲授,,2.11-2.19自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,15,139.0,146.0,7.0,侧,侧向讲授,,2.19-2.26侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,16,146.0,152.0,6.0,自,自然讲授,,2.26-2.32自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,17,152.0,185.0,33.0,侧,侧向讲授,,2.32-3.05侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,18,185.0,221.0,36.0,自,自然讲授,,3.05-3.41自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,19,221.0,236.0,15.0,侧,侧向讲授,,3.41-3.56侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,20,236.0,256.0,20.0,自,自然讲授,,3.56-4.15自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,21,256.0,266.0,10.0,板,板书书写,,4.16-4.25板
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,22,266.0,270.0,4.0,自,自然讲授,,4.26-4.30自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,23,270.0,276.0,6.0,侧,侧向讲授,,4.30-4.36侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,24,276.0,287.0,11.0,自,自然讲授,,4.36-4.47自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,25,287.0,291.0,4.0,侧,侧向讲授,,4.47-4.51侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,26,291.0,329.0,38.0,自,自然讲授,,4.51-5.29自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,27,329.0,379.0,50.0,侧,侧向讲授,,5.29-6.18侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,28,379.0,380.0,1.0,板,板书书写,,6.19-6.20板
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,29,380.0,386.0,6.0,侧,侧向讲授,,6.20-6.26侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,30,386.0,390.0,4.0,板,板书书写,,6.26-6.30板
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,31,390.0,406.0,16.0,侧,侧向讲授,,6.30-6.46侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,32,406.0,409.0,3.0,自,自然讲授,,6.46-6.49自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,33,409.0,412.0,3.0,板,板书书写,,6.49-6.51板
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,34,412.0,420.0,8.0,自,自然讲授,,6.52-7.0自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,35,420.0,426.0,6.0,侧,侧向讲授,,7.0-7.06侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,36,426.0,445.0,19.0,自,自然讲授,,7.06-7.25自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,37,445.0,452.0,7.0,侧,侧向讲授,,7.25-7.32侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,38,452.0,517.0,65.0,板,板书书写,,7.32-8.36板
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,39,517.0,534.0,17.0,自,自然讲授,,8.37-8.54自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,40,534.0,537.0,3.0,侧,侧向讲授,,8.54-8.57侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,41,537.0,558.0,21.0,自,自然讲授,,8.57-9.18自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,42,558.0,562.0,4.0,侧,侧向讲授,,9.18-9.22侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,43,562.0,570.0,8.0,自,自然讲授,,9.22-9.30自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,44,570.0,575.0,5.0,侧,侧向讲授,,9.30-9.35侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,45,575.0,577.0,2.0,自,自然讲授,,9.35-9.37自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,46,577.0,589.0,12.0,侧,侧向讲授,,9.37-9.49侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,47,589.0,594.0,5.0,自,自然讲授,,9.49-9.53自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,48,594.0,596.0,2.0,侧,侧向讲授,,9.54-9.56侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,49,596.0,600.0,4.0,自,自然讲授,,9.56-9.59自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,50,600.0,603.0,3.0,侧,侧向讲授,,10.0-10.03侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,51,603.0,616.0,13.0,自,自然讲授,,10.03-10.16自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,52,616.0,620.0,4.0,侧,侧向讲授,,10.16-10.20侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,53,620.0,624.0,4.0,自,自然讲授,,10.20-10.24自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,54,624.0,642.0,18.0,侧,侧向讲授,,10.24-10.42侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,55,642.0,645.0,3.0,自,自然讲授,,10.42-10.45自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,56,645.0,654.0,9.0,侧,侧向讲授,end_time_repaired:40.54->654.00s,10.45-40.54侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,57,654.0,657.0,3.0,自,自然讲授,,10.54-10.57自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,58,657.0,663.0,6.0,侧,侧向讲授,,10.57-11.03侧
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,59,663.0,667.0,4.0,自,自然讲授,,11.03-11.07自
+expertC,39/39,D:\code\teacherT2S\doc\expertC\global\39_39.txt,60,667.0,673.0,6.0,侧,侧向讲授,,11.07-11.13侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,1,0.0,27.0,27.0,自,自然讲授,,0.0-0.27自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,2,27.0,28.0,1.0,侧,侧向讲授,,0.27-0.28侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,3,28.0,30.0,2.0,自,自然讲授,,0.28-0.30自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,4,30.0,33.0,3.0,侧,侧向讲授,,0.30-0.32侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,5,33.0,46.0,13.0,自,自然讲授,,0.33-0.45自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,6,46.0,48.0,2.0,侧,侧向讲授,,0.46-0.48侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,7,48.0,61.0,13.0,自,自然讲授,,0.48-1.01自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,8,61.0,63.0,2.0,侧,侧向讲授,,1.01-1.03侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,9,63.0,67.0,4.0,自,自然讲授,,1.03-1.06自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,10,67.0,80.0,13.0,板,板书书写,,1.07-1.19板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,11,80.0,105.0,25.0,自,自然讲授,,1.20-1.45自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,12,105.0,108.0,3.0,侧,侧向讲授,,1.45-1.48侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,13,108.0,119.0,11.0,自,自然讲授,,1.48-1.59自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,14,119.0,133.0,14.0,板,板书书写,,1.59-2.13板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,15,133.0,166.0,33.0,自,自然讲授,,2.13-2.46自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,16,166.0,179.0,13.0,侧,侧向讲授,,2.46-2.59侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,17,179.0,212.0,33.0,板,板书书写,,2.59-3.32板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,18,212.0,233.0,21.0,自,自然讲授,,3.32-3.52自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,19,233.0,237.0,4.0,侧,侧向讲授,,3.53-3.57侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,20,237.0,252.0,15.0,自,自然讲授,,3.57-4.11自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,21,252.0,375.0,123.0,侧,侧向讲授,,4.12-6.15侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,22,375.0,385.0,10.0,自,自然讲授,,6.15-6.25自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,23,385.0,392.0,7.0,板,板书书写,,6.25-6.32板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,24,392.0,400.0,8.0,自,自然讲授,,6.32-6.40自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,25,400.0,444.0,44.0,侧,侧向讲授,,6.40-7.24侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,26,444.0,448.0,4.0,板,板书书写,,7.24-7.28板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,27,448.0,451.0,3.0,侧,侧向讲授,,7.28-7.31侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,28,451.0,477.0,26.0,板,板书书写,,7.31-7.57板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,29,477.0,484.0,7.0,侧,侧向讲授,,7.57-8.04侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,30,484.0,493.0,9.0,板,板书书写,,8.04-8.13板
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,31,493.0,510.0,17.0,自,自然讲授,,8.13-8.30自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,32,510.0,525.0,15.0,侧,侧向讲授,,8.30-8.45侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,33,525.0,529.0,4.0,自,自然讲授,,8.45-8.49自
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,34,529.0,580.0,51.0,侧,侧向讲授,,8.49-9.40侧
+expertC,51/51,D:\code\teacherT2S\doc\expertC\global\51_51.txt,35,580.0,585.0,5.0,自,自然讲授,,9.40-9.45自
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,1,0.0,35.0,35.0,自然讲授,自然讲授,,0.00-0.34 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,2,35.0,59.0,24.0,板书书写,板书书写,,0.35-0.58 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,3,59.0,65.0,6.0,侧向讲授,侧向讲授,,0.59-1.04 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,4,65.0,70.0,5.0,板书书写,板书书写,,1.05-1.09 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,5,70.0,72.0,2.0,侧向讲授,侧向讲授,,1.10-1.11 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,6,72.0,78.0,6.0,板书书写,板书书写,,1.12-1.17 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,7,78.0,84.0,6.0,侧向讲授,侧向讲授,,1.18-1.23 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,8,84.0,96.0,12.0,自然讲授,自然讲授,,1.24-1.35 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,9,96.0,108.0,12.0,自然讲授,自然讲授,,1.36-1.47 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,10,108.0,113.0,5.0,侧向讲授,侧向讲授,,1.48-1.52 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,11,113.0,126.0,13.0,自然讲授,自然讲授,,1.53-2.05 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,12,126.0,134.0,8.0,板书书写,板书书写,,2.06-2.13 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,13,134.0,139.0,5.0,侧向讲授,侧向讲授,,2.14-2.18 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,14,139.0,144.0,5.0,自然讲授,自然讲授,,2.19-2.23 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,15,144.0,148.0,4.0,侧向讲授,侧向讲授,,2.24-2.27 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,16,148.0,159.0,11.0,板书书写,板书书写,,2.28-2.38 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,17,159.0,173.0,14.0,侧向讲授,侧向讲授,,2.39-2.52 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,18,173.0,178.0,5.0,自然讲授,自然讲授,,2.53-2.57 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,19,178.0,192.0,14.0,侧向讲授,侧向讲授,,2.58-3.11 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,20,192.0,206.0,14.0,板书书写,板书书写,,3.12-3.26 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,21,208.0,213.0,5.0,侧向讲授,侧向讲授,,3.28-3.32 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,22,213.0,218.0,5.0,自然讲授,自然讲授,,3.33-3.37 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,23,218.0,221.0,3.0,侧向讲授,侧向讲授,,3.38-3.40 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,24,221.0,224.0,3.0,自然讲授,自然讲授,,3.41-3.43 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,25,224.0,230.0,6.0,板书书写,板书书写,,3.44-3.49 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,26,230.0,233.0,3.0,侧向讲授,侧向讲授,,3.50-3.52 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,27,233.0,242.0,9.0,自然讲授,自然讲授,,3.53-4.01 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,28,242.0,250.0,8.0,板书书写,板书书写,,4.02-4.09 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,29,250.0,257.0,7.0,侧向讲授,侧向讲授,,4.10-4.16 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,30,257.0,261.0,4.0,板书书写,板书书写,,4.17-4.20 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,31,261.0,268.0,7.0,自然讲授,自然讲授,,4.21-4.27 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,32,268.0,280.0,12.0,侧向讲授,侧向讲授,,4.28-4.39 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,33,280.0,284.0,4.0,板书书写,板书书写,,4.40-4.43 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,34,284.0,290.0,6.0,侧向讲授,侧向讲授,,4.44-4.49 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,35,290.0,296.0,6.0,板书书写,板书书写,,4.50-4.55 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,36,296.0,298.0,2.0,自然讲解,自然讲授,,4.56-4.57自然讲解
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,37,298.0,301.0,3.0,侧向讲授,侧向讲授,,4.58-5.00 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,38,301.0,310.0,9.0,自然讲授,自然讲授,,5.01-5.09 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,39,310.0,318.0,8.0,板书书写,板书书写,,5.10-5.17 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,40,318.0,327.0,9.0,自然讲授,自然讲授,,5.18-5.26 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,41,327.0,336.0,9.0,板书书写,板书书写,,5.27-5.35 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,42,336.0,343.0,7.0,自然讲授,自然讲授,,5.36-5.43 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,43,342.0,360.0,18.0,板书书写,板书书写,,5.42-5.59板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,44,360.0,368.0,8.0,侧向讲授,侧向讲授,,6.00-6.07 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,45,368.0,371.0,3.0,板书书写,板书书写,,6.08-6.10 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,46,371.0,373.0,2.0,自然讲授,自然讲授,,6.11-6.12 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,47,373.0,384.0,11.0,侧向讲授,侧向讲授,,6.13-6.23 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,48,384.0,402.0,18.0,板书书写,板书书写,,6.24-6.41 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,49,402.0,404.0,2.0,侧向讲授,侧向讲授,,6.42-6.43 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,50,404.0,430.0,26.0,自然讲授,自然讲授,,6.44-7.09 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,51,430.0,432.0,2.0,侧向讲授,侧向讲授,,7.10-7.11 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,52,432.0,440.0,8.0,自然讲授,自然讲授,,7.12-7.19 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,53,440.0,454.0,14.0,侧向讲授,侧向讲授,,7.20-7.33 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,54,454.0,463.0,9.0,自然讲授,自然讲授,,7.34-7.42 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,55,463.0,470.0,7.0,侧向讲授,侧向讲授,,7.43-7.49 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,56,470.0,477.0,7.0,自然讲授,自然讲授,,7.50-7.56 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,57,477.0,483.0,6.0,板书书写,板书书写,,7.57-8.02 板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,58,483.0,512.0,29.0,自然讲授,自然讲授,,8.03-8.31 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,59,512.0,519.0,7.0,自然讲授,自然讲授,,8.32-8.38 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,60,519.0,532.0,13.0,侧向讲授,侧向讲授,,8.39-8.51 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,61,532.0,538.0,6.0,板书书写,板书书写,,8.52-8.57板书书写
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,62,538.0,547.0,9.0,侧向讲授,侧向讲授,,8.58-9.06 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,63,547.0,564.0,17.0,板书讲授,板书书写,,9.07-9.23 板书讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,64,564.0,575.0,11.0,自然讲授,自然讲授,,9.24-9.34 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,65,575.0,594.0,19.0,侧向讲授,侧向讲授,,9.35-9.53 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,66,594.0,598.0,4.0,自然讲授,自然讲授,,9.54-9.57 自然讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,67,598.0,623.0,25.0,侧向讲授,侧向讲授,,9.58-10.22 侧向讲授
+expertD,32/32,D:\code\teacherT2S\doc\expertD\global\32_32.txt,68,623.0,631.0,8.0,自然讲授,自然讲授,,10.23-10.31 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,1,0.0,48.0,48.0,自然讲授,自然讲授,,0.00-0.47 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,2,48.0,63.0,15.0,板书书写,板书书写,,0.48-1.02 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,3,63.0,76.0,13.0,自然讲授,自然讲授,,1.03-1.15 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,4,76.0,109.0,33.0,板书书写,板书书写,,1.16-1.48 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,5,109.0,115.0,6.0,自然讲授,自然讲授,,1.49-1.54 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,6,115.0,123.0,8.0,侧向讲授,侧向讲授,,1.55-2.02 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,7,123.0,143.0,20.0,自然讲授,自然讲授,,2.03-2.22 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,8,143.0,162.0,19.0,板书书写,板书书写,,2.23-2.41 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,9,162.0,164.0,2.0,侧向讲授,侧向讲授,,2.42-2.43 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,10,164.0,175.0,11.0,板书书写,板书书写,,2.44-2.54 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,11,175.0,177.0,2.0,侧向讲授,侧向讲授,,2.55-2.56 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,12,177.0,184.0,7.0,板书书写,板书书写,,2.57-3.03 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,13,184.0,191.0,7.0,自然讲授,自然讲授,,3.04-3.10 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,14,191.0,208.0,17.0,板书书写,板书书写,,3.11-3.27 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,15,208.0,220.0,12.0,自然讲授,自然讲授,,3.28-3.39 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,16,220.0,255.0,35.0,板书书写,板书书写,,3.40-4.14 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,17,255.0,275.0,20.0,自然讲授,自然讲授,,4.15-4.34 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,18,275.0,305.0,30.0,板书书写,板书书写,,4.35-5.04 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,19,305.0,313.0,8.0,自然讲授,自然讲授,,5.05-5.12 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,20,313.0,317.0,4.0,板书书写,板书书写,,5.13-5.16板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,21,317.0,324.0,7.0,自然讲授,自然讲授,,5.17-5.23 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,22,324.0,336.0,12.0,板书书写,板书书写,,5.24-5.35 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,23,336.0,340.0,4.0,自然讲授,自然讲授,,5.36-5.39 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,24,340.0,353.0,13.0,板书书写,板书书写,,5.40-5.52 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,25,353.0,378.0,25.0,自然讲授,自然讲授,,5.53-6.17 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,26,378.0,382.0,4.0,板书书写,板书书写,,6.18-6.21板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,27,382.0,389.0,7.0,侧向讲授,侧向讲授,,6.22-6.28侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,28,389.0,393.0,4.0,板书书写,板书书写,,6.29-6.32板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,29,393.0,441.0,48.0,自然讲授,自然讲授,,6.33-7.20 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,30,441.0,444.0,3.0,侧向讲授,侧向讲授,,7.21-7.23 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,31,444.0,493.0,49.0,自然讲授,自然讲授,,7.24-8.12 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,32,493.0,504.0,11.0,板书书写,板书书写,,8.13-8.23 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,33,504.0,507.0,3.0,自然讲授,自然讲授,,8.24-8.26 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,34,507.0,529.0,22.0,板书书写,板书书写,,8.27-8.48 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,35,529.0,531.0,2.0,侧向讲授,侧向讲授,,8.49-8.50 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,36,531.0,546.0,15.0,板书书写,板书书写,,8.51-9.05 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,37,546.0,549.0,3.0,侧向讲授,侧向讲授,,9.06-9.08 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,38,549.0,553.0,4.0,自然讲授,自然讲授,,9.09-9.12 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,39,553.0,558.0,5.0,板书书写,板书书写,,9.13-9.17 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,40,558.0,579.0,21.0,自然讲授,自然讲授,,9.18-9.38 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,41,579.0,595.0,16.0,板书书写,板书书写,,9.39-9.54 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,42,595.0,604.0,9.0,自然讲授,自然讲授,,9.55-10.03 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,43,604.0,612.0,8.0,板书书写,板书书写,,10.04-10.11 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,44,612.0,614.0,2.0,侧向讲授,侧向讲授,,10.12-10.13 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,45,614.0,620.0,6.0,板书书写,板书书写,,10.14-10.19 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,46,620.0,630.0,10.0,自然讲授,自然讲授,,10.20-10.29 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,47,630.0,637.0,7.0,板书书写,板书书写,,10.30-10.36 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,48,637.0,642.0,5.0,侧向讲授,侧向讲授,,10.37-10.41 侧向讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,49,642.0,650.0,8.0,板书书写,板书书写,,10.42-10.49 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,50,650.0,661.0,11.0,自然讲授,自然讲授,,10.50-11.00 自然讲授
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,51,661.0,663.0,2.0,板书书写,板书书写,,11.01-11.02 板书书写
+expertD,38/38,D:\code\teacherT2S\doc\expertD\global\38_38.txt,52,663.0,717.0,54.0,自然讲授,自然讲授,,11.03-11.57 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,1,0.0,2.0,2.0,自然讲授,自然讲授,,0.00-0.01 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,2,2.0,6.0,4.0,侧向讲授,侧向讲授,,0.02-0.05 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,3,6.0,22.0,16.0,自然讲授,自然讲授,,0.06-0.21 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,4,22.0,24.0,2.0,侧向讲授,侧向讲授,,0.22-0.23 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,5,24.0,27.0,3.0,侧向讲授,侧向讲授,,0.24-0.26 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,6,27.0,33.0,6.0,侧向讲授,侧向讲授,,0.27-0.32 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,7,33.0,36.0,3.0,板书书写,板书书写,,0.33-0.35 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,8,36.0,52.0,16.0,侧向讲授,侧向讲授,,0.36-0.51 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,9,52.0,67.0,15.0,自然讲授,自然讲授,,0.52-1.06 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,10,67.0,70.0,3.0,板书书写,板书书写,,1.07-1.09 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,11,70.0,81.0,11.0,侧向讲授,侧向讲授,,1.10-1.20 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,12,81.0,96.0,15.0,自然讲授,自然讲授,,1.21-1.35 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,13,96.0,130.0,34.0,侧向讲授,侧向讲授,,1.36-2.09 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,14,130.0,139.0,9.0,自然讲授,自然讲授,,2.10-2.18 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,15,139.0,142.0,3.0,侧向讲授,侧向讲授,,2.19-2.21 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,16,142.0,145.0,3.0,板书书写,板书书写,,2.22-2.24 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,17,145.0,150.0,5.0,自然讲授,自然讲授,,2.25-2.29 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,18,150.0,166.0,16.0,板书书写,板书书写,,2.30-2.45 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,19,166.0,169.0,3.0,自然讲授,自然讲授,,2.46-2.48 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,20,169.0,174.0,5.0,板书书写,板书书写,,2.49-2.53 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,21,174.0,183.0,9.0,侧面讲授,侧向讲授,,2.54-3.02侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,22,183.0,221.0,38.0,自然讲授,自然讲授,,3.03-3.40 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,23,221.0,229.0,8.0,板书书写,板书书写,,3.41-3.48 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,24,229.0,246.0,17.0,自然讲授,自然讲授,,3.49-4.05 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,25,246.0,254.0,8.0,侧面讲授,侧向讲授,,4.06-4.13侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,26,254.0,269.0,15.0,板书书写,板书书写,,4.14-4.28 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,27,269.0,272.0,3.0,自然讲授,自然讲授,,4.29-4.31 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,28,272.0,276.0,4.0,板书书写,板书书写,,4.32-4.35 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,29,276.0,281.0,5.0,自然讲授,自然讲授,,4.36-4.40 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,30,281.0,292.0,11.0,侧向讲授,侧向讲授,,4.41-4.51 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,31,292.0,327.0,35.0,正面讲授,自然讲授,,4.52-5.26正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,32,327.0,330.0,3.0,侧向讲授,侧向讲授,,5.27-5.29侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,33,330.0,333.0,3.0,正面讲授,自然讲授,,5.30-5.32正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,34,333.0,355.0,22.0,侧面讲授,侧向讲授,,5.33-5.54侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,35,355.0,396.0,41.0,板书书写,板书书写,,5.55-6.35 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,36,396.0,403.0,7.0,侧向讲授,侧向讲授,,6.36-6.42 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,37,403.0,408.0,5.0,自然讲授,自然讲授,,6.43-6.47 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,38,408.0,411.0,3.0,板书书写,板书书写,,6.48-6.51板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,39,411.0,417.0,6.0,侧面讲授,侧向讲授,,6.51-6.56 侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,40,417.0,420.0,3.0,正面讲授,自然讲授,,6.57-6.59正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,41,420.0,424.0,4.0,侧面讲授,侧向讲授,,7.00-7.03侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,42,424.0,440.0,16.0,侧向讲授,侧向讲授,,7.04-7.20 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,43,446.0,449.0,3.0,自然讲授,自然讲授,,7.26-7.29 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,44,446.0,453.0,7.0,侧向讲授,侧向讲授,,7.26-7.32 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,45,453.0,496.0,43.0,板书书写,板书书写,,7.33-8.15 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,46,496.0,515.0,19.0,板书书写,板书书写,,8.16-8.34 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,47,515.0,534.0,19.0,正面讲授,自然讲授,,8.35-8.53 正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,48,534.0,538.0,4.0,侧面讲授,侧向讲授,,8.54-8.57侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,49,538.0,557.0,19.0,正面讲授,自然讲授,,8.58-9.16正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,50,557.0,561.0,4.0,侧面讲授,侧向讲授,,9.17-9.20侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,51,561.0,568.0,7.0,正面讲授,自然讲授,,9.21-9.27正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,52,568.0,570.0,2.0,正面讲授,自然讲授,,9.28-9.29正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,53,570.0,584.0,14.0,侧向讲授,侧向讲授,,9.30-9.43 侧向讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,54,584.0,593.0,9.0,板书书写,板书书写,,9.44-9.52板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,55,593.0,616.0,23.0,自然讲授,自然讲授,,9.53-10.15 自然讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,56,616.0,620.0,4.0,板书书写,板书书写,,10.16-10.19 板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,57,620.0,623.0,3.0,侧面讲授,侧向讲授,,10.20-10.22侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,58,623.0,632.0,9.0,板书书写,板书书写,,10.23-10.31板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,59,632.0,649.0,17.0,侧面讲授,侧向讲授,,10.32-10.48侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,60,649.0,653.0,4.0,板书书写,板书书写,,10.49-10.52板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,61,653.0,655.0,2.0,正面讲授,自然讲授,,10.53-10.54正面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,62,655.0,660.0,5.0,侧面讲授,侧向讲授,,10.55-10.59侧面讲授
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,63,660.0,662.0,2.0,板书书写,板书书写,,11.00-11.01板书书写
+expertD,39/39,D:\code\teacherT2S\doc\expertD\global\39_39.txt,64,662.0,673.0,11.0,正面讲授,自然讲授,,11.02-11.13正面讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,1,0.0,12.0,12.0,自然讲授,自然讲授,,0.00-0.11 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,2,12.0,16.0,4.0,侧向讲授,侧向讲授,,0.12-0.15 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,3,16.0,31.0,15.0,自然讲授,自然讲授,,0.16-0.30 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,4,31.0,34.0,3.0,侧向讲授,侧向讲授,,0.31-0.33 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,5,34.0,37.0,3.0,自然讲授,自然讲授,,0.34-0.36自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,6,37.0,50.0,13.0,侧向讲授,侧向讲授,,0.37-0.49 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,7,50.0,67.0,17.0,自然讲授,自然讲授,,0.50-1.06 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,8,67.0,79.0,12.0,板书书写,板书书写,,1.07-1.18 板书书写
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,9,79.0,83.0,4.0,自然讲授,自然讲授,,1.19-1.22 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,10,83.0,88.0,5.0,侧向讲授,侧向讲授,,1.23-1.27侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,11,88.0,97.0,9.0,自然讲授,自然讲授,,1.28-1.36 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,12,97.0,107.0,10.0,侧向讲授,侧向讲授,,1.37-1.46 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,13,107.0,141.0,34.0,自然讲授,自然讲授,,1.47-2.20自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,14,141.0,175.0,34.0,侧向讲授,侧向讲授,,2.21-2.54 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,15,175.0,179.0,4.0,正面讲授,自然讲授,,2.55-2.58正面讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,16,179.0,214.0,35.0,板书书写,板书书写,,2.59-3.33 板书书写
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,17,214.0,243.0,29.0,自然讲授,自然讲授,,3.34-4.02 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,18,243.0,257.0,14.0,侧向讲授,侧向讲授,,4.03-4.16 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,19,257.0,384.0,127.0,自然讲授,自然讲授,,4.17-6.23 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,20,384.0,392.0,8.0,板书书写,板书书写,,6.24-6.31 板书书写
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,21,392.0,401.0,9.0,自然讲授,自然讲授,,6.32-6.40 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,22,401.0,435.0,34.0,侧向讲授,侧向讲授,,6.41-7.14 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,23,435.0,445.0,10.0,侧向讲授,侧向讲授,,7.15-7.24 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,24,445.0,494.0,49.0,板书书写,板书书写,,7.25-8.13 板书书写
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,25,494.0,506.0,12.0,侧向讲授,侧向讲授,,8.14-8.25 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,26,506.0,517.0,11.0,自然讲授,自然讲授,,8.26-8.36 自然讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,27,517.0,520.0,3.0,侧向讲授,侧向讲授,,8.37-8.39 侧向讲授
+expertD,51/51,D:\code\teacherT2S\doc\expertD\global\51_51.txt,28,520.0,584.0,64.0,自然讲授,自然讲授,,8.40-9.44 自然讲授

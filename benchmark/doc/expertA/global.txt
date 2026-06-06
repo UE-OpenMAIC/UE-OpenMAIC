@@ -1,0 +1,16 @@
+自然讲授
+	G0 低幅手臂讲解----Neutral
+	G2 手臂腹前静立讲解----Neutral
+
+侧向讲授
+	G1 斜侧立讲解---Descriptive
+ 	G7 正侧身讲解---Beat gesture
+ 	G9 侧身上举指向讲解---pointing
+  	G8 指向式侧向讲解---pointing/Interacting
+  	G6 侧身转正向讲解----暂态
+
+板书书写----writing
+ 	G3 板书书写----writing
+ 	G4 板书书写并带有转身----暂态
+  	G10 侧身板书书写----writing
+  	G5 板书遮挡书写----识别跳动，有遮挡
