@@ -1,15 +1,37 @@
 # UE-OpenMAIC / ER-MSSF
 
+This repository is built upon and extends the original OpenMAIC project:
+
+**Original OpenMAIC Repository:**  
+https://github.com/THU-MAIC/OpenMAIC
+
+OpenMAIC, short for **Open Multi-Agent Interactive Classroom**, is an open-source AI platform for generating rich and interactive classroom experiences with AI teachers, AI classmates, slides, quizzes, simulations, whiteboard interaction, and real-time discussions.
+
+Based on this foundation, this repository extends OpenMAIC toward **state-driven virtual AI teacher generation** by integrating unsupervised time-series state detection, teacher posture state modeling, cross-video prototype alignment, and UE-based virtual teacher motion organization.
+
 This repository provides the code and ethically releasable materials for the paper:
 
 **Unsupervised State Detection with Entropy Regularization for Time Series Data with Application to Virtual AI Teacher**
 
-The repository contains the implementation and reproduction materials for:
+The repository contains implementation and reproduction materials for:
 
 1. **ER-MSSF**: Entropy-Regularized Multi-branch State Sequence Fusion for unsupervised time-series state detection.
 2. **Public benchmark experiments** on six time-series state detection datasets.
 3. **CLaP transfer experiments** for evaluating the cross-framework applicability of the reliability-based branch selection mechanism.
-4. **Virtual AI teacher application**, including teacher posture state detection, cross-video prototype alignment, expert-label evaluation, and UE/OpenMAIC-based system materials.
+4. **Virtual AI teacher application**, including teacher posture state detection, cross-video prototype alignment, expert-label evaluation, and UE/OpenMAIC-based virtual teacher materials.
+
+---
+
+## Relation to OpenMAIC
+
+This project inherits the OpenMAIC concept of an AI-driven interactive classroom and further extends it in the following aspects:
+
+- introducing unsupervised teaching posture state detection with ER-MSSF;
+- detecting and aligning teacher posture states from classroom video time series;
+- mapping detected global teaching states to virtual teacher motion organization;
+- integrating state-driven behavior control into a UE/OpenMAIC-based virtual AI teacher system.
+
+The original OpenMAIC project focuses on multi-agent interactive classroom generation, while this repository focuses on **state detection, teaching behavior modeling, and virtual AI teacher motion organization** built on top of the OpenMAIC-style classroom framework.
 
 ---
 
@@ -17,42 +39,48 @@ The repository contains the implementation and reproduction materials for:
 
 ```text
 UE-OpenMAIC/
-|
-+-- OpenMAIC/
-|   +-- UE/OpenMAIC-related virtual AI teacher system materials.
-|
-+-- baseline/
-|   +-- Baseline reproduction scripts and running instructions.
-|
-+-- benchmark/
-|   +-- Benchmark result documents, comparison tables, and paper-related records.
-|
-+-- code/
-|   +-- teacherT2S/
-|       +-- Time2State/
-|       |   +-- Adapted Time2State backbone and teacher-application scripts.
-|       |
-|       +-- our/
-|       |   +-- ER-MSSF benchmark implementation.
-|       |   +-- mocap_topk_sensitivity/
-|       |       +-- MoCap Top-K sensitivity experiment.
-|       |
-|       +-- ourClap/
-|           +-- CLaP transfer experiment scripts.
-|
-+-- dataset/
-|   +-- Ethically releasable processed data, demo data, and data preparation notes.
-|
-+-- paper_figure/
-|   +-- Paper figures and selected visualization materials.
-|
-+-- supplements/
-|   +-- Supplementary tables, records, and supporting materials.
-|
-+-- requirements.txt
-+-- README.md
-+-- LICENSE
-+-- .gitignore
+│
+├── OpenMAIC/
+│   └── UE/OpenMAIC-related virtual AI teacher system materials.
+│
+├── baseline/
+│   └── Baseline reproduction scripts and running instructions.
+│
+├── benchmark/
+│   └── Expert annotations, expert-evaluation results, final validation tables,
+│       benchmark records, and paper-related result documents.
+│
+├── code/
+│   └── teacherT2S/
+│       ├── Time2State/
+│       │   ├── Time2State/
+│       │   │   └── Adapted Time2State backbone.
+│       │   ├── TSpy/
+│       │   │   └── Time-series utility package.
+│       │   ├── data/
+│       │   │   └── Public benchmark data used by the Time2State-side scripts.
+│       │   ├── scripts/
+│       │   │   └── Supporting scripts.
+│       │   ├── run_teacher_state_detection_orientation8.py
+│       │   ├── align_cross_video_prototypes_x1_orientation8.py
+│       │   ├── evaluate_expert_labels_teacher_mask.py
+│       │   └── make_final_expert_validation_table.py
+│       │
+│       ├── our/
+│       │   ├── ER-MSSF benchmark implementation.
+│       │   └── mocap_topk_sensitivity/
+│       │       └── MoCap Top-K sensitivity experiment.
+│       │
+│       └── ourClap/
+│           └── CLaP transfer experiment scripts.
+│
+├── dataset/
+│   └── Ethically releasable processed data, demo data, and data preparation notes.
+│
+├── requirements.txt
+├── README.md
+├── LICENSE
+└── .gitignore
 ```
 
 ---
@@ -69,7 +97,7 @@ The branch reliability score combines three aspects:
 - **inter-branch consistency**,
 - **prediction stability**.
 
-For the virtual AI teacher application, ER-MSSF is applied to teacher posture time series extracted from classroom videos. The detected local states are further aligned across videos through X1-only prototype aggregation, producing global teaching posture states that can be used for state-driven virtual teacher motion organization.
+For the virtual AI teacher application, ER-MSSF is applied to teacher posture time series extracted from classroom videos. The detected local states are further aligned across videos through X1-only prototype aggregation, producing global teaching posture states that are used for state-driven virtual teacher motion organization.
 
 ---
 
@@ -81,10 +109,12 @@ For the virtual AI teacher application, ER-MSSF is applied to teacher posture ti
 | Public benchmark baselines | `baseline/` |
 | CLaP transfer experiment | `code/teacherT2S/ourClap/` |
 | MoCap Top-K sensitivity analysis | `code/teacherT2S/our/mocap_topk_sensitivity/` |
-| Teacher posture state detection | `code/teacherT2S/Time2State/teacher_application/` |
-| Cross-video prototype alignment | `code/teacherT2S/Time2State/teacher_application/align_cross_video_prototypes_x1_orientation8.py` |
-| Expert-label evaluation | `code/teacherT2S/Time2State/teacher_application/evaluate_expert_labels_teacher_mask.py` |
-| Final expert validation table | `code/teacherT2S/Time2State/teacher_application/make_final_expert_validation_table.py` |
+| Adapted Time2State backbone | `code/teacherT2S/Time2State/Time2State/` |
+| Teacher posture state detection | `code/teacherT2S/Time2State/run_teacher_state_detection_orientation8.py` |
+| Cross-video prototype alignment | `code/teacherT2S/Time2State/align_cross_video_prototypes_x1_orientation8.py` |
+| Expert-label evaluation | `code/teacherT2S/Time2State/evaluate_expert_labels_teacher_mask.py` |
+| Final expert validation table | `code/teacherT2S/Time2State/make_final_expert_validation_table.py` |
+| Expert annotations and evaluation records | `benchmark/` |
 | UE/OpenMAIC virtual teacher materials | `OpenMAIC/` |
 | Dataset and privacy notes | `dataset/README.md` |
 
@@ -95,7 +125,7 @@ For the virtual AI teacher application, ER-MSSF is applied to teacher posture ti
 The teacher-application scripts are located in:
 
 ```text
-code/teacherT2S/Time2State/teacher_application/
+code/teacherT2S/Time2State/
 ```
 
 The main scripts are:
@@ -119,6 +149,8 @@ Their roles are:
 Recommended execution order:
 
 ```bash
+cd code/teacherT2S/Time2State
+
 python run_teacher_state_detection_orientation8.py
 python align_cross_video_prototypes_x1_orientation8.py
 python evaluate_expert_labels_teacher_mask.py
@@ -126,6 +158,35 @@ python make_final_expert_validation_table.py
 ```
 
 Please update the input and output paths according to your local data location before running the scripts.
+
+---
+
+## Benchmark and Expert Annotation Files
+
+The `benchmark/` directory contains paper-related benchmark documents and expert annotation materials, including:
+
+```text
+benchmark/
+│
+├── expertA/
+├── expertB/global/
+├── expertC/global/
+├── expertD/global/
+├── _eval_BCD_global_3class_teacher_mask_grid/
+├── _final_expert_validation_table/
+├── datasetN/
+└── digitalAction/
+```
+
+These files support the teacher-application evaluation part of the paper, including:
+
+- expert annotation records,
+- B/C/D expert global-label evaluation,
+- consensus-label evaluation,
+- conservative merged-label evaluation,
+- final expert validation table.
+
+Raw classroom videos and raw audio are not included for privacy reasons.
 
 ---
 
@@ -192,6 +253,7 @@ This repository releases:
 
 - code for ER-MSSF and related experiments,
 - processed and ethically releasable materials where applicable,
+- expert annotation records and evaluation scripts where appropriate,
 - public benchmark preparation instructions,
 - selected anonymized examples or derived features when available,
 - configuration files and reproduction scripts.
@@ -202,6 +264,12 @@ For public benchmark datasets, please obtain the datasets from their official so
 dataset/README.md
 ```
 
+or the corresponding data folder under:
+
+```text
+code/teacherT2S/Time2State/data/
+```
+
 ---
 
 ## Privacy and Ethics Notes
@@ -209,6 +277,8 @@ dataset/README.md
 The classroom-video data were collected with informed consent. Raw videos, raw audio, and directly identifiable information are excluded from this repository.
 
 When illustrative frames, pose features, or examples are provided, identifiable information is removed or anonymized where necessary.
+
+The expert annotation files are released only where they do not contain raw identifiable video/audio content.
 
 ---
 
