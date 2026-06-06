@@ -1,0 +1,9 @@
+﻿dataset,case_id,ARI,NMI,states,seconds,attempts,status,error,prediction_file,raw_file,log_file,hvgh_win_size,hvgh_epoch,hvgh_iteration
+PAMAP2_zero,subject101,,,,4.841,5,error,ValueError('ndarray is not found!!'),,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject101\001\segm000.txt,logs\PAMAP2_zero_subject101_try05_stdout.txt,100,10,2
+PAMAP2_zero,subject102,,,,5.409,5,error,ValueError('ndarray is not found!!'),,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject102\001\segm000.txt,logs\PAMAP2_zero_subject102_try05_stdout.txt,100,10,2
+PAMAP2_zero,subject103,,,,2.943,5,error,ValueError('ndarray is not found!!'),,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject103\001\segm000.txt,logs\PAMAP2_zero_subject103_try05_stdout.txt,100,10,2
+PAMAP2_zero,subject104,,,,4.369,5,error,ValueError('ndarray is not found!!'),,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject104\001\segm000.txt,logs\PAMAP2_zero_subject104_try05_stdout.txt,100,10,2
+PAMAP2_zero,subject105,0.0038270135556958264,0.03899708805002793,9,103.369,1,ok,,predictions\PAMAP2_zero_subject105_pred.csv,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject105\001\segm000.txt,logs\PAMAP2_zero_subject105_try01_stdout.txt,100,10,2
+PAMAP2_zero,subject106,0.020203042864649367,0.05609938185903688,14,94.144,1,ok,,predictions\PAMAP2_zero_subject106_pred.csv,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject106\001\segm000.txt,logs\PAMAP2_zero_subject106_try01_stdout.txt,100,10,2
+PAMAP2_zero,subject107,,,,5.156,5,error,ValueError('ndarray is not found!!'),,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject107\001\segm000.txt,logs\PAMAP2_zero_subject107_try05_stdout.txt,100,10,2
+PAMAP2_zero,subject108,0.002806836452672983,0.05162575388558775,15,97.531,1,ok,,predictions\PAMAP2_zero_subject108_pred.csv,raw_hvgh_work\HVGHlearn\PAMAP2_zero\subject108\001\segm000.txt,logs\PAMAP2_zero_subject108_try01_stdout.txt,100,10,2

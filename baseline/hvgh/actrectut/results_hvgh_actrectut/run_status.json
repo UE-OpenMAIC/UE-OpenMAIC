@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "algorithm": "HVGH",
+  "repo_root": "D:\\code\\teacherT2S",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\hvgh\\actrectut\\results_hvgh_actrectut",
+  "datasets": [
+    "actrectut"
+  ],
+  "max_retries": 5,
+  "loaded_cases": 20,
+  "loaded_cases_ok": 20,
+  "loaded_cases_failed": 0,
+  "all_rows_ok": 20,
+  "all_rows_failed": 0,
+  "case_results_csv": "D:\\code\\teacherT2S\\baseline\\hvgh\\actrectut\\results_hvgh_actrectut\\case_results.csv",
+  "attempt_history_csv": "D:\\code\\teacherT2S\\baseline\\hvgh\\actrectut\\results_hvgh_actrectut\\attempt_history.csv"
+}

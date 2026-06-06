@@ -1,0 +1,2 @@
+﻿algorithm,dataset,cases,mean_ARI,mean_NMI,failed
+HVGH,UCR-SEG,32,0.05045229668375189,0.13213684600306908,0

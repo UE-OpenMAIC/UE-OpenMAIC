@@ -1,0 +1,306 @@
+
+from __future__ import annotations
+
+import os
+import sys
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Iterable
+from collections import Counter, defaultdict
+import math
+
+MOCAP_INFO = {
+    "amc_86_01.4d": {"n_segs": 4, "label": {588: 0, 1200: 1, 2006: 0, 2530: 2, 3282: 0, 4048: 3, 4579: 2}},
+    "amc_86_02.4d": {"n_segs": 8, "label": {1009: 0, 1882: 1, 2677: 2, 3158: 3, 4688: 4, 5963: 0, 7327: 5, 8887: 6, 9632: 7, 10617: 0}},
+    "amc_86_03.4d": {"n_segs": 7, "label": {872: 0, 1938: 1, 2448: 2, 3470: 0, 4632: 3, 5372: 4, 6182: 5, 7089: 6, 8401: 0}},
+    "amc_86_07.4d": {"n_segs": 6, "label": {1060: 0, 1897: 1, 2564: 2, 3665: 1, 4405: 2, 5169: 3, 5804: 4, 6962: 0, 7806: 5, 8702: 0}},
+    "amc_86_08.4d": {"n_segs": 9, "label": {1062: 0, 1904: 1, 2661: 2, 3282: 3, 3963: 4, 4754: 5, 5673: 6, 6362: 4, 7144: 7, 8139: 8, 9206: 0}},
+    "amc_86_09.4d": {"n_segs": 5, "label": {921: 0, 1275: 1, 2139: 2, 2887: 3, 3667: 4, 4794: 0}},
+    "amc_86_10.4d": {"n_segs": 4, "label": {2003: 0, 3720: 1, 4981: 0, 5646: 2, 6641: 3, 7583: 0}},
+    "amc_86_11.4d": {"n_segs": 4, "label": {1231: 0, 1693: 1, 2332: 2, 2762: 1, 3386: 3, 4015: 2, 4665: 1, 5674: 0}},
+    "amc_86_14.4d": {"n_segs": 3, "label": {671: 0, 1913: 1, 2931: 0, 4134: 2, 5051: 0, 5628: 1, 6055: 2}},
+}
+
+@dataclass
+class SeriesCase:
+    dataset: str
+    case_id: str
+    data: object
+    labels: object
+    hvgh_win_size: int = 100
+    hvgh_epoch: int = 5
+    hvgh_iteration: int = 2
+    hvgh_gamma: float = 2.0
+    hvgh_eta: float = 2.0
+    hvgh_initial_class: int = 1
+    hvgh_input_dim: int | None = None
+    note: str = ""
+
+
+def add_repo_imports(repo_root: Path) -> None:
+    for p in [repo_root / "Time2State", repo_root, repo_root / "multi_t2s_paper_benchmark"]:
+        s = str(p)
+        if s in sys.path:
+            sys.path.remove(s)
+        sys.path.insert(0, s)
+
+
+def import_runtime(repo_root: Path):
+    add_repo_imports(repo_root)
+    import numpy as np
+    import pandas as pd
+    import scipy.io
+    from sklearn.metrics import adjusted_rand_score, normalized_mutual_info_score
+    try:
+        from TSpy.utils import normalize as tspy_normalize
+    except Exception:
+        tspy_normalize = None
+    return {
+        "np": np,
+        "pd": pd,
+        "scipy_io": scipy.io,
+        "adjusted_rand_score": adjusted_rand_score,
+        "normalized_mutual_info_score": normalized_mutual_info_score,
+        "tspy_normalize": tspy_normalize,
+    }
+
+
+def original_data_root(repo_root: Path) -> Path:
+    return repo_root / "Time2State" / "data"
+
+
+def normalize_data(data, runtime):
+    norm = runtime.get("tspy_normalize")
+    if norm is not None:
+        return norm(data)
+    np = runtime["np"]
+    arr = np.asarray(data, dtype=float)
+    mu = np.nanmean(arr, axis=0, keepdims=True)
+    sd = np.nanstd(arr, axis=0, keepdims=True)
+    sd[sd < 1e-8] = 1.0
+    return np.nan_to_num((arr - mu) / sd, nan=0.0, posinf=0.0, neginf=0.0)
+
+
+def fill_nan_original(data, np):
+    arr = np.asarray(data, dtype=float).copy()
+    x_len, y_len = arr.shape
+    for x in range(x_len):
+        for y in range(y_len):
+            if np.isnan(arr[x, y]):
+                arr[x, y] = arr[x - 1, y]
+    return arr
+
+
+def reorder_label(seq, np):
+    mapping = {}
+    out = []
+    next_id = 0
+    for value in list(seq):
+        key = int(value)
+        if key not in mapping:
+            mapping[key] = next_id
+            next_id += 1
+        out.append(mapping[key])
+    return np.asarray(out, dtype=int)
+
+
+def seg_to_label(seg_info: dict[int, int], np):
+    labels = []
+    start = 0
+    for end in sorted(seg_info):
+        if end < start:
+            continue
+        labels.extend([seg_info[end]] * (end - start))
+        start = end
+    return np.asarray(labels, dtype=int)
+
+
+def len_of_file(path: Path) -> int:
+    with Path(path).open("r", encoding="utf-8", errors="ignore") as f:
+        return sum(1 for _ in f)
+
+
+def load_synthetic(repo_root: Path, runtime, max_count: int | None) -> list[SeriesCase]:
+    np = runtime["np"]
+    pd = runtime["pd"]
+    base = original_data_root(repo_root) / "synthetic_data_for_segmentation3"
+    cases = []
+    for i in range(100):
+        path = base / f"test{i}.csv"
+        if not path.exists():
+            continue
+        df_x = pd.read_csv(path, usecols=range(4), skiprows=1)
+        df_y = pd.read_csv(path, usecols=[4], skiprows=1)
+        data = df_x.to_numpy()
+        labels = df_y.to_numpy(dtype=int).flatten()
+        n = min(len(data), len(labels))
+        cases.append(SeriesCase("Synthetic", str(i), data[:n], labels[:n], hvgh_win_size=100, hvgh_epoch=5, hvgh_iteration=2))
+        if max_count is not None and len(cases) >= max_count:
+            break
+    if not cases:
+        raise FileNotFoundError(f"No Synthetic cases found under {base}")
+    return cases
+
+
+def load_mocap(repo_root: Path, runtime, max_count: int | None) -> list[SeriesCase]:
+    pd = runtime["pd"]
+    np = runtime["np"]
+    base = original_data_root(repo_root) / "MoCap" / "4d"
+    cases = []
+    for path in sorted(base.glob("*.4d"), key=lambda p: p.name):
+        if path.name not in MOCAP_INFO:
+            continue
+        df = pd.read_csv(path, sep=" ", usecols=range(0, 4))
+        data = df.to_numpy()
+        labels = seg_to_label(MOCAP_INFO[path.name]["label"], np)[:-1]
+        n = min(len(data), len(labels))
+        cases.append(SeriesCase("MoCap", path.name, data[:n], labels[:n], hvgh_win_size=50, hvgh_epoch=5, hvgh_iteration=2))
+        if max_count is not None and len(cases) >= max_count:
+            break
+    if not cases:
+        raise FileNotFoundError(f"No MoCap cases found under {base}")
+    return cases
+
+
+def load_actrectut(repo_root: Path, runtime, max_count: int | None) -> list[SeriesCase]:
+    np = runtime["np"]
+    scipy_io = runtime["scipy_io"]
+    base = original_data_root(repo_root) / "ActRecTut"
+    cases = []
+    for name in ["subject1_walk", "subject2_walk"]:
+        mat_path = base / name / "data.mat"
+        mat = scipy_io.loadmat(mat_path)
+        labels = reorder_label(mat["labels"].flatten(), np)
+        data = mat["data"][:, 0:10]
+        data = normalize_data(data, runtime)
+
+        n = min(30000, len(data), len(labels))
+        for rep in range(10):
+            cases.append(SeriesCase("ActRecTut", f"{name}{rep}", data[:n], labels[:n], hvgh_win_size=100, hvgh_epoch=5, hvgh_iteration=2, note=name))
+            if max_count is not None and len(cases) >= max_count:
+                return cases
+    return cases
+
+
+def _pamap2_protocol_dir(repo_root: Path) -> Path:
+    root = original_data_root(repo_root)
+    candidates = [
+        root / "PAMAP2" / "Protocol",
+        root / "PAMAP2" / "PAMAP2_Dataset" / "Protocol",
+        root / "PAMAP" / "Protocol",
+    ]
+    for p in candidates:
+        if p.exists():
+            return p
+    raise FileNotFoundError("Cannot find PAMAP2 Protocol directory. Tried: " + " | ".join(str(p) for p in candidates))
+
+
+def load_pamap2(repo_root: Path, runtime, max_count: int | None, zero: bool = True) -> list[SeriesCase]:
+    np = runtime["np"]
+    pd = runtime["pd"]
+    protocol_dir = _pamap2_protocol_dir(repo_root)
+    cases = []
+    for i in range(1, 9):
+        path = protocol_dir / f"subject10{i}.dat"
+        if not path.exists():
+            continue
+        df = pd.read_csv(path, sep=r"\s+", header=None, engine="python")
+        numeric = df.apply(pd.to_numeric, errors="coerce").to_numpy(dtype=float)
+        labels = np.asarray(np.nan_to_num(numeric[:, 1], nan=0.0), dtype=int)
+        if zero:
+            data = numeric[:, 2:]
+            valid = labels > 0
+            data = data[valid]
+            labels = labels[valid]
+        else:
+            data = np.hstack([numeric[:, 4:7], numeric[:, 21:24], numeric[:, 38:41]])
+        data = fill_nan_original(data, np)
+        data = normalize_data(data, runtime)
+        labels = reorder_label(labels, np)
+        n = min(len(data), len(labels))
+        cases.append(SeriesCase("PAMAP2_zero" if zero else "PAMAP2", f"subject10{i}", data[:n], labels[:n], hvgh_win_size=100, hvgh_epoch=10, hvgh_iteration=2, note=str(path)))
+        if max_count is not None and len(cases) >= max_count:
+            break
+    if not cases:
+        raise FileNotFoundError(f"No PAMAP2 cases found under {protocol_dir}")
+    return cases
+
+
+def _load_usc_had_case(subject: int, target: int, repo_root: Path, runtime):
+
+    tspy_dev_root = repo_root / "TSpy-dev"
+    if tspy_dev_root.exists():
+        s = str(tspy_dev_root)
+        if s in sys.path:
+            sys.path.remove(s)
+        sys.path.insert(0, s)
+        for mod in list(sys.modules):
+            if mod == "TSpy" or mod.startswith("TSpy."):
+                sys.modules.pop(mod, None)
+    from TSpy.dataset import load_USC_HAD
+    data_path = str(original_data_root(repo_root)) + os.sep
+    data, labels = load_USC_HAD(subject, target, data_path)
+    data = normalize_data(data, runtime)
+    return data, labels
+
+
+def load_uschad(repo_root: Path, runtime, max_count: int | None) -> list[SeriesCase]:
+    cases = []
+    for subject in range(1, 15):
+        for target in range(1, 6):
+            data, labels = _load_usc_had_case(subject, target, repo_root, runtime)
+            n = min(len(data), len(labels))
+            cases.append(SeriesCase("USC-HAD", f"s{subject}_t{target}", data[:n], labels[:n], hvgh_win_size=100, hvgh_epoch=5, hvgh_iteration=2))
+            if max_count is not None and len(cases) >= max_count:
+                return cases
+    return cases
+
+
+def load_ucrseg(repo_root: Path, runtime, max_count: int | None) -> list[SeriesCase]:
+    np = runtime["np"]
+    pd = runtime["pd"]
+    base = original_data_root(repo_root) / "UCR-SEG" / "UCR_datasets_seg"
+    files = sorted([p for p in base.iterdir() if p.is_file() and p.suffix.lower() in {".csv", ".txt", ".tsv"}], key=lambda p: p.name)
+    cases = []
+    for path in files:
+        info_list = path.stem.split("_")
+        seg_info = {}
+        for i, seg in enumerate(info_list[2:]):
+            seg_info[int(seg)] = i
+        seg_info[len_of_file(path)] = len(seg_info)
+        df = pd.read_csv(path)
+        data = normalize_data(df.to_numpy(), runtime)
+        labels = seg_to_label(seg_info, np)[:-1]
+        n = min(len(data), len(labels))
+        cases.append(SeriesCase("UCR-SEG", path.stem, data[:n], labels[:n], hvgh_win_size=100, hvgh_epoch=10, hvgh_iteration=10, hvgh_input_dim=1, note=path.name))
+        if max_count is not None and len(cases) >= max_count:
+            break
+    if not cases:
+        raise FileNotFoundError(f"No UCR-SEG cases found under {base}")
+    return cases
+
+
+def load_cases(dataset_key: str, repo_root: Path, runtime, max_cases: int | None) -> list[SeriesCase]:
+    key = dataset_key.strip().lower().replace("_", "-")
+    if key == "synthetic":
+        return load_synthetic(repo_root, runtime, max_cases)
+    if key == "mocap":
+        return load_mocap(repo_root, runtime, max_cases)
+    if key == "actrectut":
+        return load_actrectut(repo_root, runtime, max_cases)
+    if key in {"pamap2-zero", "pamap2zero", "pamap2"}:
+        return load_pamap2(repo_root, runtime, max_cases, zero=True)
+    if key in {"usc-had", "uschad"}:
+        return load_uschad(repo_root, runtime, max_cases)
+    if key in {"ucr-seg", "ucrseg", "tssb"}:
+        return load_ucrseg(repo_root, runtime, max_cases)
+    raise ValueError(f"Unsupported dataset: {dataset_key}")
+
+
+def align_prediction(seq, target_len: int, np):
+    arr = np.asarray(seq, dtype=int).flatten()
+    if len(arr) == 0:
+        return np.zeros(target_len, dtype=int)
+    if len(arr) >= target_len:
+        return arr[:target_len]
+    return np.concatenate([arr, np.full(target_len - len(arr), int(arr[-1]), dtype=int)])

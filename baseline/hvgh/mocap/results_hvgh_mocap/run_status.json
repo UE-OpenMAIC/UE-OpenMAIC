@@ -1,0 +1,17 @@
+{
+  "ok": true,
+  "algorithm": "HVGH",
+  "repo_root": "D:\\code\\teacherT2S",
+  "out_dir": "D:\\code\\teacherT2S\\baseline\\hvgh\\mocap\\results_hvgh_mocap",
+  "datasets": [
+    "mocap"
+  ],
+  "max_retries": 5,
+  "loaded_cases": 9,
+  "loaded_cases_ok": 9,
+  "loaded_cases_failed": 0,
+  "all_rows_ok": 9,
+  "all_rows_failed": 0,
+  "case_results_csv": "D:\\code\\teacherT2S\\baseline\\hvgh\\mocap\\results_hvgh_mocap\\case_results.csv",
+  "attempt_history_csv": "D:\\code\\teacherT2S\\baseline\\hvgh\\mocap\\results_hvgh_mocap\\attempt_history.csv"
+}

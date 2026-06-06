@@ -1,0 +1,10 @@
+﻿dataset,case_id,ARI,NMI,states,seconds,attempts,status,error,prediction_file,raw_file,log_file,hvgh_win_size,hvgh_epoch,hvgh_iteration
+MoCap,amc_86_01.4d,0.13644951051647386,0.2518028277551011,6,4.125,,ok,,predictions\MoCap_amc_86_01.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_01.4d\001\segm000.txt,logs\MoCap_amc_86_01.4d_stdout.txt,50,5,2
+MoCap,amc_86_02.4d,0.06475880757003742,0.23068351148621152,8,8.51,1,ok,,predictions\MoCap_amc_86_02.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_02.4d\001\segm000.txt,logs\MoCap_amc_86_02.4d_try01_stdout.txt,50,5,2
+MoCap,amc_86_03.4d,0.03537568599369874,0.16974470762017568,4,5.671,,ok,,predictions\MoCap_amc_86_03.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_03.4d\001\segm000.txt,logs\MoCap_amc_86_03.4d_stdout.txt,50,5,2
+MoCap,amc_86_07.4d,0.04317691283103608,0.11221941155333805,3,6.992,1,ok,,predictions\MoCap_amc_86_07.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_07.4d\001\segm000.txt,logs\MoCap_amc_86_07.4d_try01_stdout.txt,50,5,2
+MoCap,amc_86_08.4d,0.06516180425525075,0.21268675758905348,5,7.728,1,ok,,predictions\MoCap_amc_86_08.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_08.4d\001\segm000.txt,logs\MoCap_amc_86_08.4d_try01_stdout.txt,50,5,2
+MoCap,amc_86_09.4d,0.13343709660153263,0.24200460530989557,3,5.047,1,ok,,predictions\MoCap_amc_86_09.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_09.4d\001\segm000.txt,logs\MoCap_amc_86_09.4d_try01_stdout.txt,50,5,2
+MoCap,amc_86_10.4d,-0.018577305885989194,0.0674719909359892,3,6.509,1,ok,,predictions\MoCap_amc_86_10.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_10.4d\001\segm000.txt,logs\MoCap_amc_86_10.4d_try01_stdout.txt,50,5,2
+MoCap,amc_86_11.4d,0.04623547895803554,0.17189154397135578,3,6.223,1,ok,,predictions\MoCap_amc_86_11.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_11.4d\001\segm000.txt,logs\MoCap_amc_86_11.4d_try01_stdout.txt,50,5,2
+MoCap,amc_86_14.4d,-0.004285520798420602,0.09768077443917698,3,4.921,1,ok,,predictions\MoCap_amc_86_14.4d_pred.csv,raw_hvgh_work\HVGHlearn\MoCap\amc_86_14.4d\001\segm000.txt,logs\MoCap_amc_86_14.4d_try01_stdout.txt,50,5,2

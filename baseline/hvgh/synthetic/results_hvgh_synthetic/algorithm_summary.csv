@@ -1,0 +1,2 @@
+﻿algorithm,dataset,cases,mean_ARI,mean_NMI,failed
+HVGH,Synthetic,100,0.04001092497027251,0.14476333462206006,0
