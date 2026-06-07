@@ -1,6 +1,7 @@
-claspy
+Cython
 matplotlib
 numpy
 pandas
 scikit-learn
-statsmodels
+scipy
+tensorflow

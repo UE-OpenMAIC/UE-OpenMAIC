@@ -1,0 +1,14 @@
+-r code/teacherT2S/our/requirements.txt
+-r code/teacherT2S/ourClap/requirements.txt
+-r code/teacherT2S/Time2State/requirements.txt
+-r code/teacherT2S/yolo/requirements.txt
+-r baseline/ticc/requirements.txt
+-r baseline/t2s/requirements.txt
+-r baseline/e2usd/requirements.txt
+-r baseline/M2QD_CSPA/requirements.txt
+-r baseline/EC_TDWM/requirements.txt
+-r baseline/autoplait/requirements.txt
+-r baseline/clasp/requirements.txt
+-r baseline/Clap/requirements.txt
+-r baseline/hvgh/requirements.txt
+-r baseline/classification-label-profile-main/requirements.txt

@@ -167,7 +167,7 @@ Please update the input and output paths according to your local data location b
 
 ## Benchmark and Expert Annotation Files
 
-The expert annotation and teacher-application evaluation records are located in:
+The expert annotation are located in:
 
 ```text
 benchmark/doc/
@@ -185,7 +185,13 @@ benchmark/doc/
 ├── _eval_BCD_global_3class_teacher_mask_grid/
 ├── _final_expert_validation_table/
 ├── datasetN/
-└── digitalAction/
+├── digitalAction/
+├── Original Informed Consent Form/
+├── English Translation of the Informed Consent Form/
+├── Original Teacher Questionnaire File/
+├── Original Student Questionnaire File/ 
+├── English Translation of the Teacher Questionnaire
+└──English Translation of the Student Questionnaire
 ```
 
 These files support the teacher-application evaluation part of the paper, including:
@@ -196,7 +202,7 @@ These files support the teacher-application evaluation part of the paper, includ
 - conservative merged-label evaluation;
 - final expert validation table.
 
-Raw classroom videos and raw audio are not included for privacy reasons.
+Raw classroom videos, questionnaire survey and raw audio are not included for privacy reasons.
 
 ---
 

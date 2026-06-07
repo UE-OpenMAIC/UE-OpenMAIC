@@ -1,6 +1,7 @@
-claspy
 matplotlib
 numpy
+openpyxl
 pandas
 scikit-learn
-statsmodels
+scipy
+torch

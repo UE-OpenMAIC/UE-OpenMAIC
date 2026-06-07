@@ -1,0 +1,5 @@
+moviepy
+numpy
+opencv-python
+pandas
+ultralytics

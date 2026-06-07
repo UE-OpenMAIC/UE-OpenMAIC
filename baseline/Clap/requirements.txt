@@ -1,6 +1,6 @@
 claspy
-matplotlib
 numpy
 pandas
 scikit-learn
 statsmodels
+torch
