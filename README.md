@@ -59,6 +59,10 @@ UE-OpenMAIC/
 │
 ├── code/
 │   └── teacherT2S/
+│       ├── draw/
+│       │   ├── build_final_result_figures.py
+│       │   ├── build_mocap_branch_case_visualization.py
+│       │   └── README.md
 │       ├── Time2State/
 │       │   ├── Time2State/
 │       │   │   └── Adapted Time2State backbone.

@@ -1,0 +1,972 @@
+# -*- coding: utf-8 -*-
+r"""
+Standalone finalResult builder for teacherT2S.
+
+Keep only this script for main/finalResult report generation.
+It embeds the old collector/splitter/marker/CD/grouping logic, so you do not
+need to keep these separate helper scripts in D:\code\teacherT2S\our.
+
+Default output:
+  D:\code\teacherT2S\draw\result
+
+Important behavior:
+  - Adds baseline\ourClap as CLaP.
+  - Skips baseline\ourClapSmoke and baseline\classification-label-profile-main.
+  - Does not impute ARI/NMI values.
+  - Only CD/average-rank outputs use neutral-rank imputation.
+  - Preserves ActRecTut trial IDs, so subject1_walk0..9 and subject2_walk0..9 remain 20 cases.
+"""
+from __future__ import annotations
+
+import argparse
+from pathlib import Path
+
+
+# ============================================================
+# 0. Drawing style and output path
+# ============================================================
+
+DRAW_DIR = Path(r"D:\code\teacherT2S\draw")
+DEFAULT_RESULT_DIR = DRAW_DIR / "result"
+DEFAULT_SUMMARY_DIR = DEFAULT_RESULT_DIR / "_summary_finalResult"
+FONT_SIZE_PT = 8
+FONT_FAMILY = "Times New Roman"
+SAVE_DPI = 1200
+MM_TO_INCH = 1.0 / 25.4
+MARKER_WIDTH_MM = 135.0
+RANK_WIDTH_MM = 45.0
+PANEL_HEIGHT_MM = 40.0
+MARKER_WIDTH_IN = MARKER_WIDTH_MM * MM_TO_INCH
+RANK_WIDTH_IN = RANK_WIDTH_MM * MM_TO_INCH
+PANEL_HEIGHT_IN = PANEL_HEIGHT_MM * MM_TO_INCH
+RANK_HEIGHT_MM = PANEL_HEIGHT_MM * 0.5
+RANK_HEIGHT_IN = RANK_HEIGHT_MM * MM_TO_INCH
+
+PAPER_PALETTE = {
+    "Ours": "#1F5FBF",
+    "CLaP": "#2F7D32",
+    "Time2State": "#F28E2B",
+    "E2USD": "#7A4CC2",
+    "TICC": "#6F6F6F",
+    "ClaSP": "#5DA5C9",
+    "AutoPlait": "#B9855A",
+    "HVGH": "#B8B8B8",
+    "HDP-HSMM": "#9C755F",
+    "HDP_HSMM": "#9C755F",
+    "M2QD-CSPA": "#6A51A3",
+    "EC-TDWM": "#2A9D8F",
+    "Full method": "#1F5FBF",
+    "full_pid": "#1F5FBF",
+    "PID selection + uniform fusion": "#F28E2B",
+    "pid_select_uniform": "#F28E2B",
+    "All branches + uniform fusion": "#5DA5C9",
+    "all_branches_uniform": "#5DA5C9",
+    "Peer selection + PID-weighted fusion": "#7A4CC2",
+    "peer_select_pid_weight": "#7A4CC2",
+    "Peer fusion w/o PID": "#6F6F6F",
+    "no_pid_peer": "#6F6F6F",
+}
+
+PAPER_HATCHES = {
+    "Ours": "",
+    "CLaP": "//",
+    "Time2State": "//",
+    "E2USD": "\\",
+    "TICC": "--",
+    "ClaSP": "///",
+    "AutoPlait": "xx",
+    "HVGH": "..",
+    "EC-TDWM": "||",
+    "M2QD-CSPA": "\\",
+    "HDP-HSMM": "\\",
+    "HDP_HSMM": "\\",
+}
+
+
+
+COMBINED_METHOD_ORDER = [
+    "Ours", "CLaP", "Time2State", "E2USD", "TICC", "ClaSP",
+    "AutoPlait", "HVGH", "EC-TDWM", "M2QD-CSPA",
+]
+COMBINED_SIG_WIDTH_MM = 180.0
+COMBINED_SIG_HEIGHT_MM = 40.0
+COMBINED_SIG_WIDTH_IN = COMBINED_SIG_WIDTH_MM * MM_TO_INCH
+COMBINED_SIG_HEIGHT_IN = COMBINED_SIG_HEIGHT_MM * MM_TO_INCH
+COMBINED_RANK_WIDTH_MM = 90.0
+COMBINED_RANK_HEIGHT_MM = 26.0
+COMBINED_RANK_WIDTH_IN = COMBINED_RANK_WIDTH_MM * MM_TO_INCH
+COMBINED_RANK_HEIGHT_IN = COMBINED_RANK_HEIGHT_MM * MM_TO_INCH
+
+
+def _canon_combined_label(x: object) -> str:
+    s = str(x).strip()
+    mapping = {
+        "clasp": "ClaSP",
+        "ClaSP": "ClaSP",
+        "EC_TDWM": "EC-TDWM",
+        "EC-TDWM": "EC-TDWM",
+        "M2QD_CSPA": "M2QD-CSPA",
+        "M2QD-CSPA": "M2QD-CSPA",
+    }
+    return mapping.get(s, s)
+
+
+
+
+def _expand_actrectut_two_case_methods(cases, out_dir: Path):
+    """Expand subject-level ActRecTut results to trial-level ids.
+
+    Some baselines, most notably ClaSP, report only two ActRecTut cases:
+    subject1_walk and subject2_walk. Other methods use trial-level ids:
+    subject1_walk0..9 and subject2_walk0..9. For paired tests and rank matrices,
+    expand each subject-level row into ten trial-level rows.
+    """
+    import re
+    import pandas as pd
+
+    df = cases.copy()
+    expanded_parts = []
+    drop_indices = []
+    audit_rows = []
+
+    for (dataset, label), group in df.groupby(["dataset", "label"], observed=False):
+        if str(dataset) != "actrectut":
+            continue
+        case_ids = sorted(group["case_id"].astype(str).unique().tolist())
+        if len(case_ids) != 2:
+            continue
+        matches = [re.fullmatch(r"subject(\d+)_walk", cid) for cid in case_ids]
+        if not all(matches):
+            continue
+
+        for _, row in group.iterrows():
+            m = re.fullmatch(r"subject(\d+)_walk", str(row["case_id"]))
+            if not m:
+                continue
+            subject = int(m.group(1))
+            for trial in range(10):
+                new_row = row.copy()
+                new_row["case_id"] = f"subject{subject}_walk{trial}"
+                expanded_parts.append(new_row.to_frame().T)
+                audit_rows.append({
+                    "dataset": dataset,
+                    "label": label,
+                    "old_case_id": row["case_id"],
+                    "new_case_id": new_row["case_id"],
+                    "ARI": row.get("ARI"),
+                    "NMI": row.get("NMI"),
+                    "reason": "expanded_subject_level_actrectut_case_to_10_trial_level_cases",
+                })
+            drop_indices.append(_)
+
+    if expanded_parts:
+        df = df.drop(index=drop_indices)
+        df = pd.concat([df, *expanded_parts], ignore_index=True)
+        df = df.groupby(["dataset", "case_id", "label"], as_index=False)[["ARI", "NMI"]].mean()
+        audit = pd.DataFrame(audit_rows)
+    else:
+        audit = pd.DataFrame(columns=["dataset", "label", "old_case_id", "new_case_id", "ARI", "NMI", "reason"])
+
+    try:
+        audit.to_csv(out_dir / "all_methods_actrectut_case_expansion_audit.csv", index=False, encoding="utf-8-sig")
+    except Exception:
+        pass
+    return df
+
+def _load_combined_cases_from_group_outputs(out_dir: Path):
+    import pandas as pd
+    paths = [
+        out_dir / "group_ab_standard" / "group_ab_standard_aligned_cases.csv",
+        out_dir / "group_cd_ensemble" / "group_cd_ensemble_aligned_cases.csv",
+    ]
+    dfs = []
+    for p in paths:
+        if p.exists():
+            dfs.append(pd.read_csv(p, encoding="utf-8-sig"))
+    if not dfs:
+        raise FileNotFoundError("No group aligned case files found to build combined plots.")
+    df = pd.concat(dfs, ignore_index=True)
+    df["label"] = df["label"].map(_canon_combined_label)
+    # unify duplicate Ours rows coming from both groups
+    keep_cols = [c for c in ["dataset", "case_id", "label", "ARI", "NMI"] if c in df.columns]
+    df = df[keep_cols].copy()
+    for _metric_col in ["ARI", "NMI"]:
+        if _metric_col in df.columns:
+            df[_metric_col] = pd.to_numeric(df[_metric_col], errors="coerce")
+    df = df.dropna(subset=[c for c in ["ARI", "NMI"] if c in df.columns]).copy()
+    df = df.groupby(["dataset", "case_id", "label"], as_index=False)[["ARI", "NMI"]].mean()
+    df = _expand_actrectut_two_case_methods(df, out_dir)
+    for _metric_col in ["ARI", "NMI"]:
+        if _metric_col in df.columns:
+            df[_metric_col] = pd.to_numeric(df[_metric_col], errors="coerce")
+    df.to_csv(out_dir / "all_methods_aligned_cases_expanded.csv", index=False, encoding="utf-8-sig")
+    return df
+
+
+
+
+def _compact_letters_with_tested(means, sig, tested):
+    """Compact-letter display that does not treat untested pairs as non-significant.
+
+    A method may share a letter with a group only if every pair between the method
+    and that group is tested and non-significant. Pairs with too few common cases
+    or NaN p-values are not allowed to share letters by default.
+    """
+    labels = means.sort_values(ascending=False).index.astype(str).tolist()
+    letter_sets = []
+    alphabet = list("abcdefghijklmnopqrstuvwxyz")
+
+    def can_join(group, label):
+        for other in group:
+            if other not in tested.columns or label not in tested.index:
+                return False
+            if not bool(tested.loc[label, other]):
+                return False
+            if bool(sig.loc[label, other]):
+                return False
+        return True
+
+    for label in labels:
+        placed = False
+        for group in letter_sets:
+            if can_join(group, label):
+                group.append(label)
+                placed = True
+        if not placed:
+            letter_sets.append([label])
+
+    out = {label: "" for label in labels}
+    for i, group in enumerate(letter_sets):
+        letter = alphabet[i] if i < len(alphabet) else f"L{i+1}"
+        for label in group:
+            out[label] += letter
+    return out
+
+
+def _safe_paired_ttest_numeric(a, b, min_n: int):
+    """Paired t-test with explicit numeric casting.
+
+    This avoids scipy failing on object dtype when CSV columns are read as mixed strings.
+    It also keeps too-few/NaN tests separate from non-significant tests.
+    """
+    import math
+    import numpy as np
+    import pandas as pd
+    from scipy.stats import ttest_rel
+
+    aa = pd.to_numeric(a, errors="coerce")
+    bb = pd.to_numeric(b, errors="coerce")
+    pair = pd.concat([aa, bb], axis=1).dropna()
+    n = int(len(pair))
+    if n < min_n:
+        return math.nan, n, "too_few_common_cases"
+    x = pair.iloc[:, 0].astype(float).to_numpy()
+    y = pair.iloc[:, 1].astype(float).to_numpy()
+    diff = x - y
+    if np.allclose(diff, 0):
+        return 1.0, n, "all_equal"
+    try:
+        stat, p = ttest_rel(x, y, nan_policy="omit")
+    except Exception as exc:
+        return math.nan, n, f"ttest_error:{type(exc).__name__}"
+    if not np.isfinite(p):
+        return math.nan, n, "nan_pvalue"
+    return float(p), n, "ok"
+
+def _make_combined_letters_and_pairwise(cases, metric: str, alpha: float, min_n: int):
+    import math
+    import pandas as pd
+    import sys
+    ab_mod = sys.modules["make_t2s_ab_marker_only"]
+    cases = cases.copy()
+    cases[metric] = pd.to_numeric(cases[metric], errors="coerce")
+    cases = cases[cases[metric].notna()].copy()
+    labels = [x for x in COMBINED_METHOD_ORDER if x in set(cases["label"].astype(str))]
+    mean_df = cases.groupby(["dataset", "label"], observed=False)[metric].mean().reset_index()
+    datasets = [d for d in ab_mod.DATASET_ORDER if d in set(cases["dataset"].astype(str))]
+    datasets += sorted(set(cases["dataset"].astype(str)) - set(datasets))
+    all_letter_rows = []
+    all_pairwise = []
+    for dataset in datasets:
+        sub = cases[cases["dataset"].astype(str).eq(dataset)].copy()
+        sub[metric] = pd.to_numeric(sub[metric], errors="coerce")
+        pivot = sub.pivot_table(index="case_id", columns="label", values=metric, aggfunc="mean")
+        for _col in pivot.columns:
+            pivot[_col] = pd.to_numeric(pivot[_col], errors="coerce")
+        present_labels = [x for x in labels if x in pivot.columns]
+        if not present_labels:
+            continue
+        sig = pd.DataFrame(False, index=present_labels, columns=present_labels)
+        tested = pd.DataFrame(False, index=present_labels, columns=present_labels)
+        for _lab in present_labels:
+            tested.loc[_lab, _lab] = True
+        rows = []
+        for i, a in enumerate(present_labels):
+            for b in present_labels[i+1:]:
+                p, n, status = _safe_paired_ttest_numeric(pivot[a], pivot[b], min_n=min_n)
+                valid_test = status in {"ok", "all_equal"}
+                significant = bool(pd.notna(p) and p < alpha) if valid_test else False
+                sig.loc[a, b] = sig.loc[b, a] = significant
+                tested.loc[a, b] = tested.loc[b, a] = valid_test
+                rows.append({
+                    "dataset": dataset,
+                    "dataset_display": ab_mod.display_dataset(dataset),
+                    "metric": metric,
+                    "method_a": a,
+                    "method_b": b,
+                    "n_common_cases": n,
+                    "mean_a": float(pivot[a].dropna().mean()) if a in pivot else math.nan,
+                    "mean_b": float(pivot[b].dropna().mean()) if b in pivot else math.nan,
+                    "p_value": p,
+                    "alpha": alpha,
+                    "significant": significant if status in {"ok", "all_equal"} else "NA",
+                    "status": status,
+                })
+        all_pairwise.append(pd.DataFrame(rows))
+        means = mean_df[mean_df["dataset"].astype(str).eq(dataset)].set_index("label")[metric].reindex(present_labels)
+        letters = _compact_letters_with_tested(means.dropna(), sig, tested)
+        n_by_label = sub.groupby("label", observed=False)["case_id"].nunique()
+        for label in present_labels:
+            all_letter_rows.append({
+                "dataset": dataset,
+                "dataset_display": ab_mod.display_dataset(dataset),
+                "metric": metric,
+                "label": label,
+                "mean": float(means.loc[label]) if pd.notna(means.loc[label]) else math.nan,
+                "n_cases": int(n_by_label.get(label, 0)),
+                "letters": letters.get(label, ""),
+            })
+    letters_df = pd.DataFrame(all_letter_rows)
+    pairwise_df = pd.concat(all_pairwise, ignore_index=True) if all_pairwise else pd.DataFrame()
+    return letters_df, pairwise_df
+
+
+def _plot_combined_letters_paper(letter_df, metric: str, out_svg: Path):
+    import numpy as np
+    import matplotlib.pyplot as plt
+    import sys
+    ab_mod = sys.modules["make_t2s_ab_marker_only"]
+
+    labels = [x for x in COMBINED_METHOD_ORDER if x in set(letter_df["label"].astype(str))]
+    datasets = [d for d in ab_mod.DATASET_ORDER if d in set(letter_df["dataset"].astype(str))]
+    datasets += sorted(set(letter_df["dataset"].astype(str)) - set(datasets))
+    if not labels or not datasets:
+        return
+    x = np.arange(len(datasets))
+    width = min(0.078, 0.88 / max(1, len(labels)))
+    fig, ax = plt.subplots(figsize=(COMBINED_SIG_WIDTH_IN, COMBINED_SIG_HEIGHT_IN), dpi=220)
+    max_y = 0.0
+    for i, label in enumerate(labels):
+        vals = []
+        letters = []
+        for d in datasets:
+            row = letter_df[(letter_df["dataset"].astype(str).eq(d)) & (letter_df["label"].astype(str).eq(label))]
+            if row.empty:
+                vals.append(np.nan)
+                letters.append("")
+            else:
+                vals.append(float(row.iloc[0]["mean"]))
+                letters.append(str(row.iloc[0]["letters"]))
+        finite_vals = [v for v in vals if np.isfinite(v)]
+        if finite_vals:
+            max_y = max(max_y, max(finite_vals))
+        offset = (i - (len(labels) - 1) / 2.0) * width
+        color = PAPER_PALETTE.get(label, "#6F6F6F")
+        bars = ax.bar(x + offset, vals, width=width, label=label, color=color, edgecolor="black", linewidth=0.30, zorder=3)
+        for bar, txt in zip(bars, letters):
+            h = bar.get_height()
+            # When h is exactly/near zero, Matplotlib still exports the bar edge as a line.
+            # Visio may display that edge as an extra horizontal segment, so hide the stroke.
+            if np.isfinite(h) and h <= 1e-10:
+                bar.set_linewidth(0.0)
+                bar.set_edgecolor("none")
+            if np.isfinite(h) and txt:
+                ax.text(bar.get_x() + bar.get_width() / 2.0, min(h + 0.006, 1.022), txt,
+                        ha="center", va="bottom", fontsize=6.0, color="black", clip_on=False, zorder=4)
+    ax.set_ylabel(metric)
+    ax.set_ylim(0, min(1.045, max(1.0, max_y + 0.065)))
+    ax.set_yticks([0.0, 0.25, 0.50, 0.75, 1.00])
+    ax.set_xticks(x)
+    ax.set_xticklabels([ab_mod.display_dataset(d) for d in datasets], rotation=0, ha="center")
+    # Visio may import SVG grid lines above bars; disable grids for a clean editable SVG.
+    ax.grid(False)
+    ax.spines["top"].set_visible(False)
+    ax.spines["right"].set_visible(False)
+    ax.spines["left"].set_linewidth(0.4)
+    ax.spines["bottom"].set_linewidth(0.4)
+    ax.tick_params(axis="both", width=0.4, length=2.0, pad=1.5)
+    ax.legend(loc="lower center", bbox_to_anchor=(0.5, 1.015), ncol=len(labels), frameon=False,
+              handlelength=1.05, handletextpad=0.20, columnspacing=0.28, borderaxespad=0.0,
+              prop={"size": 6.4})
+    fig.tight_layout(pad=0.12)
+    fig.subplots_adjust(top=0.79, bottom=0.24, left=0.055, right=0.995)
+    out_svg.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_svg, format="svg", bbox_inches=None, pad_inches=0.02, facecolor="white")
+    plt.close(fig)
+
+
+def _build_combined_rank_outputs(cases, metric: str):
+    import numpy as np
+    import pandas as pd
+    cases = cases.copy()
+    cases[metric] = pd.to_numeric(cases[metric], errors="coerce")
+    cases = cases[cases[metric].notna()].copy()
+    labels = [x for x in COMBINED_METHOD_ORDER if x in set(cases["label"].astype(str))]
+    metric_pivot = cases.pivot_table(index=["dataset", "case_id"], columns="label", values=metric, aggfunc="mean")
+    for _col in metric_pivot.columns:
+        metric_pivot[_col] = pd.to_numeric(metric_pivot[_col], errors="coerce")
+    metric_pivot = metric_pivot.reindex(columns=labels)
+    observed_ranks = metric_pivot.rank(axis=1, ascending=False, method="average", na_option="keep")
+    observed_mean_rank = observed_ranks.mean(axis=0, skipna=True)
+    valid_labels = [m for m in labels if pd.notna(observed_mean_rank.get(m, np.nan))]
+    metric_pivot = metric_pivot[valid_labels]
+    observed_ranks = observed_ranks[valid_labels]
+    observed_mean_rank = observed_mean_rank[valid_labels]
+    neutral_ranks = observed_ranks.copy()
+    audit_rows = []
+    for label in valid_labels:
+        fill_rank = float(observed_mean_rank[label])
+        missing_mask = neutral_ranks[label].isna()
+        if missing_mask.any():
+            for idx in neutral_ranks.index[missing_mask]:
+                dataset, case_id = idx
+                audit_rows.append({
+                    "metric": metric,
+                    "dataset": dataset,
+                    "case_id": case_id,
+                    "label": label,
+                    "imputed_rank": fill_rank,
+                    "method_observed_mean_rank": fill_rank,
+                    "reason": "missing_rank_filled_by_method_observed_mean_rank",
+                })
+            neutral_ranks.loc[missing_mask, label] = fill_rank
+    avg = neutral_ranks.mean(axis=0).sort_values(ascending=True)
+    rank_df = pd.DataFrame({"label": avg.index.astype(str), "avg_rank": avg.values})
+    return rank_df, metric_pivot.reset_index(), observed_ranks.reset_index(), neutral_ranks.reset_index(), pd.DataFrame(audit_rows)
+
+
+def _draw_combined_cd_diagram(rank_df, cd: float, out_svg: Path):
+    import matplotlib.pyplot as plt
+    from matplotlib.patches import Rectangle
+    import sys
+    cd_mod = sys.modules["make_t2s_cd_rank_only"]
+
+    rank_df = rank_df.sort_values("avg_rank", ascending=True).reset_index(drop=True)
+    k = len(rank_df)
+    min_rank, max_rank = 1.0, float(k)
+    mid_rank = (min_rank + max_rank) / 2.0
+
+    fig, ax = plt.subplots(figsize=(COMBINED_RANK_WIDTH_IN, COMBINED_RANK_HEIGHT_IN), dpi=260)
+    ax.set_xlim(max_rank + 1.76, min_rank - 1.76)
+    ax.set_ylim(0.00, 1.10)
+    ax.axis("off")
+
+    def add_hbar(x0, x1, y, h=0.010, color="black", z=5):
+        left = min(float(x0), float(x1))
+        width = abs(float(x1) - float(x0))
+        ax.add_patch(Rectangle((left, y - h / 2.0), width, h, facecolor=color, edgecolor="none", zorder=z))
+
+    def add_vbar(x, y0, y1, w=0.030, color="black", z=5):
+        bottom = min(float(y0), float(y1))
+        height = abs(float(y1) - float(y0))
+        ax.add_patch(Rectangle((x - w / 2.0, bottom), w, height, facecolor=color, edgecolor="none", zorder=z))
+
+    # Top axis and ticks: use filled rectangles, because Visio sometimes drops thin stroke-only lines.
+    y_axis = 0.80
+    tick_h = 0.065
+    minor_h = 0.030
+    add_hbar(min_rank, max_rank, y_axis, h=0.0105, z=5)
+    for r in range(1, k + 1):
+        add_vbar(r, y_axis, y_axis + tick_h, w=0.034, z=6)
+        ax.text(r, y_axis + tick_h + 0.016, f"{r}", ha="center", va="bottom", fontsize=6.4, color="black", zorder=7)
+        if r < k:
+            add_vbar(r + 0.5, y_axis, y_axis + minor_h, w=0.028, z=6)
+
+    # CD ruler on the left.
+    cd_y = 1.02
+    cd_left = max_rank - cd
+    cd_right = max_rank
+    add_hbar(cd_left, cd_right, cd_y, h=0.0105, z=5)
+    add_vbar(cd_left, cd_y - 0.038, cd_y + 0.038, w=0.032, z=6)
+    add_vbar(cd_right, cd_y - 0.038, cd_y + 0.038, w=0.032, z=6)
+    ax.text((cd_left + cd_right) / 2.0, cd_y + 0.040, f"CD={cd:.3f}", ha="center", va="bottom", fontsize=6.2, color="black")
+    ax.text((min_rank + max_rank) / 2.0, 1.035, "Rank", ha="center", va="bottom", fontsize=6.8, color="black")
+
+    left_items = rank_df[rank_df["avg_rank"] > mid_rank].sort_values("avg_rank", ascending=False).reset_index(drop=True)
+    right_items = rank_df[rank_df["avg_rank"] <= mid_rank].sort_values("avg_rank", ascending=True).reset_index(drop=True)
+    if left_items.empty and not right_items.empty:
+        left_items = right_items.iloc[len(right_items)//2:].reset_index(drop=True)
+        right_items = right_items.iloc[:len(right_items)//2].reset_index(drop=True)
+    if right_items.empty and not left_items.empty:
+        right_items = left_items.iloc[len(left_items)//2:].reset_index(drop=True)
+        left_items = left_items.iloc[:len(left_items)//2].reset_index(drop=True)
+
+    y_top = 0.46
+    y_bottom = 0.10
+    left_step = (y_top - y_bottom) / max(1, len(left_items) - 1) if len(left_items) > 1 else 0.0
+    right_step = (y_top - y_bottom) / max(1, len(right_items) - 1) if len(right_items) > 1 else 0.0
+
+    left_num_x = max_rank + 0.80
+    left_label_x = max_rank + 1.52
+    right_num_x = min_rank - 0.80
+    right_label_x = min_rank - 1.52
+
+    connector_h = 0.010
+    connector_w = 0.030
+
+    for i, row in left_items.iterrows():
+        x = float(row["avg_rank"])
+        y = y_top - i * left_step
+        label = str(row["label"])
+        elbow_x = left_num_x - 0.10
+        # Use separate rectangle segments instead of one polyline.
+        # In Visio this greatly reduces the selection bounding box of each small segment.
+        add_vbar(x, y_axis, y, w=connector_w, z=4)
+        add_hbar(x, elbow_x, y, h=connector_h, z=4)
+        ax.text(left_label_x, y, f"{label}", ha="right", va="center", fontsize=5.1, color="black", clip_on=False)
+        ax.text(left_num_x, y, f"{x:.4f}", ha="left", va="center", fontsize=4.9, color="black", clip_on=False)
+
+    for i, row in right_items.iterrows():
+        x = float(row["avg_rank"])
+        y = y_top - i * right_step
+        label = str(row["label"])
+        elbow_x = right_num_x + 0.10
+        # Use separate rectangle segments instead of one polyline.
+        add_vbar(x, y_axis, y, w=connector_w, z=4)
+        add_hbar(x, elbow_x, y, h=connector_h, z=4)
+        ax.text(right_num_x, y, f"{x:.4f}", ha="right", va="center", fontsize=4.9, color="black", clip_on=False)
+        ax.text(right_label_x, y, f"{label}", ha="left", va="center", fontsize=5.1, color="black", clip_on=False)
+
+    intervals = cd_mod.cd_intervals(rank_df, cd) if hasattr(cd_mod, "cd_intervals") else []
+    bar_y0 = y_axis - 0.080
+    for j, (a, b) in enumerate(intervals[:10]):
+        y = bar_y0 - j * 0.027
+        add_hbar(a, b, y, h=0.012, z=7)
+
+    fig.subplots_adjust(left=0.04, right=0.96, top=0.98, bottom=0.08)
+    out_svg.parent.mkdir(parents=True, exist_ok=True)
+    fig.savefig(out_svg, format="svg", bbox_inches=None, pad_inches=0.02, facecolor="white")
+    plt.close(fig)
+
+
+def _generate_all_method_combined_figures(out_dir: Path, alpha: float, min_n: int) -> None:
+    import sys
+    cases = _load_combined_cases_from_group_outputs(out_dir)
+    for metric in ["ARI", "NMI"]:
+        letters_df, pairwise_df = _make_combined_letters_and_pairwise(cases, metric, alpha, min_n)
+        letters_csv = out_dir / f"all_methods_ttest_letters_{metric}.csv"
+        pairwise_csv = out_dir / f"all_methods_pairwise_ttest_{metric}.csv"
+        sig_svg = out_dir / f"all_methods_t2s_style_marker_{metric}.svg"
+        letters_df.to_csv(letters_csv, index=False, encoding="utf-8-sig")
+        pairwise_df.to_csv(pairwise_csv, index=False, encoding="utf-8-sig")
+        _plot_combined_letters_paper(letters_df, metric, sig_svg)
+        print(f"[OK] all-methods significance {metric}: {sig_svg}")
+        rank_df, metric_matrix, observed_rank_matrix, neutral_rank_matrix, audit = _build_combined_rank_outputs(cases, metric)
+        cd_mod = sys.modules["make_t2s_cd_rank_only"]
+        n_cases = int(neutral_rank_matrix[["dataset", "case_id"]].drop_duplicates().shape[0])
+        k_methods = int(len(rank_df))
+        cd = cd_mod.nemenyi_cd(k_methods, n_cases, alpha=0.05)
+        rank_out = rank_df.copy()
+        rank_out.insert(0, "metric", metric)
+        rank_out.insert(1, "rank_case_universe", n_cases)
+        rank_out.insert(2, "n_methods", k_methods)
+        rank_out.insert(3, "CD_alpha_0_05", cd)
+        rank_out.insert(4, "rank_imputation", "missing ranks filled by each method's observed mean rank")
+        rank_csv = out_dir / f"all_methods_rank_{metric}.csv"
+        metric_matrix_csv = out_dir / f"all_methods_metric_matrix_raw_{metric}.csv"
+        observed_rank_csv = out_dir / f"all_methods_rank_matrix_observed_{metric}.csv"
+        neutral_rank_csv = out_dir / f"all_methods_rank_matrix_neutral_imputed_{metric}.csv"
+        audit_csv = out_dir / f"all_methods_rank_imputation_audit_{metric}.csv"
+        rank_svg = out_dir / f"all_methods_cd_diagram_{metric}.svg"
+        rank_out.to_csv(rank_csv, index=False, encoding="utf-8-sig")
+        metric_matrix.to_csv(metric_matrix_csv, index=False, encoding="utf-8-sig")
+        observed_rank_matrix.to_csv(observed_rank_csv, index=False, encoding="utf-8-sig")
+        neutral_rank_matrix.to_csv(neutral_rank_csv, index=False, encoding="utf-8-sig")
+        audit.to_csv(audit_csv, index=False, encoding="utf-8-sig")
+        _draw_combined_cd_diagram(rank_df[["label", "avg_rank"]].copy(), cd, rank_svg)
+        print(f"[OK] all-methods rank {metric}: {rank_svg}")
+
+def setup_matplotlib() -> None:
+    """Use 8-pt Times New Roman and keep SVG text editable."""
+    try:
+        import matplotlib.pyplot as plt
+        plt.rcParams.update({
+            "font.family": FONT_FAMILY,
+            "font.serif": [FONT_FAMILY],
+            "font.size": FONT_SIZE_PT,
+            "axes.titlesize": FONT_SIZE_PT,
+            "axes.labelsize": FONT_SIZE_PT,
+            "xtick.labelsize": FONT_SIZE_PT,
+            "ytick.labelsize": FONT_SIZE_PT,
+            "legend.fontsize": FONT_SIZE_PT,
+            "axes.linewidth": 0.4,
+            "lines.linewidth": 0.6,
+            "patch.linewidth": 0.4,
+            "pdf.fonttype": 42,
+            "ps.fonttype": 42,
+            "svg.fonttype": "none",
+            "axes.unicode_minus": False,
+        })
+    except Exception:
+        pass
+
+# Embedded helper modules. Do not edit unless you know exactly why.
+_EMBEDDED_MODULES = {
+  "make_t2s_cd_rank_only": "# -*- coding: utf-8 -*-\nr\"\"\"\nGenerate ONLY Time2State-style Critical Difference (CD) diagrams and average-rank tables.\n\nWhat this script outputs:\n  - <mode>_rank_ARI.csv\n  - <mode>_rank_NMI.csv\n  - <mode>_cd_diagram_ARI.svg\n  - <mode>_cd_diagram_NMI.svg\n\nIt does NOT output win/loss plots, heatmaps, or t-test marker plots.\n\nDefault main-table inputs:\n  D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\main_results_table_clean3.csv\n  fallback: D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\main_results_table.csv\n\nDefault ablation inputs:\n  D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\pid_ablation_table_clean.csv\n  fallback: D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\pid_ablation_table.csv\n\nExample:\n  python make_t2s_cd_rank_only.py --mode main --exclude redsds\n  python make_t2s_cd_rank_only.py --mode ablation\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport math\nimport re\nfrom itertools import combinations\nfrom pathlib import Path\nfrom typing import Iterable\n\nimport matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\n\ntry:\n    from scipy.stats import studentized_range\nexcept Exception:  # pragma: no cover\n    studentized_range = None\n\n\nMETRICS = [\"ARI\", \"NMI\"]\nDATASET_ALIASES = {\n    \"synthetic\": \"Synthetic\",\n    \"mocap\": \"MoCap\",\n    \"actrectut\": \"ActRecTut\",\n    \"pamap2\": \"PAMAP2\",\n    \"pamap2_zero\": \"PAMAP2\",\n    \"pamap2-zero\": \"PAMAP2\",\n    \"ucr-seg\": \"UCR-SEG\",\n    \"ucrseg\": \"UCR-SEG\",\n    \"tssb\": \"UCR-SEG\",\n    \"usc-had\": \"USC-HAD\",\n    \"uschad\": \"USC-HAD\",\n}\n\nMAIN_METHOD_ORDER = [\n    \"Ours\", \"E2USD\", \"Time2State\", \"TICC\", \"ClaSP\", \"AutoPlait\", \"HVGH\",\n]\n\nABLATION_ORDER = [\n    \"full_pid\", \"pid_select_uniform\", \"all_branches_uniform\", \"peer_select_pid_weight\", \"no_pid_peer\",\n]\n\n\n# ----------------------------- basic helpers -----------------------------\n\ndef normalize_col(name: object) -> str:\n    return re.sub(r\"[^a-z0-9]+\", \"\", str(name).strip().lower())\n\n\ndef norm_dataset(x: object) -> str:\n    s = str(x or \"\").strip().lower().replace(\"\\\\\", \"/\").split(\"/\")[-1]\n    s = s.replace(\"_\", \"-\").replace(\" \", \"\")\n    if s in {\"pamap2zero\", \"pamap2-zero\", \"pamap2-0\", \"pamap2zero\"}:\n        return \"pamap2\"\n    if s in {\"uschad\", \"usc-had\"}:\n        return \"usc-had\"\n    if s in {\"ucrseg\", \"ucr-seg\", \"tssb\"}:\n        return \"ucr-seg\"\n    return s\n\n\ndef display_dataset(x: object) -> str:\n    key = norm_dataset(x)\n    return DATASET_ALIASES.get(key, str(x))\n\n\ndef read_csv(path: Path) -> pd.DataFrame:\n    last = None\n    for enc in (\"utf-8-sig\", \"utf-8\", \"gbk\", \"gb18030\", \"latin1\"):\n        try:\n            return pd.read_csv(path, encoding=enc)\n        except Exception as exc:\n            last = exc\n    raise RuntimeError(f\"Cannot read {path}: {last!r}\")\n\n\ndef find_col(df: pd.DataFrame, candidates: Iterable[str]) -> str | None:\n    norm_map = {normalize_col(c): c for c in df.columns}\n    for c in candidates:\n        key = normalize_col(c)\n        if key in norm_map:\n            return norm_map[key]\n    return None\n\n\ndef find_metric_col(df: pd.DataFrame, metric: str) -> str | None:\n    bad = {\"std\", \"min\", \"max\", \"delta\", \"gain\", \"diff\"}\n    candidates = {\n        \"ARI\": [\"ari\", \"adjusted_rand_score\", \"adjusted_rand_index\", \"adjustedrandindex\"],\n        \"NMI\": [\"nmi\", \"normalized_mutual_info\", \"normalized_mutual_information\"],\n    }[metric]\n    col = find_col(df, candidates)\n    if col is not None:\n        return col\n    key = metric.lower()\n    for c in df.columns:\n        nc = normalize_col(c)\n        if key in nc and not any(t in nc for t in bad):\n            return c\n    return None\n\n\ndef parse_float(x: object) -> float | None:\n    if x is None:\n        return None\n    s = str(x).strip()\n    if not s or s.lower() in {\"nan\", \"none\"}:\n        return None\n    try:\n        return float(s)\n    except Exception:\n        return None\n\n\ndef is_ok_row(row: pd.Series) -> bool:\n    status = str(row.get(\"status\", \"ok\")).strip().lower()\n    return status in {\"\", \"ok\"}\n\n\n# ----------------------------- case alignment -----------------------------\n\ndef canonical_case_id(dataset: object, raw_case: object) -> str:\n    \"\"\"Map different implementation-specific case names to a canonical case id.\"\"\"\n    ds = norm_dataset(dataset)\n    s = str(raw_case if raw_case is not None else \"\").strip()\n    s = s.replace(\"\\\\\", \"/\").split(\"/\")[-1]\n    s = re.sub(r\"\\.(csv|txt|dat|npy|npz|mat|4d)$\", \"\", s, flags=re.I)\n    s_low = s.lower().strip()\n\n    # Remove accidental trailing .0 from numeric csv values.\n    if re.fullmatch(r\"\\d+\\.0\", s_low):\n        s_low = s_low[:-2]\n\n    # ActRecTut: keep trial-level ids when they exist.\n    #   subject1_walk0..9 -> subject1_walk0..9\n    #   subject1_walk      -> subject1_walk\n    # This avoids incorrectly collapsing the 20 ActRecTut trials into only 2 subject-level cases.\n    if ds == \"actrectut\":\n        m = re.search(r\"subject\\s*0*(\\d+)\\s*[_-]?\\s*walk\\s*0*(\\d+)$\", s_low)\n        if m:\n            return f\"subject{int(m.group(1))}_walk{int(m.group(2))}\"\n        m = re.search(r\"subj\\s*0*(\\d+)\\s*[_-]?\\s*walk\\s*0*(\\d+)$\", s_low)\n        if m:\n            return f\"subject{int(m.group(1))}_walk{int(m.group(2))}\"\n        m = re.search(r\"subject\\s*0*(\\d+)\\s*[_-]?\\s*walk$\", s_low)\n        if m:\n            return f\"subject{int(m.group(1))}_walk\"\n        m = re.search(r\"subj\\s*0*(\\d+)\\s*[_-]?\\s*walk$\", s_low)\n        if m:\n            return f\"subject{int(m.group(1))}_walk\"\n\n    # PAMAP2: 1..8 -> 101..108; subject101 -> 101.\n    if ds == \"pamap2\":\n        m = re.search(r\"subject\\s*0*(\\d+)\", s_low)\n        if m:\n            num = int(m.group(1))\n            return str(num + 100) if 1 <= num <= 8 else str(num)\n        m = re.fullmatch(r\"0*(\\d+)\", s_low)\n        if m:\n            num = int(m.group(1))\n            return str(num + 100) if 1 <= num <= 8 else str(num)\n\n    # USC-HAD: subject10_target1 -> s10_t1; s10_t1 unchanged.\n    if ds == \"usc-had\":\n        m = re.search(r\"subject\\s*0*(\\d+)\\s*[_-]?\\s*target\\s*0*(\\d+)\", s_low)\n        if m:\n            return f\"s{int(m.group(1))}_t{int(m.group(2))}\"\n        m = re.search(r\"s\\s*0*(\\d+)\\s*[_-]?\\s*t\\s*0*(\\d+)\", s_low)\n        if m:\n            return f\"s{int(m.group(1))}_t{int(m.group(2))}\"\n\n    # MoCap: amc_86_14, AMC-86-14, amc_86_14.4d -> amc_86_14.\n    if ds == \"mocap\":\n        m = re.search(r\"amc\\s*[_-]?\\s*(\\d+)\\s*[_-]?\\s*(\\d+)\", s_low)\n        if m:\n            return f\"amc_{int(m.group(1))}_{int(m.group(2))}\"\n\n    # Synthetic: case001/sample001/series001 -> 001; otherwise keep normalized string.\n    if ds == \"synthetic\":\n        m = re.search(r\"(?:case|sample|series|synthetic)\\s*[_-]?\\s*0*(\\d+)$\", s_low)\n        if m:\n            return str(int(m.group(1)))\n        if re.fullmatch(r\"0*\\d+\", s_low):\n            return str(int(s_low))\n\n    # UCR-SEG: use normalized filename/name.\n    s_low = s_low.replace(\" \", \"\").replace(\"-\", \"_\")\n    return s_low\n\n\ndef filter_case_file_by_summary(df: pd.DataFrame, summary_row: pd.Series) -> pd.DataFrame:\n    out = df.copy()\n\n    status_col = find_col(out, [\"status\"])\n    if status_col is not None:\n        ok = out[status_col].fillna(\"\").astype(str).str.strip().str.lower().isin([\"\", \"ok\"])\n        out = out[ok].copy()\n\n    error_col = find_col(out, [\"error\"])\n    if error_col is not None:\n        noerr = out[error_col].fillna(\"\").astype(str).str.strip().eq(\"\")\n        out = out[noerr].copy()\n\n    win = parse_float(summary_row.get(\"win_size\"))\n    step = parse_float(summary_row.get(\"step\"))\n    win_col = find_col(out, [\"win_size\", \"window_size\", \"win\", \"window\"])\n    step_col = find_col(out, [\"step\", \"step_size\", \"stride\"])\n\n    if win is not None and win_col is not None:\n        values = pd.to_numeric(out[win_col], errors=\"coerce\")\n        out = out[(values - win).abs() <= 1e-9].copy()\n    if step is not None and step_col is not None:\n        values = pd.to_numeric(out[step_col], errors=\"coerce\")\n        out = out[(values - step).abs() <= 1e-9].copy()\n\n    return out\n\n\ndef source_path_for_row(row: pd.Series, our_root: Path, baseline_root: Path) -> Path:\n    rel = Path(str(row.get(\"source_file\", \"\")).replace(\"/\", \"\\\\\"))\n    method = str(row.get(\"method\", \"\"))\n\n    # Try the most likely root first, then fall back.\n    candidates = []\n    if method == \"Ours\" or \"_pid_ablation\" in str(rel).lower():\n        candidates = [our_root / rel, baseline_root / rel]\n    else:\n        candidates = [baseline_root / rel, our_root / rel]\n\n    for p in candidates:\n        if p.exists():\n            return p.resolve()\n    return candidates[0].resolve()\n\n\ndef case_metrics_from_summary_row(\n    row: pd.Series,\n    *,\n    our_root: Path,\n    baseline_root: Path,\n    label_col: str,\n    forced_label: str | None = None,\n) -> pd.DataFrame:\n    path = source_path_for_row(row, our_root, baseline_root)\n    raw = read_csv(path)\n    df = filter_case_file_by_summary(raw, row)\n\n    ari_col = find_metric_col(df, \"ARI\")\n    nmi_col = find_metric_col(df, \"NMI\")\n    case_col = find_col(df, [\"case_id\", \"case\", \"sample_id\", \"sample\", \"series_id\", \"series\", \"name\", \"file\", \"filename\"])\n\n    if ari_col is None or nmi_col is None:\n        raise ValueError(f\"No ARI/NMI columns in {path}\")\n    if case_col is None:\n        # Important: do NOT use row index as a fake case id.\n        raise ValueError(f\"No reliable case column in {path}\")\n\n    dataset = norm_dataset(row.get(\"dataset\", \"\"))\n    label = forced_label if forced_label is not None else str(row.get(label_col, \"\"))\n\n    out = pd.DataFrame({\n        \"dataset\": dataset,\n        \"case_id_raw\": df[case_col].astype(str),\n        \"case_id\": df[case_col].map(lambda x: canonical_case_id(dataset, x)),\n        \"label\": label,\n        \"ARI\": pd.to_numeric(df[ari_col], errors=\"coerce\"),\n        \"NMI\": pd.to_numeric(df[nmi_col], errors=\"coerce\"),\n    })\n    out = out[out[\"case_id\"].astype(str).str.len().gt(0) & out[\"ARI\"].notna() & out[\"NMI\"].notna()].copy()\n\n    # If the same canonical case appears multiple times, average it first.\n    out = out.groupby([\"dataset\", \"case_id\", \"label\"], as_index=False).agg({\"ARI\": \"mean\", \"NMI\": \"mean\"})\n    return out\n\n\n# ----------------------------- input tables -----------------------------\n\ndef pick_table(summary_dir: Path, preferred: str, fallback: str) -> Path:\n    p = summary_dir / preferred\n    if p.exists():\n        return p\n    p = summary_dir / fallback\n    if p.exists():\n        return p\n    raise FileNotFoundError(f\"Missing both {preferred} and {fallback} under {summary_dir}\")\n\n\ndef load_main_cases(args: argparse.Namespace) -> pd.DataFrame:\n    table_path = pick_table(args.summary_dir, \"main_results_table_clean3.csv\", \"main_results_table.csv\")\n    table = read_csv(table_path)\n    if \"method\" not in table.columns:\n        raise ValueError(f\"{table_path} must contain method column\")\n\n    exclude = {x.strip() for x in args.exclude.split(\",\") if x.strip()}\n    rows = []\n    warnings = []\n    for _, row in table.iterrows():\n        method = str(row.get(\"method\", \"\")).strip()\n        protocol = str(row.get(\"protocol\", \"\")).lower()\n        source = str(row.get(\"source_file\", \"\")).lower()\n        if not method or method in exclude:\n            continue\n        if not is_ok_row(row):\n            continue\n        if \"diagnostic\" in protocol or \"_pid_ablation\" in source or \"s14_gate\" in source:\n            continue\n        try:\n            rows.append(case_metrics_from_summary_row(row, our_root=args.our_root, baseline_root=args.baseline_root, label_col=\"method\"))\n        except Exception as exc:\n            warnings.append(f\"[SKIP] {method} {row.get('dataset')} {row.get('source_file')}: {exc}\")\n\n    if warnings:\n        print(\"\\n\".join(warnings))\n    if not rows:\n        raise RuntimeError(\"No main case metrics loaded.\")\n\n    cases = pd.concat(rows, ignore_index=True)\n    order = [m for m in MAIN_METHOD_ORDER if m in set(cases[\"label\"])]\n    rest = sorted(set(cases[\"label\"]) - set(order))\n    cases[\"label\"] = pd.Categorical(cases[\"label\"], categories=order + rest, ordered=True)\n    return cases\n\n\ndef load_ablation_cases(args: argparse.Namespace) -> pd.DataFrame:\n    ab_path = pick_table(args.summary_dir, \"pid_ablation_table_clean.csv\", \"pid_ablation_table.csv\")\n    ab_table = read_csv(ab_path)\n\n    rows = []\n    warnings = []\n    if \"variant\" not in ab_table.columns:\n        raise ValueError(f\"{ab_path} must contain variant column\")\n\n    for _, row in ab_table.iterrows():\n        variant = str(row.get(\"variant\", \"\")).strip()\n        if not variant or variant not in ABLATION_ORDER:\n            continue\n        if not is_ok_row(row):\n            continue\n        try:\n            rows.append(case_metrics_from_summary_row(row, our_root=args.our_root, baseline_root=args.baseline_root, label_col=\"variant\"))\n        except Exception as exc:\n            warnings.append(f\"[SKIP] {variant} {row.get('dataset')} {row.get('source_file')}: {exc}\")\n\n    # If full_pid is absent in ablation table, use formal Ours rows as full_pid.\n    if not any(str(getattr(df, 'empty', True)) == 'False' and 'full_pid' in set(df['label'].astype(str)) for df in rows):\n        try:\n            main_table_path = pick_table(args.summary_dir, \"main_results_table_clean3.csv\", \"main_results_table.csv\")\n            main_table = read_csv(main_table_path)\n            ours_rows = main_table[main_table[\"method\"].astype(str).eq(\"Ours\")]\n            for _, row in ours_rows.iterrows():\n                if not is_ok_row(row):\n                    continue\n                rows.append(case_metrics_from_summary_row(row, our_root=args.our_root, baseline_root=args.baseline_root, label_col=\"method\", forced_label=\"full_pid\"))\n        except Exception as exc:\n            warnings.append(f\"[WARN] Could not add formal Ours as full_pid: {exc}\")\n\n    if warnings:\n        print(\"\\n\".join(warnings))\n    if not rows:\n        raise RuntimeError(\"No ablation case metrics loaded.\")\n\n    cases = pd.concat(rows, ignore_index=True)\n    order = [v for v in ABLATION_ORDER if v in set(cases[\"label\"].astype(str))]\n    rest = sorted(set(cases[\"label\"].astype(str)) - set(order))\n    cases[\"label\"] = pd.Categorical(cases[\"label\"].astype(str), categories=order + rest, ordered=True)\n    return cases\n\n\n# ----------------------------- CD / ranks -----------------------------\n\ndef complete_case_matrix(cases: pd.DataFrame, metric: str) -> pd.DataFrame:\n    pivot = cases.pivot_table(index=[\"dataset\", \"case_id\"], columns=\"label\", values=metric, aggfunc=\"mean\")\n    pivot = pivot.dropna(axis=0, how=\"any\")\n    # Drop labels with no complete values.\n    pivot = pivot.dropna(axis=1, how=\"all\")\n    return pivot\n\n\ndef average_ranks(pivot: pd.DataFrame) -> pd.DataFrame:\n    # Higher metric is better, so rank 1 is best.\n    ranks = pivot.rank(axis=1, ascending=False, method=\"average\")\n    avg = ranks.mean(axis=0).sort_values(ascending=True)\n    out = pd.DataFrame({\"label\": avg.index.astype(str), \"avg_rank\": avg.values})\n    return out\n\n\ndef nemenyi_cd(k: int, n: int, alpha: float = 0.05) -> float:\n    if k < 2 or n < 1:\n        return math.nan\n    if studentized_range is not None:\n        # Demsar/Nemenyi uses q_alpha divided by sqrt(2).\n        q_alpha = float(studentized_range.ppf(1 - alpha, k, math.inf) / math.sqrt(2.0))\n    else:\n        # Conservative fallback for alpha=0.05, k up to 10.\n        table = {2: 1.960, 3: 2.343, 4: 2.569, 5: 2.728, 6: 2.850, 7: 2.949, 8: 3.031, 9: 3.102, 10: 3.164}\n        q_alpha = table.get(k, 3.164)\n    return q_alpha * math.sqrt(k * (k + 1) / (6.0 * n))\n\n\ndef cd_intervals(rank_df: pd.DataFrame, cd: float) -> list[tuple[float, float]]:\n    \"\"\"Return maximal contiguous intervals where methods are not significantly different.\"\"\"\n    vals = rank_df[\"avg_rank\"].to_numpy(dtype=float)\n    n = len(vals)\n    intervals: list[tuple[int, int]] = []\n    for i in range(n):\n        j = i\n        while j + 1 < n and vals[j + 1] - vals[i] <= cd + 1e-12:\n            j += 1\n        if j > i:\n            intervals.append((i, j))\n\n    # Keep only intervals that are not strict subsets of a longer interval.\n    maximal = []\n    for a, b in intervals:\n        if not any(c <= a and b <= d and (c, d) != (a, b) for c, d in intervals):\n            maximal.append((a, b))\n\n    # Convert to rank coordinates.\n    return [(float(vals[a]), float(vals[b])) for a, b in maximal]\n\n\ndef draw_cd_diagram(rank_df: pd.DataFrame, cd: float, metric: str, title: str, out_png: Path) -> None:\n    rank_df = rank_df.sort_values(\"avg_rank\", ascending=True).reset_index(drop=True)\n    k = len(rank_df)\n    if k < 2:\n        raise ValueError(\"Need at least two methods to draw CD diagram\")\n\n    min_rank, max_rank = 1.0, float(k)\n    fig_w = max(11, 1.15 * k + 5)\n    fig_h = max(5.5, 0.55 * k + 3.2)\n    fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=180)\n\n    # Rank axis, reversed like Time2State: smaller/better rank on the right.\n    ax.set_xlim(max_rank + 0.35, min_rank - 0.35)\n    ax.set_ylim(0, 1)\n    ax.axis(\"off\")\n\n    y_axis = 0.68\n    ax.hlines(y_axis, min_rank, max_rank, color=\"black\", linewidth=1.6)\n    for r in range(1, k + 1):\n        ax.vlines(r, y_axis - 0.035, y_axis + 0.035, color=\"black\", linewidth=1.4)\n        ax.text(r, y_axis + 0.055, str(r), ha=\"center\", va=\"bottom\", fontsize=8)\n\n    # CD bar.\n    cd_y = 0.90\n    cd_start = max_rank\n    cd_end = max(max_rank - cd, min_rank)\n    ax.hlines(cd_y, cd_start, cd_end, color=\"black\", linewidth=2.0)\n    ax.vlines([cd_start, cd_end], cd_y - 0.03, cd_y + 0.03, color=\"black\", linewidth=1.5)\n    ax.text((cd_start + cd_end) / 2, cd_y + 0.045, f\"CD={cd:.3f}\", ha=\"center\", va=\"bottom\", fontsize=8)\n\n    # Labels split around the center.\n    left_items = rank_df[rank_df[\"avg_rank\"] > (k + 1) / 2].sort_values(\"avg_rank\", ascending=False).reset_index(drop=True)\n    right_items = rank_df[rank_df[\"avg_rank\"] <= (k + 1) / 2].sort_values(\"avg_rank\", ascending=True).reset_index(drop=True)\n\n    left_x_text = max_rank + 0.28\n    right_x_text = min_rank - 0.28\n    left_y0 = 0.48\n    right_y0 = 0.48\n    step = 0.085\n\n    for i, row in left_items.iterrows():\n        y = left_y0 - i * step\n        x = float(row[\"avg_rank\"])\n        label = str(row[\"label\"])\n        ax.plot([x, left_x_text - 0.05], [y_axis, y], color=\"black\", linewidth=1.1)\n        ax.text(left_x_text, y, f\"{label} {x:.3f}\", ha=\"right\", va=\"center\", fontsize=8)\n\n    for i, row in right_items.iterrows():\n        y = right_y0 - i * step\n        x = float(row[\"avg_rank\"])\n        label = str(row[\"label\"])\n        ax.plot([x, right_x_text + 0.05], [y_axis, y], color=\"black\", linewidth=1.1)\n        ax.text(right_x_text, y, f\"{x:.3f} {label}\", ha=\"left\", va=\"center\", fontsize=8)\n\n    # Non-significance thick bars.\n    intervals = cd_intervals(rank_df, cd)\n    base_y = y_axis - 0.115\n    for idx, (a, b) in enumerate(intervals[:8]):\n        y = base_y - idx * 0.035\n        ax.hlines(y, a, b, color=\"black\", linewidth=3.0)\n\n    ax.text((min_rank + max_rank) / 2, 0.05, \"Rank (smaller is better)\", ha=\"center\", va=\"center\", fontsize=8)\n    ax.set_title(title, fontsize=8, fontweight=\"bold\", pad=12)\n    fig.tight_layout()\n    out_png.parent.mkdir(parents=True, exist_ok=True)\n    fig.savefig(out_png, bbox_inches=\"tight\")\n    plt.close(fig)\n\n\ndef make_cd_outputs(cases: pd.DataFrame, *, mode: str, out_dir: Path) -> None:\n    out_dir.mkdir(parents=True, exist_ok=True)\n    for metric in METRICS:\n        pivot = complete_case_matrix(cases, metric)\n        if pivot.empty or pivot.shape[1] < 2:\n            print(f\"[WARN] {mode} {metric}: not enough complete aligned cases; skipped.\")\n            continue\n\n        ranks = average_ranks(pivot)\n        n_cases = int(pivot.shape[0])\n        k_methods = int(pivot.shape[1])\n        cd = nemenyi_cd(k_methods, n_cases, alpha=0.05)\n\n        ranks.insert(0, \"mode\", mode)\n        ranks.insert(1, \"metric\", metric)\n        ranks.insert(2, \"complete_aligned_cases\", n_cases)\n        ranks.insert(3, \"n_methods\", k_methods)\n        ranks.insert(4, \"CD_alpha_0_05\", cd)\n        ranks.to_csv(out_dir / f\"{mode}_rank_{metric}.csv\", index=False, encoding=\"utf-8-sig\")\n\n        title = f\"Critical Difference Diagram ({metric}, complete aligned cases n={n_cases})\"\n        draw_cd_diagram(\n            ranks[[\"label\", \"avg_rank\"]].copy(),\n            cd,\n            metric,\n            title,\n            out_dir / f\"{mode}_cd_diagram_{metric}.svg\",\n        )\n        print(f\"[OK] {mode} {metric}: n={n_cases}, k={k_methods}, CD={cd:.3f}\")\n        print(\"     \", out_dir / f\"{mode}_rank_{metric}.csv\")\n        print(\"     \", out_dir / f\"{mode}_cd_diagram_{metric}.svg\")\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--our-root\", type=Path, default=Path(r\"D:\\code\\teacherT2S\\our\"))\n    ap.add_argument(\"--baseline-root\", type=Path, default=Path(r\"D:\\code\\teacherT2S\\baseline\"))\n    ap.add_argument(\"--summary-dir\", type=Path, default=None)\n    ap.add_argument(\"--out-dir\", type=Path, default=None)\n    ap.add_argument(\"--mode\", choices=[\"main\", \"ablation\", \"both\"], default=\"main\")\n    ap.add_argument(\"--exclude\", default=\"redsds\", help=\"Comma-separated labels to exclude from main CD diagram. Default: redsds\")\n    args = ap.parse_args()\n\n    args.our_root = args.our_root.resolve()\n    args.baseline_root = args.baseline_root.resolve()\n    args.summary_dir = args.summary_dir.resolve() if args.summary_dir else (args.our_root / \"_ari_nmi_summary\").resolve()\n    args.out_dir = args.out_dir.resolve() if args.out_dir else (args.our_root / \"_t2s_cd_rank_only\").resolve()\n\n    print(\"[INFO] our_root     :\", args.our_root)\n    print(\"[INFO] baseline_root:\", args.baseline_root)\n    print(\"[INFO] summary_dir  :\", args.summary_dir)\n    print(\"[INFO] out_dir      :\", args.out_dir)\n    print(\"[INFO] mode         :\", args.mode)\n\n    if args.mode in {\"main\", \"both\"}:\n        print(\"\\n[1] Loading main case metrics...\")\n        main_cases = load_main_cases(args)\n        make_cd_outputs(main_cases, mode=\"main\", out_dir=args.out_dir)\n\n    if args.mode in {\"ablation\", \"both\"}:\n        print(\"\\n[2] Loading ablation case metrics...\")\n        ab_cases = load_ablation_cases(args)\n        make_cd_outputs(ab_cases, mode=\"ablation\", out_dir=args.out_dir)\n\n    print(\"\\n[DONE] CD diagrams and rank tables only.\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+  "make_t2s_ab_marker_only": "# -*- coding: utf-8 -*-\nr\"\"\"\nGenerate ONLY Time2State-style paired t-test letter-marker bar plots.\n\nOutputs:\n  - <mode>_ttest_letters_ARI.csv\n  - <mode>_ttest_letters_NMI.csv\n  - <mode>_pairwise_ttest_ARI.csv\n  - <mode>_pairwise_ttest_NMI.csv\n  - <mode>_t2s_style_ab_ARI.svg\n  - <mode>_t2s_style_ab_NMI.svg\n\nThis script reuses the exact case-alignment/loading logic from make_t2s_cd_rank_only.py.\nPut both scripts in the same folder, e.g. D:\\code\\teacherT2S\\our.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport math\nfrom itertools import combinations\nfrom pathlib import Path\n\nimport matplotlib\nmatplotlib.use(\"Agg\")\nimport matplotlib.pyplot as plt\nimport numpy as np\nimport pandas as pd\n\ntry:\n    from scipy.stats import ttest_rel\nexcept Exception as exc:  # pragma: no cover\n    raise RuntimeError(\"scipy is required: conda/pip install scipy\") from exc\n\nfrom make_t2s_cd_rank_only import (  # reuse the same alignment logic\n    METRICS,\n    MAIN_METHOD_ORDER,\n    ABLATION_ORDER,\n    display_dataset,\n    load_main_cases,\n    load_ablation_cases,\n)\n\nDATASET_ORDER = [\"synthetic\", \"mocap\", \"actrectut\", \"pamap2\", \"ucr-seg\", \"usc-had\"]\n\n\ndef label_order_for_mode(cases: pd.DataFrame, mode: str) -> list[str]:\n    present = [str(x) for x in pd.Series(cases[\"label\"].astype(str).unique()).dropna().tolist()]\n    base = MAIN_METHOD_ORDER if mode == \"main\" else ABLATION_ORDER\n    ordered = [x for x in base if x in present]\n    ordered += sorted([x for x in present if x not in ordered])\n    return ordered\n\n\ndef safe_paired_ttest(a: pd.Series, b: pd.Series, min_n: int) -> tuple[float, int, str]:\n    pair = pd.concat([a, b], axis=1).dropna()\n    n = int(len(pair))\n    if n < min_n:\n        return math.nan, n, \"too_few_common_cases\"\n    diff = pair.iloc[:, 0].to_numpy(dtype=float) - pair.iloc[:, 1].to_numpy(dtype=float)\n    if np.allclose(diff, 0):\n        return 1.0, n, \"all_equal\"\n    # two-sided paired t-test, matching the usual Time2State-style significance grouping.\n    stat, p = ttest_rel(pair.iloc[:, 0], pair.iloc[:, 1], nan_policy=\"omit\")\n    if not np.isfinite(p):\n        return math.nan, n, \"nan_pvalue\"\n    return float(p), n, \"ok\"\n\n\ndef pairwise_tests_for_dataset_metric(\n    cases: pd.DataFrame,\n    dataset: str,\n    metric: str,\n    labels: list[str],\n    alpha: float,\n    min_n: int,\n) -> tuple[pd.DataFrame, pd.DataFrame]:\n    sub = cases[cases[\"dataset\"].astype(str).eq(dataset)].copy()\n    pivot = sub.pivot_table(index=\"case_id\", columns=\"label\", values=metric, aggfunc=\"mean\")\n    labels = [x for x in labels if x in pivot.columns]\n\n    rows = []\n    sig = pd.DataFrame(False, index=labels, columns=labels)\n    tested = pd.DataFrame(False, index=labels, columns=labels)\n\n    for a, b in combinations(labels, 2):\n        p, n, status = safe_paired_ttest(pivot[a], pivot[b], min_n=min_n)\n        significant = bool(np.isfinite(p) and p < alpha)\n        sig.loc[a, b] = sig.loc[b, a] = significant\n        tested.loc[a, b] = tested.loc[b, a] = status in {\"ok\", \"all_equal\"}\n        rows.append({\n            \"dataset\": dataset,\n            \"dataset_display\": display_dataset(dataset),\n            \"metric\": metric,\n            \"method_a\": a,\n            \"method_b\": b,\n            \"n_common_cases\": n,\n            \"mean_a\": float(pivot[a].dropna().mean()) if a in pivot else math.nan,\n            \"mean_b\": float(pivot[b].dropna().mean()) if b in pivot else math.nan,\n            \"p_value\": p,\n            \"alpha\": alpha,\n            \"significant\": significant if status in {\"ok\", \"all_equal\"} else \"NA\",\n            \"status\": status,\n        })\n\n    return pd.DataFrame(rows), sig\n\n\ndef compact_letters(means: pd.Series, sig: pd.DataFrame) -> dict[str, str]:\n    \"\"\"Greedy compact letter display.\n\n    Rule: methods sharing at least one letter are not significantly different.\n    Methods with a significant pair must not share any letter.\n    \"\"\"\n    labels = means.sort_values(ascending=False).index.astype(str).tolist()\n    letter_sets: list[list[str]] = []\n    alphabet = list(\"abcdefghijklmnopqrstuvwxyz\")\n\n    def can_join(group: list[str], label: str) -> bool:\n        return all(not bool(sig.loc[label, other]) for other in group if other in sig.columns)\n\n    for label in labels:\n        placed = False\n        for group in letter_sets:\n            if can_join(group, label):\n                group.append(label)\n                placed = True\n        if not placed:\n            letter_sets.append([label])\n\n    out = {label: \"\" for label in labels}\n    for i, group in enumerate(letter_sets):\n        letter = alphabet[i] if i < len(alphabet) else f\"L{i+1}\"\n        for label in group:\n            out[label] += letter\n    return out\n\n\ndef dataset_means(cases: pd.DataFrame, metric: str) -> pd.DataFrame:\n    mean = cases.groupby([\"dataset\", \"label\"], observed=False)[metric].mean().reset_index()\n    return mean\n\n\ndef make_letters_and_pairwise(cases: pd.DataFrame, mode: str, metric: str, alpha: float, min_n: int) -> tuple[pd.DataFrame, pd.DataFrame]:\n    labels = label_order_for_mode(cases, mode)\n    mean_df = dataset_means(cases, metric)\n    all_letter_rows = []\n    all_pairwise = []\n\n    datasets = [d for d in DATASET_ORDER if d in set(cases[\"dataset\"].astype(str))]\n    datasets += sorted(set(cases[\"dataset\"].astype(str)) - set(datasets))\n\n    for dataset in datasets:\n        sub_mean = mean_df[mean_df[\"dataset\"].astype(str).eq(dataset)].copy()\n        present_labels = [x for x in labels if x in set(sub_mean[\"label\"].astype(str))]\n        if not present_labels:\n            continue\n        means = sub_mean.set_index(\"label\")[metric].reindex(present_labels)\n        pairwise, sig = pairwise_tests_for_dataset_metric(cases, dataset, metric, present_labels, alpha, min_n)\n        all_pairwise.append(pairwise)\n        letters = compact_letters(means.dropna(), sig)\n        n_by_label = cases[cases[\"dataset\"].astype(str).eq(dataset)].groupby(\"label\", observed=False)[\"case_id\"].nunique()\n        for label in present_labels:\n            all_letter_rows.append({\n                \"mode\": mode,\n                \"dataset\": dataset,\n                \"dataset_display\": display_dataset(dataset),\n                \"metric\": metric,\n                \"label\": label,\n                \"mean\": float(means.loc[label]) if pd.notna(means.loc[label]) else math.nan,\n                \"n_cases\": int(n_by_label.get(label, 0)),\n                \"letters\": letters.get(label, \"\"),\n            })\n    return pd.DataFrame(all_letter_rows), pd.concat(all_pairwise, ignore_index=True) if all_pairwise else pd.DataFrame()\n\n\ndef plot_t2s_letters(letter_df: pd.DataFrame, mode: str, metric: str, out_png: Path) -> None:\n    labels = label_order_for_mode(letter_df.rename(columns={\"label\": \"label\"}), mode)\n    datasets = [d for d in DATASET_ORDER if d in set(letter_df[\"dataset\"].astype(str))]\n    datasets += sorted(set(letter_df[\"dataset\"].astype(str)) - set(datasets))\n\n    # Restrict/order labels actually present.\n    present = set(letter_df[\"label\"].astype(str))\n    labels = [x for x in labels if x in present]\n\n    x = np.arange(len(datasets))\n    width = min(0.12, 0.78 / max(1, len(labels)))\n    fig_w = max(12, 1.45 * len(datasets) + 3.5)\n    fig, ax = plt.subplots(figsize=(fig_w, 5.8), dpi=180)\n\n    for i, label in enumerate(labels):\n        vals = []\n        letters = []\n        for d in datasets:\n            row = letter_df[(letter_df[\"dataset\"].astype(str).eq(d)) & (letter_df[\"label\"].astype(str).eq(label))]\n            if row.empty:\n                vals.append(np.nan)\n                letters.append(\"\")\n            else:\n                vals.append(float(row.iloc[0][\"mean\"]))\n                letters.append(str(row.iloc[0][\"letters\"]))\n        offset = (i - (len(labels) - 1) / 2.0) * width\n        bars = ax.bar(x + offset, vals, width=width, label=label)\n        for bar, txt in zip(bars, letters):\n            h = bar.get_height()\n            if np.isfinite(h) and txt:\n                ax.text(bar.get_x() + bar.get_width() / 2, h + 0.015, txt, ha=\"center\", va=\"bottom\", fontsize=8)\n\n    ax.set_title(f\"Time2State-style paired t-test markers ({metric})\", fontsize=8, fontweight=\"bold\", pad=10)\n    ax.set_ylabel(metric)\n    ax.set_ylim(0, 1.08)\n    ax.set_xticks(x)\n    ax.set_xticklabels([display_dataset(d) for d in datasets], rotation=25, ha=\"right\")\n    ax.grid(axis=\"y\", alpha=0.35)\n    ax.legend(loc=\"upper center\", bbox_to_anchor=(0.5, -0.12), ncol=min(len(labels), 7), frameon=False, fontsize=8)\n    ax.text(\n        0.01,\n        -0.18,\n        \"Same letter = not significantly different; no shared letter = significant difference (paired t-test, alpha=0.05).\",\n        transform=ax.transAxes,\n        ha=\"left\",\n        va=\"top\",\n        fontsize=8,\n    )\n    fig.tight_layout()\n    out_png.parent.mkdir(parents=True, exist_ok=True)\n    fig.savefig(out_png, bbox_inches=\"tight\")\n    plt.close(fig)\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--our-root\", type=Path, default=Path(r\"D:\\code\\teacherT2S\\our\"))\n    ap.add_argument(\"--baseline-root\", type=Path, default=Path(r\"D:\\code\\teacherT2S\\baseline\"))\n    ap.add_argument(\"--summary-dir\", type=Path, default=None)\n    ap.add_argument(\"--out-dir\", type=Path, default=None)\n    ap.add_argument(\"--mode\", choices=[\"main\", \"ablation\"], default=\"main\")\n    ap.add_argument(\"--exclude\", default=\"redsds\", help=\"Comma-separated labels excluded from main mode. Default: redsds\")\n    ap.add_argument(\"--alpha\", type=float, default=0.05)\n    ap.add_argument(\"--min-n\", type=int, default=2, help=\"Minimum paired cases for t-test; default 2 to follow Time2State-style reporting on ActRecTut.\")\n    args = ap.parse_args()\n\n    args.our_root = args.our_root.resolve()\n    args.baseline_root = args.baseline_root.resolve()\n    args.summary_dir = args.summary_dir.resolve() if args.summary_dir else (args.our_root / \"_ari_nmi_summary\").resolve()\n    args.out_dir = args.out_dir.resolve() if args.out_dir else (args.our_root / \"_t2s_ab_marker_only\").resolve()\n\n    print(\"[INFO] our_root     :\", args.our_root)\n    print(\"[INFO] baseline_root:\", args.baseline_root)\n    print(\"[INFO] summary_dir  :\", args.summary_dir)\n    print(\"[INFO] out_dir      :\", args.out_dir)\n    print(\"[INFO] mode         :\", args.mode)\n    print(\"[INFO] alpha        :\", args.alpha)\n    print(\"[INFO] min_n        :\", args.min_n)\n\n    if args.mode == \"main\":\n        cases = load_main_cases(args)\n    else:\n        cases = load_ablation_cases(args)\n\n    args.out_dir.mkdir(parents=True, exist_ok=True)\n    for metric in METRICS:\n        letters, pairwise = make_letters_and_pairwise(cases, args.mode, metric, args.alpha, args.min_n)\n        letters_path = args.out_dir / f\"{args.mode}_ttest_letters_{metric}.csv\"\n        pairwise_path = args.out_dir / f\"{args.mode}_pairwise_ttest_{metric}.csv\"\n        png_path = args.out_dir / f\"{args.mode}_t2s_style_ab_{metric}.svg\"\n        letters.to_csv(letters_path, index=False, encoding=\"utf-8-sig\")\n        pairwise.to_csv(pairwise_path, index=False, encoding=\"utf-8-sig\")\n        plot_t2s_letters(letters, args.mode, metric, png_path)\n        print(f\"[OK] {metric}\")\n        print(\"    \", letters_path)\n        print(\"    \", pairwise_path)\n        print(\"    \", png_path)\n\n    print(\"[DONE] Time2State-style letter marker plots only.\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+  "collect_all_methods_ari_nmi_summary_finalResult": "# -*- coding: utf-8 -*-\nr\"\"\"\nAdaptive ARI/NMI collector.\n\nCollects:\n  1) Ours from D:\\code\\teacherT2S\\our\n  2) All baseline methods from every first-level folder under:\n       D:\\code\\teacherT2S\\baseline\\*\n\nExamples:\n  baseline\\t2s      -> Time2State\n  baseline\\e2usd    -> E2USD\n  baseline\\ticc     -> TICC\n  baseline\\autoplait -> AutoPlait\n  baseline\\hdp_hsmm  -> HDP-HSMM\n  baseline\\hvgh      -> HVGH\n\nOutput:\n  D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\all_methods_main_table.csv\n  D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\all_methods_file_summary.csv\n  D:\\code\\teacherT2S\\our\\_ari_nmi_summary\\all_methods_ari_nmi_summary.xlsx\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport math\nimport re\nfrom pathlib import Path\nfrom typing import Iterable\n\nimport pandas as pd\n\n\nOUT_DIR_NAME = \"_ari_nmi_summary\"\n\nSKIP_METHOD_DIRS = {\n    \".git\",\n    \"__pycache__\",\n    \"_logs\",\n    \"_ari_nmi_summary\",\n    \"old\",\n    \"smoke\",\n    \"smoke_only\",\n    \"ourclapsmoke\",\n    \"classification-label-profile-main\",\n}\n\nMETHOD_LABEL = {\n    \"t2s\": \"Time2State\",\n    \"time2state\": \"Time2State\",\n    \"e2usd\": \"E2USD\",\n    \"ticc\": \"TICC\",\n    \"autoplait\": \"AutoPlait\",\n    \"hdp_hsmm\": \"HDP-HSMM\",\n    \"hdphsmm\": \"HDP-HSMM\",\n    \"hvgh\": \"HVGH\",\n    \"ourclap\": \"CLaP\",\n}\n\n# Time2State formal reporting parameters aligned with the E2U / exp_of_Time2State.py setting.\n# These are used ONLY for Time2State rows in the formal paper table.\nT2S_E2U_SAME_PARAMS = {\n    \"synthetic\": (128, 50),\n    \"mocap\": (256, 50),\n    \"actrectut\": (128, 50),\n    \"pamap2\": (512, 100),\n    \"pamap2_zero\": (512, 100),\n    \"pamap2-zero\": (512, 100),\n    \"usc-had\": (256, 50),\n    \"uschad\": (256, 50),\n    \"ucr-seg\": (256, 50),\n    \"ucrseg\": (256, 50),\n    \"tssb\": (256, 50),\n}\n\n# E2USD method's own paper-fixed parameters.\n# Keep this separate from Time2State because the two protocols are not the same.\nE2USD_FIXED_PARAMS = {\n    \"synthetic\": (256, 50),\n    \"mocap\": (256, 50),\n    \"actrectut\": (128, 1),\n    \"pamap2\": (512, 100),\n    \"pamap2_zero\": (512, 100),\n    \"pamap2-zero\": (512, 100),\n    \"usc-had\": (512, 50),\n    \"uschad\": (512, 50),\n    \"ucr-seg\": (512, 50),\n    \"ucrseg\": (512, 50),\n    \"tssb\": (512, 50),\n}\n\n\ndef normalize_col(name: object) -> str:\n    return re.sub(r\"[^a-z0-9]+\", \"\", str(name).strip().lower())\n\n\ndef normalize_dataset_name(name: object) -> str:\n    s = str(name or \"\").strip().lower()\n    s = s.replace(\"\\\\\", \"/\").split(\"/\")[-1]\n    s = s.replace(\"_\", \"-\").replace(\" \", \"\")\n\n    aliases = {\n        \"synthetic\": \"synthetic\",\n        \"mocap\": \"mocap\",\n        \"actrectut\": \"actrectut\",\n        \"act-rec-tut\": \"actrectut\",\n        \"pamap2\": \"pamap2\",\n        \"pamap2zero\": \"pamap2_zero\",\n        \"pamap2-zero\": \"pamap2_zero\",\n        \"pamap2full\": \"pamap2_full\",\n        \"pamap2-full\": \"pamap2_full\",\n        \"pamap2only\": \"pamap2_only\",\n        \"pamap2-only\": \"pamap2_only\",\n        \"uschad\": \"usc-had\",\n        \"usc-had\": \"usc-had\",\n        \"ucrseg\": \"ucr-seg\",\n        \"ucr-seg\": \"ucr-seg\",\n        \"tssb\": \"ucr-seg\",\n    }\n    return aliases.get(s, s)\n\n\ndef method_display_name(folder_name: str) -> str:\n    key = folder_name.strip().lower()\n    return METHOD_LABEL.get(key, folder_name)\n\n\ndef safe_read_csv(path: Path) -> pd.DataFrame:\n    last_error: Exception | None = None\n    for enc in (\"utf-8-sig\", \"utf-8\", \"gbk\", \"gb18030\", \"latin1\"):\n        try:\n            return pd.read_csv(path, encoding=enc)\n        except Exception as exc:\n            last_error = exc\n    raise RuntimeError(f\"Cannot read {path}: {last_error!r}\")\n\n\ndef find_col(df: pd.DataFrame, candidates: Iterable[str]) -> str | None:\n    norm_map = {normalize_col(c): c for c in df.columns}\n    for c in candidates:\n        key = normalize_col(c)\n        if key in norm_map:\n            return norm_map[key]\n    return None\n\n\ndef find_metric_col(df: pd.DataFrame, metric: str) -> str | None:\n    cols = list(df.columns)\n    norm_map = {normalize_col(c): c for c in cols}\n\n    if metric.lower() == \"ari\":\n        candidates = [\n            \"ari\",\n            \"arimean\",\n            \"meanari\",\n            \"adjustedrandindex\",\n            \"adjustedrandscore\",\n        ]\n    elif metric.lower() == \"nmi\":\n        candidates = [\n            \"nmi\",\n            \"nmimean\",\n            \"meannmi\",\n            \"normalizedmutualinfo\",\n            \"normalizedmutualinformation\",\n        ]\n    else:\n        raise ValueError(metric)\n\n    for c in candidates:\n        if c in norm_map:\n            return norm_map[c]\n\n    bad_tokens = [\"std\", \"min\", \"max\", \"delta\", \"gain\", \"diff\"]\n    for c in cols:\n        nc = normalize_col(c)\n        if metric.lower() in nc and not any(t in nc for t in bad_tokens):\n            return c\n\n    return None\n\n\ndef numeric(df: pd.DataFrame, col: str) -> pd.Series:\n    return pd.to_numeric(df[col], errors=\"coerce\")\n\n\ndef valid_ari_nmi_frame(df: pd.DataFrame) -> tuple[pd.DataFrame, str, str]:\n    ari_col = find_metric_col(df, \"ari\")\n    nmi_col = find_metric_col(df, \"nmi\")\n\n    if ari_col is None or nmi_col is None:\n        raise ValueError(\"No ARI/NMI columns found.\")\n\n    out = df.copy()\n    out[\"_ARI_NUM\"] = numeric(out, ari_col)\n    out[\"_NMI_NUM\"] = numeric(out, nmi_col)\n\n    err_col = find_col(out, [\"error\"])\n    if err_col is not None:\n        err_text = out[err_col].fillna(\"\").astype(str).str.strip()\n        out = out[err_text.eq(\"\")]\n\n    out = out[out[\"_ARI_NUM\"].notna() & out[\"_NMI_NUM\"].notna()]\n    return out, ari_col, nmi_col\n\n\ndef dataset_from_path(path: Path, dataset_root: Path) -> str:\n    try:\n        rel = path.relative_to(dataset_root)\n        parts = rel.parts\n        if parts:\n            return normalize_dataset_name(parts[0])\n    except Exception:\n        pass\n    return normalize_dataset_name(path.parent.name)\n\n\ndef dataset_from_df_or_path(df: pd.DataFrame, path: Path, dataset_root: Path) -> str:\n    col = find_col(df, [\"dataset\"])\n    if col is not None:\n        vals = [v for v in df[col].dropna().astype(str).unique().tolist() if v.strip()]\n        if len(vals) == 1:\n            return normalize_dataset_name(vals[0])\n    return dataset_from_path(path, dataset_root)\n\n\ndef mean_or_nan(values: pd.Series) -> float:\n    v = pd.to_numeric(values, errors=\"coerce\").dropna()\n    return float(v.mean()) if len(v) else math.nan\n\n\ndef std_or_nan(values: pd.Series) -> float:\n    v = pd.to_numeric(values, errors=\"coerce\").dropna()\n    if len(v) <= 1:\n        return 0.0 if len(v) == 1 else math.nan\n    return float(v.std(ddof=1))\n\n\ndef summarize_rows(\n    *,\n    method: str,\n    dataset: str,\n    protocol: str,\n    df: pd.DataFrame,\n    source_path: Path,\n    root_for_rel: Path,\n    win_size: int | str | None = None,\n    step: int | str | None = None,\n    status: str = \"ok\",\n    note: str = \"\",\n) -> dict:\n    rel = str(source_path.relative_to(root_for_rel)) if source_path.exists() else str(source_path)\n\n    if df.empty:\n        return {\n            \"method\": method,\n            \"dataset\": dataset,\n            \"protocol\": protocol,\n            \"status\": status if status != \"ok\" else \"empty\",\n            \"win_size\": \"\" if win_size is None else win_size,\n            \"step\": \"\" if step is None else step,\n            \"cases\": 0,\n            \"ARI_mean\": math.nan,\n            \"NMI_mean\": math.nan,\n            \"ARI_std\": math.nan,\n            \"NMI_std\": math.nan,\n            \"ARI_min\": math.nan,\n            \"NMI_min\": math.nan,\n            \"ARI_max\": math.nan,\n            \"NMI_max\": math.nan,\n            \"source_file\": rel,\n            \"note\": note,\n        }\n\n    ari = df[\"_ARI_NUM\"]\n    nmi = df[\"_NMI_NUM\"]\n\n    return {\n        \"method\": method,\n        \"dataset\": dataset,\n        \"protocol\": protocol,\n        \"status\": status,\n        \"win_size\": \"\" if win_size is None else win_size,\n        \"step\": \"\" if step is None else step,\n        \"cases\": int(len(df)),\n        \"ARI_mean\": mean_or_nan(ari),\n        \"NMI_mean\": mean_or_nan(nmi),\n        \"ARI_std\": std_or_nan(ari),\n        \"NMI_std\": std_or_nan(nmi),\n        \"ARI_min\": float(ari.min()) if len(ari) else math.nan,\n        \"NMI_min\": float(nmi.min()) if len(nmi) else math.nan,\n        \"ARI_max\": float(ari.max()) if len(ari) else math.nan,\n        \"NMI_max\": float(nmi.max()) if len(nmi) else math.nan,\n        \"source_file\": rel,\n        \"note\": note,\n    }\n\n\ndef pick_latest(paths: list[Path]) -> list[Path]:\n    return sorted(paths, key=lambda p: (str(p.parent).lower(), -p.stat().st_mtime, p.name.lower()))\n\n\ndef path_should_skip(path: Path) -> bool:\n    parts = {p.lower() for p in path.parts}\n    return OUT_DIR_NAME in parts\n\n\ndef collect_ours(our_root: Path) -> list[dict]:\n    rows: list[dict] = []\n\n    paths = [\n        p for p in our_root.rglob(\"all_case_results*.csv\")\n        if not path_should_skip(p)\n    ]\n\n    for path in pick_latest(paths):\n        try:\n            raw = safe_read_csv(path)\n            df, ari_col, nmi_col = valid_ari_nmi_frame(raw)\n            dataset = dataset_from_df_or_path(raw, path, our_root)\n\n            rows.append(summarize_rows(\n                method=\"Ours\",\n                dataset=dataset,\n                protocol=\"final-all-case-results\",\n                df=df,\n                source_path=path,\n                root_for_rel=our_root,\n                note=f\"Mean over all valid rows in all_case_results*.csv. ARI={ari_col}, NMI={nmi_col}.\",\n            ))\n        except Exception as exc:\n            rows.append({\n                \"method\": \"Ours\",\n                \"dataset\": dataset_from_path(path, our_root),\n                \"protocol\": \"final-all-case-results\",\n                \"status\": \"read_or_parse_error\",\n                \"win_size\": \"\",\n                \"step\": \"\",\n                \"cases\": 0,\n                \"ARI_mean\": math.nan,\n                \"NMI_mean\": math.nan,\n                \"ARI_std\": math.nan,\n                \"NMI_std\": math.nan,\n                \"ARI_min\": math.nan,\n                \"NMI_min\": math.nan,\n                \"ARI_max\": math.nan,\n                \"NMI_max\": math.nan,\n                \"source_file\": str(path.relative_to(our_root)),\n                \"note\": repr(exc),\n            })\n\n    return rows\n\n\ndef discover_baseline_method_dirs(baseline_root: Path) -> list[Path]:\n    if not baseline_root.exists():\n        return []\n\n    out = []\n    for p in sorted(baseline_root.iterdir(), key=lambda x: x.name.lower()):\n        if not p.is_dir():\n            continue\n        if p.name.lower() in SKIP_METHOD_DIRS:\n            continue\n        if p.name.startswith(\"_\"):\n            continue\n        out.append(p)\n    return out\n\n\ndef find_result_case_csvs(method_root: Path) -> list[Path]:\n    if not method_root.exists():\n        return []\n\n    paths = []\n\n    # Preserve the original collector behavior for existing baselines:\n    # generic baselines are collected from case_results.csv only.\n    for p in method_root.rglob(\"case_results.csv\"):\n        if path_should_skip(p):\n            continue\n        paths.append(p)\n\n    # finalResult-only addition:\n    # CLaP results in baseline\\ourClap are stored as all_case_results*.csv.\n    # Do not change other baselines' discovery rules.\n    if method_root.name.lower() == \"ourclap\":\n        for p in method_root.rglob(\"all_case_results*.csv\"):\n            if path_should_skip(p):\n                continue\n            paths.append(p)\n\n    return pick_latest(paths)\n\n\ndef get_win_step_cols(df: pd.DataFrame) -> tuple[str | None, str | None]:\n    win_col = find_col(df, [\"win_size\", \"win\", \"window_size\", \"window\"])\n    step_col = find_col(df, [\"step\", \"step_size\", \"stride\"])\n    return win_col, step_col\n\n\ndef subset_by_win_step(df: pd.DataFrame, win: int, step: int) -> pd.DataFrame:\n    win_col, step_col = get_win_step_cols(df)\n    if win_col is None or step_col is None:\n        return df.iloc[0:0].copy()\n\n    w = pd.to_numeric(df[win_col], errors=\"coerce\")\n    s = pd.to_numeric(df[step_col], errors=\"coerce\")\n    return df[(w == int(win)) & (s == int(step))].copy()\n\n\ndef e2usd_fixed_param_for_dataset(dataset: str) -> tuple[int, int] | None:\n    return E2USD_FIXED_PARAMS.get(normalize_dataset_name(dataset))\n\n\ndef t2s_e2u_same_param_for_dataset(dataset: str) -> tuple[int, int] | None:\n    return T2S_E2U_SAME_PARAMS.get(normalize_dataset_name(dataset))\n\n\ndef collect_baseline_method(baseline_root: Path, method_dir: Path) -> list[dict]:\n    \"\"\"\n    Collect one baseline method.\n\n    Important:\n      - Time2State: output E2U-style fixed-parameter rows for the formal table;\n                   keep grid-mean rows only as diagnostics.\n      - E2USD: ONLY keep official dataset-specific fixed parameters.\n               Do NOT output E2USD-grid-mean.\n      - Other baselines: keep baseline-grid-mean.\n    \"\"\"\n    rows: list[dict] = []\n\n    method_folder = method_dir.name\n    method_name = method_display_name(method_folder)\n    method_key = method_folder.lower()\n\n    paths = find_result_case_csvs(method_dir)\n\n    for path in paths:\n        try:\n            raw = safe_read_csv(path)\n            df, ari_col, nmi_col = valid_ari_nmi_frame(raw)\n            dataset = dataset_from_df_or_path(raw, path, method_dir)\n            t2s_fixed = t2s_e2u_same_param_for_dataset(dataset)\n            e2usd_fixed = e2usd_fixed_param_for_dataset(dataset)\n\n            if method_key in {\"t2s\", \"time2state\"}:\n                # Diagnostic row only: the formal table will NOT use this.\n                rows.append(summarize_rows(\n                    method=method_name,\n                    dataset=dataset,\n                    protocol=\"T2S-grid-mean-diagnostic\",\n                    df=df,\n                    source_path=path,\n                    root_for_rel=baseline_root,\n                    note=f\"Diagnostic only: mean over all valid T2S case_results rows. ARI={ari_col}, NMI={nmi_col}.\",\n                ))\n\n                # Formal Time2State row: E2U / exp_of_Time2State.py-style parameter.\n                if t2s_fixed is not None:\n                    win, step = t2s_fixed\n                    sub = subset_by_win_step(df, win, step)\n                    rows.append(summarize_rows(\n                        method=method_name,\n                        dataset=dataset,\n                        protocol=\"T2S-E2U-same-param\",\n                        df=sub,\n                        source_path=path,\n                        root_for_rel=baseline_root,\n                        win_size=win,\n                        step=step,\n                        status=\"ok\" if not sub.empty else \"missing_in_results\",\n                        note=(\n                            f\"Formal Time2State row using E2U / exp_of_Time2State.py parameter: \"\n                            f\"win_size={win}, step={step}.\"\n                        ),\n                    ))\n\n            elif method_key == \"e2usd\":\n                # E2USD official fixed parameters only.\n                # Do NOT output E2USD-grid-mean.\n                if e2usd_fixed is None:\n                    rows.append(summarize_rows(\n                        method=method_name,\n                        dataset=dataset,\n                        protocol=\"E2USD-paper-fixed-param\",\n                        df=df.iloc[0:0],\n                        source_path=path,\n                        root_for_rel=baseline_root,\n                        status=\"missing_fixed_mapping\",\n                        note=\"No official fixed win/step mapping found for this dataset.\",\n                    ))\n                    continue\n\n                win, step = e2usd_fixed\n                sub = subset_by_win_step(df, win, step)\n\n                # Robust fallback:\n                # Some strict-fixed result files may contain only one fixed setting\n                # but may not keep win_size/step columns. In that case, use the file\n                # only when the path name clearly indicates strict/fixed output.\n                src_lower = str(path).replace(\"/\", \"\\\\\").lower()\n                if sub.empty and (\"strict_fixed\" in src_lower or \"fixed\" in src_lower):\n                    sub = df.copy()\n\n                rows.append(summarize_rows(\n                    method=method_name,\n                    dataset=dataset,\n                    protocol=\"E2USD-paper-fixed-param\",\n                    df=sub,\n                    source_path=path,\n                    root_for_rel=baseline_root,\n                    win_size=win,\n                    step=step,\n                    status=\"ok\" if not sub.empty else \"missing_in_results\",\n                    note=(\n                        f\"E2USD official fixed parameter only: \"\n                        f\"win_size={win}, step={step}. \"\n                        f\"ARI={ari_col}, NMI={nmi_col}.\"\n                    ),\n                ))\n\n            else:\n                rows.append(summarize_rows(\n                    method=method_name,\n                    dataset=dataset,\n                    protocol=\"baseline-grid-mean\",\n                    df=df,\n                    source_path=path,\n                    root_for_rel=baseline_root,\n                    note=f\"Generic baseline mean over valid case_results rows. ARI={ari_col}, NMI={nmi_col}.\",\n                ))\n\n        except Exception as exc:\n            rows.append({\n                \"method\": method_name,\n                \"dataset\": dataset_from_path(path, method_dir),\n                \"protocol\": \"parse-error\",\n                \"status\": \"read_or_parse_error\",\n                \"win_size\": \"\",\n                \"step\": \"\",\n                \"cases\": 0,\n                \"ARI_mean\": math.nan,\n                \"NMI_mean\": math.nan,\n                \"ARI_std\": math.nan,\n                \"NMI_std\": math.nan,\n                \"ARI_min\": math.nan,\n                \"NMI_min\": math.nan,\n                \"ARI_max\": math.nan,\n                \"NMI_max\": math.nan,\n                \"source_file\": str(path.relative_to(baseline_root)),\n                \"note\": repr(exc),\n            })\n\n    return rows\n\n\ndef collect_file_summary_for_root(\n    *,\n    method: str,\n    scan_root: Path,\n    dataset_root: Path,\n    rel_root: Path,\n) -> list[dict]:\n    rows = []\n\n    for path in sorted(scan_root.rglob(\"*.csv\")):\n        if path_should_skip(path):\n            continue\n\n        try:\n            raw = safe_read_csv(path)\n            df, ari_col, nmi_col = valid_ari_nmi_frame(raw)\n            dataset = dataset_from_df_or_path(raw, path, dataset_root)\n\n            rows.append(summarize_rows(\n                method=method,\n                dataset=dataset,\n                protocol=\"file-summary\",\n                df=df,\n                source_path=path,\n                root_for_rel=rel_root,\n                note=f\"Raw file summary. ARI={ari_col}, NMI={nmi_col}.\",\n            ))\n        except Exception:\n            continue\n\n    return rows\n\n\ndef collect_file_summary(our_root: Path, baseline_root: Path) -> pd.DataFrame:\n    rows = []\n\n    if our_root.exists():\n        rows.extend(collect_file_summary_for_root(\n            method=\"Ours\",\n            scan_root=our_root,\n            dataset_root=our_root,\n            rel_root=our_root,\n        ))\n\n    if baseline_root.exists():\n        for method_dir in discover_baseline_method_dirs(baseline_root):\n            rows.extend(collect_file_summary_for_root(\n                method=method_display_name(method_dir.name),\n                scan_root=method_dir,\n                dataset_root=method_dir,\n                rel_root=baseline_root,\n            ))\n\n    return pd.DataFrame(rows)\n\n\ndef write_outputs(out_dir: Path, main_df: pd.DataFrame, file_df: pd.DataFrame) -> None:\n    out_dir.mkdir(parents=True, exist_ok=True)\n\n    main_csv = out_dir / \"all_methods_main_table.csv\"\n    file_csv = out_dir / \"all_methods_file_summary.csv\"\n    xlsx = out_dir / \"all_methods_ari_nmi_summary.xlsx\"\n\n    main_df.to_csv(main_csv, index=False, encoding=\"utf-8-sig\")\n    file_df.to_csv(file_csv, index=False, encoding=\"utf-8-sig\")\n\n    try:\n        with pd.ExcelWriter(xlsx, engine=\"openpyxl\") as writer:\n            main_df.to_excel(writer, sheet_name=\"main_table\", index=False)\n            file_df.to_excel(writer, sheet_name=\"file_summary\", index=False)\n\n            t2s_fixed_df = pd.DataFrame([\n                {\"dataset\": k, \"t2s_e2u_win_size\": v[0], \"t2s_e2u_step\": v[1]}\n                for k, v in sorted(T2S_E2U_SAME_PARAMS.items())\n            ])\n            t2s_fixed_df.to_excel(writer, sheet_name=\"t2s_e2u_param_mapping\", index=False)\n\n            e2usd_fixed_df = pd.DataFrame([\n                {\"dataset\": k, \"e2usd_fixed_win_size\": v[0], \"e2usd_fixed_step\": v[1]}\n                for k, v in sorted(E2USD_FIXED_PARAMS.items())\n            ])\n            e2usd_fixed_df.to_excel(writer, sheet_name=\"e2usd_param_mapping\", index=False)\n\n            for ws in writer.sheets.values():\n                for col_cells in ws.columns:\n                    width = 10\n                    letter = col_cells[0].column_letter\n                    for cell in col_cells:\n                        width = max(width, len(str(cell.value)) if cell.value is not None else 0)\n                    ws.column_dimensions[letter].width = min(width + 2, 70)\n    except Exception as exc:\n        print(f\"[WARN] Excel output failed, CSV files are still available: {exc!r}\")\n\n\ndef sort_main_df(main_df: pd.DataFrame) -> pd.DataFrame:\n    if main_df.empty:\n        return main_df\n\n    method_order = {\n        \"Ours\": 0,\n        \"CLaP\": 1,\n        \"Time2State\": 2,\n        \"E2USD\": 3,\n        \"TICC\": 4,\n        \"AutoPlait\": 5,\n        \"HDP-HSMM\": 6,\n        \"HVGH\": 7,\n    }\n\n    protocol_order = {\n        \"final-all-case-results\": 0,\n        \"T2S-E2U-same-param\": 1,\n        \"T2S-grid-mean-diagnostic\": 2,\n        \"T2S-grid-mean\": 3,\n        \"T2S-fixed-param-from-E2USD-code\": 4,\n        \"E2USD-paper-fixed-param\": 5,\n        \"E2USD-grid-mean\": 6,\n        \"baseline-grid-mean\": 7,\n        \"parse-error\": 99,\n    }\n\n    df = main_df.copy()\n    df[\"_method_order\"] = df[\"method\"].map(method_order).fillna(50)\n    df[\"_protocol_order\"] = df[\"protocol\"].map(protocol_order).fillna(50)\n\n    df.sort_values(\n        [\"dataset\", \"_method_order\", \"_protocol_order\", \"source_file\"],\n        inplace=True,\n        kind=\"stable\",\n    )\n\n    df.drop(columns=[\"_method_order\", \"_protocol_order\"], inplace=True)\n    return df\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--our-root\", type=Path, default=Path(__file__).resolve().parent)\n    parser.add_argument(\"--baseline-root\", type=Path, default=None)\n    parser.add_argument(\"--out-dir\", type=Path, default=None)\n    args = parser.parse_args()\n\n    our_root = args.our_root.resolve()\n    project_root = our_root.parent\n    baseline_root = args.baseline_root.resolve() if args.baseline_root else (project_root / \"baseline\").resolve()\n    out_dir = args.out_dir.resolve() if args.out_dir else (our_root / OUT_DIR_NAME).resolve()\n\n    print(\"[INFO] our_root      :\", our_root)\n    print(\"[INFO] baseline_root :\", baseline_root)\n    print(\"[INFO] out_dir       :\", out_dir)\n\n    rows: list[dict] = []\n\n    print()\n    print(\"[INFO] Collecting Ours...\")\n    rows.extend(collect_ours(our_root))\n\n    print()\n    print(\"[INFO] Discovering baseline methods...\")\n    baseline_dirs = discover_baseline_method_dirs(baseline_root)\n\n    if not baseline_dirs:\n        print(f\"[WARN] No baseline method folders found under: {baseline_root}\")\n    else:\n        for method_dir in baseline_dirs:\n            method_name = method_display_name(method_dir.name)\n            print(f\"  {method_dir.name} -> {method_name}\")\n            rows.extend(collect_baseline_method(baseline_root, method_dir))\n\n    main_df = pd.DataFrame(rows)\n    main_df = sort_main_df(main_df)\n\n    file_df = collect_file_summary(our_root, baseline_root)\n\n    write_outputs(out_dir, main_df, file_df)\n\n    print(\"\\n[DONE] Wrote:\")\n    print(\" \", out_dir / \"all_methods_main_table.csv\")\n    print(\" \", out_dir / \"all_methods_file_summary.csv\")\n    print(\" \", out_dir / \"all_methods_ari_nmi_summary.xlsx\")\n\n    if not main_df.empty:\n        show_cols = [\n            \"method\",\n            \"dataset\",\n            \"protocol\",\n            \"status\",\n            \"win_size\",\n            \"step\",\n            \"cases\",\n            \"ARI_mean\",\n            \"NMI_mean\",\n            \"source_file\",\n        ]\n        show_cols = [c for c in show_cols if c in main_df.columns]\n\n        print(\"\\n[PREVIEW]\")\n        print(main_df[show_cols].to_string(index=False))\n\n        print(\"\\n[INFO] Methods in main table:\")\n        for m in sorted(main_df[\"method\"].dropna().unique()):\n            print(\" \", m)\n    else:\n        print(\"[WARN] Main table is empty.\")\n\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())",
+  "split_main_ablation_tables_finalResult": "# -*- coding: utf-8 -*-\n\"\"\"\nSplit collect_all_methods_ari_nmi_summary.py output into two files:\n  1) main_results_table.csv : formal main-result rows only\n  2) pid_ablation_table.csv : PID-ablation rows only\n\nRules:\n  - PID ablation rows are detected by \"\\\\_pid_ablation\\\\\" in source_file.\n  - Main-result rows exclude PID ablation rows and s14-gate diagnostic rows.\n  - The ablation file keeps case-level result rows when all_case_results exists.\n\"\"\"\nfrom __future__ import annotations\n\nimport argparse\nfrom pathlib import Path\nimport pandas as pd\n\n\ndef norm_path(x: object) -> str:\n    return str(x or \"\").replace(\"/\", \"\\\\\").lower()\n\n\ndef extract_variant(source_file: object) -> str:\n    parts = str(source_file or \"\").replace(\"/\", \"\\\\\").split(\"\\\\\")\n    for i, part in enumerate(parts):\n        if part == \"_pid_ablation\" and i + 2 < len(parts) and parts[i + 1] == \"results\":\n            return parts[i + 2]\n    return \"\"\n\n\ndef main() -> int:\n    parser = argparse.ArgumentParser()\n    parser.add_argument(\"--out-dir\", type=Path, required=True)\n    parser.add_argument(\"--input\", default=\"all_methods_main_table.csv\")\n    args = parser.parse_args()\n\n    out_dir = args.out_dir.resolve()\n    in_path = out_dir / args.input\n    if not in_path.exists():\n        candidates = sorted(out_dir.glob(\"all_methods_main_table*.csv\"))\n        if not candidates:\n            raise FileNotFoundError(f\"Cannot find all_methods_main_table*.csv under {out_dir}\")\n        in_path = candidates[0]\n\n    df = pd.read_csv(in_path, encoding=\"utf-8-sig\")\n    if \"source_file\" not in df.columns:\n        raise ValueError(\"Input table must contain a source_file column.\")\n\n    src = df[\"source_file\"].map(norm_path)\n    is_ablation = src.str.contains(r\"\\\\_pid_ablation\\\\\", regex=True, na=False)\n    is_gate = src.str.contains(\"s14_gate\", na=False) | src.str.contains(r\"\\\\_s14_gate\\\\\", regex=True, na=False)\n\n    main_df = df[~is_ablation & ~is_gate].copy()\n    ablation_df = df[is_ablation].copy()\n\n    if not ablation_df.empty:\n        ablation_df.insert(0, \"variant\", ablation_df[\"source_file\"].map(extract_variant))\n        case_like = ablation_df[\"source_file\"].map(norm_path).str.contains(\"all_case_results\", na=False)\n        if case_like.any():\n            ablation_df = ablation_df[case_like].copy()\n\n    if not main_df.empty:\n        cols = [c for c in [\"dataset\", \"method\", \"protocol\"] if c in main_df.columns]\n        if cols:\n            main_df = main_df.sort_values(cols, kind=\"stable\")\n    if not ablation_df.empty:\n        cols = [c for c in [\"dataset\", \"variant\"] if c in ablation_df.columns]\n        if cols:\n            ablation_df = ablation_df.sort_values(cols, kind=\"stable\")\n\n    main_out = out_dir / \"main_results_table.csv\"\n    ablation_out = out_dir / \"pid_ablation_table.csv\"\n    main_df.to_csv(main_out, index=False, encoding=\"utf-8-sig\")\n    ablation_df.to_csv(ablation_out, index=False, encoding=\"utf-8-sig\")\n\n    xlsx_out = out_dir / \"main_and_ablation_tables.xlsx\"\n    try:\n        with pd.ExcelWriter(xlsx_out) as writer:\n            main_df.to_excel(writer, sheet_name=\"Main Results\", index=False)\n            ablation_df.to_excel(writer, sheet_name=\"PID Ablation\", index=False)\n        xlsx_msg = str(xlsx_out)\n    except Exception as exc:\n        xlsx_msg = f\"not written ({exc!r})\"\n\n    print(\"Split completed.\")\n    print(f\"Input          : {in_path}\")\n    print(f\"Main table     : {main_out}  rows={len(main_df)}\")\n    print(f\"Ablation table : {ablation_out}  rows={len(ablation_df)}\")\n    print(f\"Excel workbook : {xlsx_msg}\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n",
+  "make_t2s_split_baseline_groups_available_finalResult": "# -*- coding: utf-8 -*-\nr\"\"\"\nfinalResult: split baseline comparison into paper-friendly groups.\n\nThis version intentionally keeps the original pipeline used by\nmake_t2s_split_baseline_groups_available.py, with ONLY these changes:\n  1) add baseline\\ourClap as formal baseline CLaP;\n  2) do NOT read baseline\\ourClapSmoke or classification-label-profile-main;\n  3) for CD / average-rank computation only, missing rank entries are filled\n     by that method's observed mean rank, so missing cases do not change the\n     method's average rank.\n\nImportant:\n  - ARI/NMI values are never imputed.\n  - paired t-test marker plots use the raw observed case values.\n  - dataset mean tables use the raw observed values.\n  - neutral-rank imputation is applied only inside rank/CD outputs.\n\"\"\"\n\nfrom __future__ import annotations\n\nimport argparse\nimport math\nimport re\nfrom pathlib import Path\n\nimport matplotlib\nmatplotlib.use(\"Agg\")\nimport numpy as np\nimport pandas as pd\n\nimport make_t2s_cd_rank_only as _cd_rank_module\nimport make_t2s_ab_marker_only as _ab_marker_module\n\nfrom make_t2s_cd_rank_only import (\n    METRICS,\n    display_dataset,\n    load_main_cases,\n    nemenyi_cd,\n    draw_cd_diagram,\n)\nfrom make_t2s_ab_marker_only import (\n    make_letters_and_pairwise,\n    plot_t2s_letters,\n)\n\n# Patch imported modules so their internal label ordering includes CLaP.\nFINAL_MAIN_METHOD_ORDER = [\n    \"Ours\", \"CLaP\", \"Time2State\", \"E2USD\", \"TICC\", \"ClaSP\", \"AutoPlait\", \"HVGH\",\n]\n_cd_rank_module.MAIN_METHOD_ORDER = FINAL_MAIN_METHOD_ORDER\n_ab_marker_module.MAIN_METHOD_ORDER = FINAL_MAIN_METHOD_ORDER\n\n\nGROUP_SPECS = {\n    \"group_ab_standard\": {\n        \"title\": \"AB: standard / non-ensemble baselines\",\n        \"canonical_order\": [\n            \"Ours\",\n            \"CLaP\",\n            \"Time2State\",\n            \"E2USD\",\n            \"TICC\",\n            \"ClaSP\",\n            \"AutoPlait\",\n            \"HVGH\",\n        ],\n        \"aliases\": {\n            \"Ours\": [\"ours\", \"rg-mote\", \"rgmote\", \"full_pid\", \"fullpid\"],\n            \"CLaP\": [\"clap\", \"ourclap\", \"classificationlabelprofile\", \"classification-label-profile\"],\n            \"Time2State\": [\"time2state\", \"t2s\", \"time-2-state\"],\n            \"E2USD\": [\"e2usd\", \"e2u\", \"e2-usd\"],\n            \"TICC\": [\"ticc\"],\n            \"ClaSP\": [\"clasp\", \"clasp-tkmeans\", \"clasptkmeans\"],\n            \"AutoPlait\": [\"autoplait\", \"auto-plait\"],\n            \"HVGH\": [\"hvgh\"],\n        },\n    },\n    \"group_cd_ensemble\": {\n        \"title\": \"CD: multi-branch / ensemble baselines\",\n        \"canonical_order\": [\n            \"Ours\",\n            \"M2QD-CSPA\",\n            \"EC-TDWM\",\n        ],\n        \"aliases\": {\n            \"Ours\": [\"ours\", \"rg-mote\", \"rgmote\", \"full_pid\", \"fullpid\"],\n            \"M2QD-CSPA\": [\"m2qdcspa\", \"m2qd-cspa\", \"m2qd_cspa\"],\n            \"EC-TDWM\": [\"ectdwm\", \"ec-tdwm\", \"ec_tdwm\"],\n        },\n    },\n}\n\n\ndef norm_token(x: object) -> str:\n    return re.sub(r\"[^a-z0-9]+\", \"\", str(x).strip().lower())\n\n\ndef build_alias_to_canonical(group_spec: dict) -> dict[str, str]:\n    out: dict[str, str] = {}\n    for canonical, aliases in group_spec[\"aliases\"].items():\n        out[norm_token(canonical)] = canonical\n        for a in aliases:\n            out[norm_token(a)] = canonical\n    return out\n\n\ndef canonicalize_group_cases(cases: pd.DataFrame, group_name: str, exclude_tokens: set[str]) -> tuple[pd.DataFrame, pd.DataFrame]:\n    \"\"\"Filter cases to a group and canonicalize method labels, same as the previous script.\"\"\"\n    spec = GROUP_SPECS[group_name]\n    alias_to_canon = build_alias_to_canonical(spec)\n\n    available_rows = []\n    for lab in sorted(pd.Series(cases[\"label\"].astype(str).unique()).dropna().tolist()):\n        key = norm_token(lab)\n        canonical = alias_to_canon.get(key, \"\")\n        available_rows.append({\n            \"original_label\": lab,\n            \"normalized_label\": key,\n            \"canonical_group_label\": canonical,\n            \"included_in_group\": bool(canonical),\n        })\n    available_df = pd.DataFrame(available_rows)\n\n    sub = cases.copy()\n    sub[\"label_original\"] = sub[\"label\"].astype(str)\n    sub[\"label_norm\"] = sub[\"label_original\"].map(norm_token)\n    sub[\"label_canonical\"] = sub[\"label_norm\"].map(alias_to_canon)\n\n    sub = sub[sub[\"label_canonical\"].notna()].copy()\n    if exclude_tokens:\n        sub = sub[~sub[\"label_canonical\"].map(norm_token).isin(exclude_tokens)].copy()\n        sub = sub[~sub[\"label_original\"].map(norm_token).isin(exclude_tokens)].copy()\n\n    if sub.empty:\n        return sub, available_df\n\n    order = [x for x in spec[\"canonical_order\"] if x in set(sub[\"label_canonical\"].astype(str))]\n    rest = sorted(set(sub[\"label_canonical\"].astype(str)) - set(order))\n    final_order = order + rest\n\n    sub[\"label\"] = sub[\"label_canonical\"].astype(str)\n\n    # If the same canonical method has duplicated rows for the same dataset/case,\n    # average them once before tests/ranks, matching the previous de-duplication logic.\n    sub = (\n        sub.groupby([\"dataset\", \"case_id\", \"label\"], observed=True, as_index=False)\n        .agg({\"ARI\": \"mean\", \"NMI\": \"mean\"})\n    )\n    sub[\"label\"] = pd.Categorical(sub[\"label\"].astype(str), categories=final_order, ordered=True)\n    return sub, available_df\n\n\ndef ordered_methods_for_group(cases: pd.DataFrame, group_name: str) -> list[str]:\n    spec = GROUP_SPECS[group_name]\n    present = [str(x) for x in pd.Series(cases[\"label\"].astype(str).unique()).dropna().tolist()]\n    ordered = [m for m in spec[\"canonical_order\"] if m in present]\n    ordered += sorted([m for m in present if m not in ordered])\n    return ordered\n\n\ndef write_group_mean_table(cases: pd.DataFrame, out_dir: Path, group_name: str) -> None:\n    rows = []\n    for metric in METRICS:\n        mean_df = (\n            cases.groupby([\"dataset\", \"label\"], observed=True)[metric]\n            .mean()\n            .reset_index()\n        )\n        mean_df[\"metric\"] = metric\n        rows.append(mean_df)\n    out = pd.concat(rows, ignore_index=True) if rows else pd.DataFrame()\n    if not out.empty:\n        out[\"dataset_display\"] = out[\"dataset\"].map(display_dataset)\n    out.to_csv(out_dir / f\"{group_name}_dataset_means.csv\", index=False, encoding=\"utf-8-sig\")\n\n\ndef write_case_coverage(cases: pd.DataFrame, out_dir: Path, group_name: str) -> None:\n    raw = cases.copy()\n    raw[\"label\"] = raw[\"label\"].astype(str)\n    rows = []\n    labels = ordered_methods_for_group(raw, group_name)\n    for dataset, ddf in raw.groupby(\"dataset\", observed=True):\n        universe = set(ddf[\"case_id\"].astype(str).unique())\n        for label in labels:\n            lcases = set(ddf.loc[ddf[\"label\"].astype(str).eq(label), \"case_id\"].astype(str).unique())\n            rows.append({\n                \"group\": group_name,\n                \"dataset\": dataset,\n                \"dataset_display\": display_dataset(dataset),\n                \"label\": label,\n                \"observed_cases\": len(lcases),\n                \"case_universe\": len(universe),\n                \"missing_cases\": len(universe - lcases),\n                \"coverage\": (len(lcases) / len(universe)) if universe else math.nan,\n            })\n    pd.DataFrame(rows).to_csv(out_dir / f\"{group_name}_case_coverage.csv\", index=False, encoding=\"utf-8-sig\")\n\n\ndef make_group_marker_outputs(cases: pd.DataFrame, out_dir: Path, group_name: str, alpha: float, min_n: int) -> None:\n    \"\"\"Paired t-test markers use raw ARI/NMI only. No imputation here.\"\"\"\n    marker_dir = out_dir / \"marker\"\n    marker_dir.mkdir(parents=True, exist_ok=True)\n\n    for metric in METRICS:\n        letters, pairwise = make_letters_and_pairwise(cases, \"main\", metric, alpha, min_n)\n\n        letters_path = marker_dir / f\"{group_name}_ttest_letters_{metric}.csv\"\n        pairwise_path = marker_dir / f\"{group_name}_pairwise_ttest_{metric}.csv\"\n        png_path = marker_dir / f\"{group_name}_t2s_style_marker_{metric}.svg\"\n\n        letters.to_csv(letters_path, index=False, encoding=\"utf-8-sig\")\n        pairwise.to_csv(pairwise_path, index=False, encoding=\"utf-8-sig\")\n        plot_t2s_letters(letters, \"main\", metric, png_path)\n\n        print(f\"[OK] {group_name} marker {metric} (raw observed values only)\")\n        print(\"    \", letters_path)\n        print(\"    \", pairwise_path)\n        print(\"    \", png_path)\n\n\ndef build_neutral_rank_outputs(cases: pd.DataFrame, group_name: str, metric: str) -> tuple[pd.DataFrame, pd.DataFrame, pd.DataFrame, pd.DataFrame]:\n    \"\"\"Build rank outputs with neutral-rank imputation.\n\n    Steps:\n      1) Pivot raw metric values by dataset/case/method.\n      2) Rank available methods within each case; missing metric values remain NaN.\n      3) For each method, compute its observed mean rank over valid cases.\n      4) Fill that method's missing rank entries with its own observed mean rank.\n\n    This means missing entries do not change that method's final average rank.\n    Crucially, ARI/NMI values themselves are never filled.\n    \"\"\"\n    raw = cases.copy()\n    raw[\"label\"] = raw[\"label\"].astype(str)\n    labels = ordered_methods_for_group(raw, group_name)\n\n    metric_pivot = raw.pivot_table(index=[\"dataset\", \"case_id\"], columns=\"label\", values=metric, aggfunc=\"mean\")\n    labels = [m for m in labels if m in metric_pivot.columns]\n    metric_pivot = metric_pivot.reindex(columns=labels)\n\n    # Higher ARI/NMI is better, rank 1 = best. NaN entries stay missing.\n    observed_ranks = metric_pivot.rank(axis=1, ascending=False, method=\"average\", na_option=\"keep\")\n    observed_mean_rank = observed_ranks.mean(axis=0, skipna=True)\n\n    # Drop methods that never have any valid rank.\n    valid_labels = [m for m in labels if pd.notna(observed_mean_rank.get(m, np.nan))]\n    metric_pivot = metric_pivot[valid_labels]\n    observed_ranks = observed_ranks[valid_labels]\n    observed_mean_rank = observed_mean_rank[valid_labels]\n\n    neutral_ranks = observed_ranks.copy()\n    audit_rows = []\n    for label in valid_labels:\n        fill_rank = float(observed_mean_rank[label])\n        missing_mask = neutral_ranks[label].isna()\n        if missing_mask.any():\n            for idx in neutral_ranks.index[missing_mask]:\n                dataset, case_id = idx\n                audit_rows.append({\n                    \"group\": group_name,\n                    \"metric\": metric,\n                    \"dataset\": dataset,\n                    \"dataset_display\": display_dataset(dataset),\n                    \"case_id\": case_id,\n                    \"label\": label,\n                    \"imputed_rank\": fill_rank,\n                    \"method_observed_mean_rank\": fill_rank,\n                    \"reason\": \"missing_rank_filled_by_method_observed_mean_rank\",\n                })\n            neutral_ranks.loc[missing_mask, label] = fill_rank\n\n    avg = neutral_ranks.mean(axis=0).sort_values(ascending=True)\n    rank_df = pd.DataFrame({\"label\": avg.index.astype(str), \"avg_rank\": avg.values})\n\n    # Save matrices with flat columns.\n    metric_matrix = metric_pivot.reset_index()\n    observed_rank_matrix = observed_ranks.reset_index()\n    neutral_rank_matrix = neutral_ranks.reset_index()\n    audit = pd.DataFrame(audit_rows)\n    return rank_df, metric_matrix, observed_rank_matrix, neutral_rank_matrix, audit\n\n\ndef make_group_cd_outputs_neutral_rank(cases: pd.DataFrame, out_dir: Path, group_name: str) -> None:\n    \"\"\"CD / average-rank outputs use neutral-rank imputation only.\"\"\"\n    rank_dir = out_dir / \"rank\"\n    rank_dir.mkdir(parents=True, exist_ok=True)\n\n    for metric in METRICS:\n        ranks, metric_matrix, observed_rank_matrix, neutral_rank_matrix, audit = build_neutral_rank_outputs(cases, group_name, metric)\n        if ranks.empty or len(ranks) < 2:\n            print(f\"[WARN] {group_name} {metric}: not enough methods for rank/CD.\")\n            continue\n\n        n_cases = int(neutral_rank_matrix[[\"dataset\", \"case_id\"]].drop_duplicates().shape[0])\n        k_methods = int(len(ranks))\n        cd = nemenyi_cd(k_methods, n_cases, alpha=0.05)\n\n        ranks_out = ranks.copy()\n        ranks_out.insert(0, \"group\", group_name)\n        ranks_out.insert(1, \"metric\", metric)\n        ranks_out.insert(2, \"rank_case_universe\", n_cases)\n        ranks_out.insert(3, \"n_methods\", k_methods)\n        ranks_out.insert(4, \"CD_alpha_0_05\", cd)\n        ranks_out.insert(5, \"rank_imputation\", \"missing ranks filled by each method's observed mean rank\")\n\n        rank_csv = rank_dir / f\"{group_name}_rank_{metric}.csv\"\n        png_path = rank_dir / f\"{group_name}_cd_diagram_{metric}.svg\"\n        metric_matrix_csv = rank_dir / f\"{group_name}_metric_matrix_raw_{metric}.csv\"\n        observed_rank_csv = rank_dir / f\"{group_name}_rank_matrix_observed_{metric}.csv\"\n        neutral_rank_csv = rank_dir / f\"{group_name}_rank_matrix_neutral_imputed_{metric}.csv\"\n        audit_csv = rank_dir / f\"{group_name}_rank_imputation_audit_{metric}.csv\"\n\n        ranks_out.to_csv(rank_csv, index=False, encoding=\"utf-8-sig\")\n        metric_matrix.to_csv(metric_matrix_csv, index=False, encoding=\"utf-8-sig\")\n        observed_rank_matrix.to_csv(observed_rank_csv, index=False, encoding=\"utf-8-sig\")\n        neutral_rank_matrix.to_csv(neutral_rank_csv, index=False, encoding=\"utf-8-sig\")\n        audit.to_csv(audit_csv, index=False, encoding=\"utf-8-sig\")\n\n        title = f\"{GROUP_SPECS[group_name]['title']} - CD Diagram ({metric}, neutral-rank, n={n_cases})\"\n        draw_cd_diagram(ranks[[\"label\", \"avg_rank\"]].copy(), cd, metric, title, png_path)\n\n        print(f\"[OK] {group_name} CD/rank {metric}: n={n_cases}, k={k_methods}, CD={cd:.3f}\")\n        print(\"    \", rank_csv)\n        print(\"    \", png_path)\n        print(\"    \", audit_csv)\n\n\ndef main() -> int:\n    ap = argparse.ArgumentParser()\n    ap.add_argument(\"--our-root\", type=Path, default=Path(r\"D:\\code\\teacherT2S\\our\"))\n    ap.add_argument(\"--baseline-root\", type=Path, default=Path(r\"D:\\code\\teacherT2S\\baseline\"))\n    ap.add_argument(\"--summary-dir\", type=Path, default=None)\n    ap.add_argument(\"--out-dir\", type=Path, default=None)\n    ap.add_argument(\"--exclude\", default=\"redsds\", help=\"Comma-separated canonical/original labels to exclude, e.g. redsds,ticc\")\n    ap.add_argument(\"--alpha\", type=float, default=0.05)\n    ap.add_argument(\"--min-n\", type=int, default=2)\n    args = ap.parse_args()\n\n    args.our_root = args.our_root.resolve()\n    args.baseline_root = args.baseline_root.resolve()\n    args.summary_dir = args.summary_dir.resolve() if args.summary_dir else (args.our_root / \"_ari_nmi_summary\").resolve()\n    args.out_dir = args.out_dir.resolve() if args.out_dir else (args.our_root / \"_t2s_split_baseline_groups_available\" / \"finalResult\").resolve()\n\n    exclude_tokens = {norm_token(x) for x in args.exclude.split(\",\") if x.strip()}\n\n    print(\"[INFO] our_root     :\", args.our_root)\n    print(\"[INFO] baseline_root:\", args.baseline_root)\n    print(\"[INFO] summary_dir  :\", args.summary_dir)\n    print(\"[INFO] out_dir      :\", args.out_dir)\n    print(\"[INFO] exclude      :\", args.exclude)\n    print(\"[INFO] alpha        :\", args.alpha)\n    print(\"[INFO] min_n        :\", args.min_n)\n    print(\"[INFO] metric imputation: DISABLED\")\n    print(\"[INFO] rank imputation  : neutral, missing ranks filled by method observed mean rank\")\n\n    args.out_dir.mkdir(parents=True, exist_ok=True)\n\n    print(\"\\n[1] Loading main case metrics from summary table...\")\n    all_cases = load_main_cases(args)\n\n    all_labels = pd.DataFrame({\n        \"available_label\": sorted(pd.Series(all_cases[\"label\"].astype(str).unique()).dropna().tolist())\n    })\n    all_labels.to_csv(args.out_dir / \"available_labels_from_summary.csv\", index=False, encoding=\"utf-8-sig\")\n    print(\"[INFO] Available labels:\")\n    for lab in all_labels[\"available_label\"].tolist():\n        print(\"   -\", lab)\n\n    for group_name in [\"group_ab_standard\", \"group_cd_ensemble\"]:\n        print(\"\\n\" + \"=\" * 80)\n        print(f\"[GROUP] {group_name}: {GROUP_SPECS[group_name]['title']}\")\n\n        group_out = args.out_dir / group_name\n        group_out.mkdir(parents=True, exist_ok=True)\n\n        group_cases, available_map = canonicalize_group_cases(all_cases, group_name, exclude_tokens)\n        available_map.to_csv(group_out / f\"{group_name}_label_mapping_check.csv\", index=False, encoding=\"utf-8-sig\")\n\n        if group_cases.empty:\n            print(f\"[WARN] {group_name}: no cases after filtering. Check label_mapping_check.csv.\")\n            continue\n\n        # This is the raw observed case table. No ARI/NMI imputation is performed.\n        group_cases.to_csv(group_out / f\"{group_name}_aligned_cases.csv\", index=False, encoding=\"utf-8-sig\")\n        group_cases.to_csv(group_out / f\"{group_name}_aligned_cases_raw.csv\", index=False, encoding=\"utf-8-sig\")\n        write_case_coverage(group_cases, group_out, group_name)\n        write_group_mean_table(group_cases, group_out, group_name)\n\n        present = sorted(pd.Series(group_cases[\"label\"].astype(str).unique()).dropna().tolist())\n        print(\"[INFO] Included methods:\", \", \".join(present))\n        print(\"[INFO] raw n_rows:\", len(group_cases))\n        print(\"[INFO] n_datasets:\", group_cases[\"dataset\"].nunique())\n        print(\"[INFO] n_cases:\", group_cases[[\"dataset\", \"case_id\"]].drop_duplicates().shape[0])\n\n        # Marker/t-test: raw values only.\n        make_group_marker_outputs(group_cases, group_out, group_name, args.alpha, args.min_n)\n\n        # Rank/CD: neutral-rank imputation only.\n        make_group_cd_outputs_neutral_rank(group_cases, group_out, group_name)\n\n    print(\"\\n[DONE] Split baseline groups generated.\")\n    print(\"Output:\", args.out_dir)\n    print(\"Groups:\")\n    print(\"  group_ab_standard : Ours vs CLaP/Time2State/E2USD/TICC/ClaSP/AutoPlait/HVGH\")\n    print(\"  group_cd_ensemble : Ours vs M2QD-CSPA/EC-TDWM\")\n    return 0\n\n\nif __name__ == \"__main__\":\n    raise SystemExit(main())\n"
+}
+
+def _load_embedded_modules() -> None:
+    import sys, types
+    for _name, _code in _EMBEDDED_MODULES.items():
+        if _name in sys.modules:
+            continue
+        _mod = types.ModuleType(_name)
+        _mod.__file__ = f"<embedded>{_name}.py"
+        sys.modules[_name] = _mod
+        exec(compile(_code, _mod.__file__, "exec"), _mod.__dict__)
+
+
+def _patch_t2s_rank_style_modules() -> None:
+    """Patch CD-rank plots so their outer appearance closely follows the classic Time2State rank figure."""
+    import sys
+
+    cd_mod = sys.modules.get("make_t2s_cd_rank_only")
+    group_mod = sys.modules.get("make_t2s_split_baseline_groups_available_finalResult")
+
+    if cd_mod is None:
+        return
+    if getattr(cd_mod, "_t2s_rank_style_patched", False):
+        return
+
+    def _draw_cd_diagram_t2s(rank_df, cd, metric, title, out_png):
+        import math
+        import matplotlib.pyplot as plt
+        import numpy as np
+        import pandas as pd
+
+        rank_df = rank_df.sort_values("avg_rank", ascending=True).reset_index(drop=True)
+        k = len(rank_df)
+        if k < 2:
+            raise ValueError("Need at least two methods to draw CD diagram")
+
+        min_rank, max_rank = 1.0, float(k)
+        mid_rank = (min_rank + max_rank) / 2.0
+
+        # Panel size target: one quarter of a 180 mm two-panel layout (rank panel).
+        fig_w = RANK_WIDTH_IN
+        fig_h = RANK_HEIGHT_IN
+        fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=220)
+        ax.set_xlim(max_rank + 0.72, min_rank - 0.72)
+        ax.set_ylim(0.02, 1.02)
+        ax.axis("off")
+
+        y_axis = 0.86
+        tick_h = 0.075
+        minor_h = 0.04
+
+        # Main rank axis.
+        ax.hlines(y_axis, min_rank, max_rank, color="black", linewidth=1.5)
+        for r in range(1, k + 1):
+            ax.vlines(r, y_axis, y_axis + tick_h, color="black", linewidth=1.25, zorder=5)
+            ax.text(r, y_axis + tick_h + 0.02, f"{r}", ha="center", va="bottom", fontsize=7.0, color="black", zorder=6)
+            if r < k:
+                ax.vlines(r + 0.5, y_axis, y_axis + minor_h, color="black", linewidth=0.95, zorder=5)
+
+        # CD bar at the upper-left, like the reference Time2State figure.
+        cd_y = 0.975
+        cd_left = max_rank - cd
+        cd_right = max_rank
+        ax.hlines(cd_y, cd_left, cd_right, color="black", linewidth=1.5)
+        ax.vlines([cd_left, cd_right], cd_y - 0.05, cd_y + 0.05, color="black", linewidth=1.2)
+        ax.text((cd_left + cd_right) / 2.0, cd_y + 0.055, f"CD={cd:.3f}", ha="center", va="bottom", fontsize=6.6)
+
+        # Split methods into left (worse ranks) and right (better ranks).
+        left_items = rank_df[rank_df["avg_rank"] > mid_rank].sort_values("avg_rank", ascending=False).reset_index(drop=True)
+        right_items = rank_df[rank_df["avg_rank"] <= mid_rank].sort_values("avg_rank", ascending=True).reset_index(drop=True)
+        if left_items.empty and not right_items.empty:
+            left_items = right_items.iloc[len(right_items)//2:].reset_index(drop=True)
+            right_items = right_items.iloc[:len(right_items)//2].reset_index(drop=True)
+        if right_items.empty and not left_items.empty:
+            right_items = left_items.iloc[len(left_items)//2:].reset_index(drop=True)
+            left_items = left_items.iloc[:len(left_items)//2].reset_index(drop=True)
+
+        left_x = max_rank + 0.52
+        right_x = min_rank - 0.52
+        left_y0 = 0.33
+        right_y0 = 0.33
+        left_step = 0.10 if len(left_items) <= 4 else 0.09
+        right_step = 0.10 if len(right_items) <= 4 else 0.09
+
+        # Connectors and labels: elbow style, matching the classic look.
+        palette = PAPER_PALETTE
+        for i, row in left_items.iterrows():
+            x = float(row["avg_rank"])
+            y = left_y0 - i * left_step
+            label = str(row["label"])
+            color = palette.get(label, "#4D4D4D")
+            ax.plot([x, x, left_x - 0.06], [y_axis, y, y], color=color, linewidth=1.2, zorder=4)
+            ax.text(left_x, y, f"{label}", ha="right", va="center", fontsize=6.0, color=color)
+            ax.text(left_x + 0.012, y + 0.026, f"{x:.4f}", ha="left", va="center", fontsize=5.8, color=color)
+
+        for i, row in right_items.iterrows():
+            x = float(row["avg_rank"])
+            y = right_y0 - i * right_step
+            label = str(row["label"])
+            color = palette.get(label, "#4D4D4D")
+            ax.plot([x, x, right_x + 0.06], [y_axis, y, y], color=color, linewidth=1.2, zorder=4)
+            ax.text(right_x, y, f"{label}", ha="left", va="center", fontsize=6.0, color=color)
+            ax.text(right_x - 0.012, y + 0.026, f"{x:.4f}", ha="right", va="center", fontsize=5.8, color=color)
+
+        # Non-significant groups as thick short horizontal bars under the axis.
+        intervals = cd_mod.cd_intervals(rank_df, cd) if hasattr(cd_mod, "cd_intervals") else []
+        bar_y0 = y_axis - 0.10
+        for j, (a, b) in enumerate(intervals[:8]):
+            y = bar_y0 - j * 0.035
+            ax.hlines(y, a, b, color="black", linewidth=4.0, zorder=7)
+
+        # Match the reference: only show a simple top title "Rank".
+        ax.text((min_rank + max_rank) / 2.0, 0.992, "Rank", ha="center", va="bottom", fontsize=7.2)
+
+        out_png.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(out_png, bbox_inches="tight", pad_inches=0.01)
+        plt.close(fig)
+
+    cd_mod.draw_cd_diagram = _draw_cd_diagram_t2s
+    cd_mod._t2s_rank_style_patched = True
+    if group_mod is not None:
+        group_mod.draw_cd_diagram = _draw_cd_diagram_t2s
+
+
+def _patch_t2s_marker_style_modules() -> None:
+    """Patch paired t-test marker bar plots to match the introduction figure palette and a paper-style layout."""
+    import sys
+
+    ab_mod = sys.modules.get("make_t2s_ab_marker_only")
+    group_mod = sys.modules.get("make_t2s_split_baseline_groups_available_finalResult")
+    if ab_mod is None:
+        return
+    if getattr(ab_mod, "_paper_marker_style_patched", False):
+        return
+
+    def _plot_t2s_letters_paper(letter_df, mode, metric, out_png):
+        import numpy as np
+        import matplotlib.pyplot as plt
+
+        # Low-saturation palette aligned with the introduction figure:
+        # blue algorithm block, green virtual-teacher block, orange reliability/fusion block,
+        # purple state-selection block, plus muted gray/cyan/brown for baselines.
+        palette = PAPER_PALETTE
+        fallback_colors = [
+            "#1F5FBF", "#2F7D32", "#F28E2B", "#7A4CC2",
+            "#5DA5C9", "#B9855A", "#6F6F6F", "#B8B8B8",
+        ]
+
+        labels = ab_mod.label_order_for_mode(letter_df.rename(columns={"label": "label"}), mode)
+        datasets = [d for d in ab_mod.DATASET_ORDER if d in set(letter_df["dataset"].astype(str))]
+        datasets += sorted(set(letter_df["dataset"].astype(str)) - set(datasets))
+
+        present = set(letter_df["label"].astype(str))
+        labels = [x for x in labels if x in present]
+        if not labels or not datasets:
+            return
+
+        x = np.arange(len(datasets))
+        # Panel size target: three quarters of a 180 mm two-panel layout (significance panel).
+        width = min(0.095, 0.78 / max(1, len(labels)))
+        fig_w = MARKER_WIDTH_IN
+        fig_h = PANEL_HEIGHT_IN
+        fig, ax = plt.subplots(figsize=(fig_w, fig_h), dpi=220)
+
+        max_y = 0.0
+        for i, label in enumerate(labels):
+            vals = []
+            letters = []
+            for d in datasets:
+                row = letter_df[(letter_df["dataset"].astype(str).eq(d)) & (letter_df["label"].astype(str).eq(label))]
+                if row.empty:
+                    vals.append(np.nan)
+                    letters.append("")
+                else:
+                    vals.append(float(row.iloc[0]["mean"]))
+                    letters.append(str(row.iloc[0]["letters"]))
+            finite_vals = [v for v in vals if np.isfinite(v)]
+            if finite_vals:
+                max_y = max(max_y, max(finite_vals))
+
+            offset = (i - (len(labels) - 1) / 2.0) * width
+            color = palette.get(label, fallback_colors[i % len(fallback_colors)])
+            bars = ax.bar(
+                x + offset,
+                vals,
+                width=width,
+                label=label,
+                color=color,
+                edgecolor="black",
+                linewidth=0.35,
+                zorder=3,
+            )
+            for bar, txt in zip(bars, letters):
+                h = bar.get_height()
+                if np.isfinite(h) and txt:
+                    ax.text(
+                        bar.get_x() + bar.get_width() / 2.0,
+                        min(h + 0.006, 1.022),
+                        txt,
+                        ha="center",
+                        va="bottom",
+                        fontsize=6.6,
+                        color="black",
+                        clip_on=False,
+                        zorder=4,
+                    )
+
+        # No in-figure title; use caption in the paper.
+        ax.set_ylabel(metric)
+        ax.set_ylim(0, min(1.045, max(1.0, max_y + 0.065)))
+        ax.set_yticks([0.0, 0.25, 0.50, 0.75, 1.00])
+        ax.set_xticks(x)
+        ax.set_xticklabels([ab_mod.display_dataset(d) for d in datasets], rotation=0, ha="center")
+
+        # Light y-grid only.
+        ax.grid(axis="y", color="#D9D9D9", linewidth=0.35, alpha=0.75, zorder=0)
+        ax.grid(axis="x", visible=False)
+        ax.spines["top"].set_visible(False)
+        ax.spines["right"].set_visible(False)
+        ax.spines["left"].set_linewidth(0.4)
+        ax.spines["bottom"].set_linewidth(0.4)
+        ax.tick_params(axis="both", width=0.4, length=2.0, pad=1.5)
+
+        # Legend above the panel in one row.
+        ax.legend(
+            loc="lower center",
+            bbox_to_anchor=(0.5, 1.015),
+            ncol=len(labels),
+            frameon=False,
+            handlelength=1.25,
+            handletextpad=0.25,
+            columnspacing=0.42,
+            borderaxespad=0.0,
+            prop={"size": 6.8},
+        )
+
+        fig.tight_layout(pad=0.12)
+        fig.subplots_adjust(top=0.79, bottom=0.24, left=0.10, right=0.995)
+        out_png.parent.mkdir(parents=True, exist_ok=True)
+        fig.savefig(out_png, bbox_inches="tight", pad_inches=0.015)
+        plt.close(fig)
+
+    ab_mod.plot_t2s_letters = _plot_t2s_letters_paper
+    ab_mod._paper_marker_style_patched = True
+    if group_mod is not None:
+        group_mod.plot_t2s_letters = _plot_t2s_letters_paper
+
+def _run_module_main(module_name: str, argv: list[str]) -> int:
+    import sys
+    setup_matplotlib()
+    _load_embedded_modules()
+    setup_matplotlib()
+    _patch_t2s_rank_style_modules()
+    setup_matplotlib()
+    _patch_t2s_marker_style_modules()
+    setup_matplotlib()
+    _mod = sys.modules[module_name]
+    _old_argv = sys.argv[:]
+    try:
+        sys.argv = [module_name + ".py", *[str(x) for x in argv]]
+        rc = _mod.main()
+        return int(rc or 0)
+    finally:
+        sys.argv = _old_argv
+
+def main() -> int:
+    setup_matplotlib()
+    ap = argparse.ArgumentParser(description="Build finalResult from scratch using one standalone script.")
+    ap.add_argument("--root", type=Path, default=Path(r"D:\code\teacherT2S"))
+    ap.add_argument("--our-root", type=Path, default=None)
+    ap.add_argument("--baseline-root", type=Path, default=None)
+    ap.add_argument("--summary-dir", type=Path, default=None)
+    ap.add_argument("--out-dir", type=Path, default=None)
+    ap.add_argument("--exclude", default="redsds")
+    ap.add_argument("--alpha", type=float, default=0.05)
+    ap.add_argument("--min-n", type=int, default=2)
+    ap.add_argument("--skip-collect", action="store_true", help="Reuse existing all_methods_main_table.csv in summary-dir.")
+    ap.add_argument("--skip-split", action="store_true", help="Reuse existing main_results_table.csv/pid_ablation_table.csv in summary-dir.")
+    args = ap.parse_args()
+
+    root = args.root.resolve()
+    our_root = (args.our_root or (root / "our")).resolve()
+    baseline_root = (args.baseline_root or (root / "baseline")).resolve()
+    summary_dir = (args.summary_dir or DEFAULT_SUMMARY_DIR).resolve()
+    out_dir = (args.out_dir or DEFAULT_RESULT_DIR).resolve()
+
+    print("============================================================")
+    print("Standalone finalResult builder")
+    print("root          :", root)
+    print("our_root      :", our_root)
+    print("baseline_root :", baseline_root)
+    print("summary_dir   :", summary_dir)
+    print("out_dir       :", out_dir)
+    print("exclude       :", args.exclude)
+    print("alpha         :", args.alpha)
+    print("min_n         :", args.min_n)
+    print("============================================================")
+
+    summary_dir.mkdir(parents=True, exist_ok=True)
+    out_dir.mkdir(parents=True, exist_ok=True)
+
+    if not args.skip_collect:
+        print("\n[1/3] Collecting all methods...")
+        rc = _run_module_main("collect_all_methods_ari_nmi_summary_finalResult", [
+            "--our-root", str(our_root),
+            "--baseline-root", str(baseline_root),
+            "--out-dir", str(summary_dir),
+        ])
+        if rc:
+            return rc
+    else:
+        print("\n[1/3] Skipped collection.")
+
+    if not args.skip_split:
+        print("\n[2/3] Splitting main/ablation summary tables...")
+        rc = _run_module_main("split_main_ablation_tables_finalResult", [
+            "--out-dir", str(summary_dir),
+        ])
+        if rc:
+            return rc
+    else:
+        print("\n[2/3] Skipped split.")
+
+    print("\n[3/3] Generating grouped finalResult outputs...")
+    rc = _run_module_main("make_t2s_split_baseline_groups_available_finalResult", [
+        "--our-root", str(our_root),
+        "--baseline-root", str(baseline_root),
+        "--summary-dir", str(summary_dir),
+        "--out-dir", str(out_dir),
+        "--exclude", args.exclude,
+        "--alpha", str(args.alpha),
+        "--min-n", str(args.min_n),
+    ])
+    if rc:
+        return rc
+
+    print("\n[4/4] Generating all-method combined plots (single row / all methods together)...")
+    _generate_all_method_combined_figures(out_dir, args.alpha, args.min_n)
+
+    print("\n============================================================")
+    print("DONE")
+    print("Main output:", out_dir)
+    print("Check:")
+    print("  ", summary_dir / "all_methods_main_table.csv")
+    print("  ", out_dir / "group_ab_standard" / "group_ab_standard_case_coverage.csv")
+    print("  ", out_dir / "group_ab_standard" / "group_ab_standard_aligned_cases.csv")
+    print("  ", out_dir / "group_cd_ensemble" / "group_cd_ensemble_case_coverage.csv")
+    print("============================================================")
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
